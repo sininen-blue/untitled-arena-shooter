@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://k7eur5nkm4l0"]
+
+[ext_resource type="Script" uid="uid://jcp5clek6q0r" path="res://src/ui/loading_screen/loading_screen.gd" id="1_dxgn1"]
+
+[sub_resource type="Animation" id="Animation_81flm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dxgn1"]
+resource_name = "transistion"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hdbts"]
+_data = {
+&"RESET": SubResource("Animation_81flm"),
+&"transistion": SubResource("Animation_dxgn1")
+}
+
+[node name="LoadingScreen" type="CanvasLayer" unique_id=492830271]
+layer = 10
+script = ExtResource("1_dxgn1")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1665554517]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=897265772]
+libraries/ = SubResource("AnimationLibrary_hdbts")
+autoplay = &"transistion"

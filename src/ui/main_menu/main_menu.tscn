@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bxd7p5s43abo3"]
+
+[ext_resource type="Script" uid="uid://yghh6yxdrs7k" path="res://src/ui/main_menu/main_menu.gd" id="1_2hyyg"]
+
+[node name="MainMenu" type="Control" unique_id=1190425906]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2hyyg")
+play_button_target = "uid://xn5qrm2fhvpe"
+
+[node name="Title" type="Label" parent="." unique_id=1977942573]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -211.0
+offset_right = 114.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Untitled Arena Shooter Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="." unique_id=1430699440]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

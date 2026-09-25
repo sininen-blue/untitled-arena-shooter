@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://hhrlbjgbdaqr"]
+
+[ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4m8ck"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
+height = 1.5
+
+[node name="Player" type="CharacterBody3D" unique_id=1405837965]
+collision_layer = 2
+script = ExtResource("1_4m8ck")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=376472050]
+replication_config = SubResource("SceneReplicationConfig_4m8ck")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1119682826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.002)
+shape = SubResource("CapsuleShape3D_crd4b")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=996360073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

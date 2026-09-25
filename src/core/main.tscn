@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://boeckno5yl7wq"]
+
+[ext_resource type="PackedScene" uid="uid://dw38h0l5lhiw4" path="res://src/levels/test_arena_1.tscn" id="1_avv2o"]
+
+[node name="Main" type="Node" unique_id=1123520285]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1172105330]
+spawn_path = NodePath("..")
+
+[node name="TestArena1" parent="." unique_id=1873855294 instance=ExtResource("1_avv2o")]
