@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cjt13arq1kr1t"]
+
+[ext_resource type="Script" uid="uid://cipobi352pire" path="res://src/networking/multiplayer_spawner/multiplayer_spawner.gd" id="1_waxug"]
+[ext_resource type="PackedScene" uid="uid://hhrlbjgbdaqr" path="res://src/entities/player/player.tscn" id="2_ixsqt"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" unique_id=1167663308]
+_spawnable_scenes = PackedStringArray("uid://hhrlbjgbdaqr")
+spawn_path = NodePath("..")
+script = ExtResource("1_waxug")
+network_player = ExtResource("2_ixsqt")
+_spawnable_scene_count = 1
+scenes/0 = "uid://hhrlbjgbdaqr"

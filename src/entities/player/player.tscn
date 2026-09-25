@@ -26,3 +26,7 @@ shape = SubResource("CapsuleShape3D_crd4b")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=996360073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="DebugMesh" type="CSGBox3D" parent="." unique_id=3547165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+size = Vector3(0.5, 0.5, 0.5)
