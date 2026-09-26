@@ -1,7 +1,7 @@
 class_name StateMachine
 extends Node
 
-signal changed_state(state: State)
+signal state_changed(state: State)
 
 @export var initial_state: State
 
@@ -49,7 +49,7 @@ func change_state(new_state: State) -> void:
 	current_state = states.get(new_state)
 
 	if current_state:
-		changed_state.emit(current_state)
+		state_changed.emit(current_state)
 		current_state.enter()
 
 
