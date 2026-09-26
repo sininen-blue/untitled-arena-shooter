@@ -1,10 +1,15 @@
 extends State
 
+
+@export var jump_force: float = 5
+
 @export var player: Player
+@export var air_state: State
 
 
 func enter() -> void:
-	pass
+	player.velocity.y = jump_force
+	state_machine.change_state(air_state)
 
 
 func exit() -> void:
@@ -24,4 +29,7 @@ func handle_input(_event: InputEvent) -> void:
 
 
 func can_enter() -> bool:
-	return true
+	if player.is_on_floor():
+		return true
+	else:
+		return false

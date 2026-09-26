@@ -30,6 +30,18 @@ height = 1.45
 material = ExtResource("2_vt6n5")
 height = 1.5
 
+[sub_resource type="Curve" id="Curve_p2qdy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_lqdhu"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_t8d2k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Player" type="CharacterBody3D" unique_id=1405837965]
 collision_layer = 2
 script = ExtResource("1_4m8ck")
@@ -47,10 +59,10 @@ mesh = SubResource("CapsuleMesh_crd4b")
 
 [node name="Head" type="Node3D" parent="." unique_id=942467609]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera" type="Camera3D" parent="Head" unique_id=996360073]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="StateMachine" type="Node" parent="." unique_id=1340483548 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_wrxq6")
@@ -67,14 +79,22 @@ crouch_state = NodePath("../Crouch")
 jump_satte = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470 node_paths=PackedStringArray("player")]
+[node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470 node_paths=PackedStringArray("player", "air_state", "idle_state", "jump_state", "crouch_move_state")]
 script = ExtResource("5_p2qdy")
 player = NodePath("../..")
+air_state = NodePath("../Air")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+crouch_move_state = NodePath("../CrouchMove")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503 node_paths=PackedStringArray("player")]
+[node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503 node_paths=PackedStringArray("player", "walk_state", "crouch_state", "air_state", "jump_state")]
 script = ExtResource("6_lqdhu")
 player = NodePath("../..")
+walk_state = NodePath("../Walk")
+crouch_state = NodePath("../Crouch")
+air_state = NodePath("../Air")
+jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Walk" type="Node" parent="StateMachine" unique_id=583871187 node_paths=PackedStringArray("player", "air_state", "idle_state", "slide_state", "crouch_move_state", "run_state", "jump_state")]
@@ -88,19 +108,34 @@ run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Run" type="Node" parent="StateMachine" unique_id=1355851414 node_paths=PackedStringArray("player")]
+[node name="Run" type="Node" parent="StateMachine" unique_id=1355851414 node_paths=PackedStringArray("player", "idle_state", "walk_state", "slide_state", "jump_state", "air_state")]
 script = ExtResource("8_yi0df")
 player = NodePath("../..")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+slide_state = NodePath("../Slide")
+jump_state = NodePath("../Jump")
+air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player")]
+[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state")]
 script = ExtResource("9_0tyfe")
+speed_threshold_angle_modifier = SubResource("Curve_p2qdy")
+slide_drag_curve = SubResource("Curve_lqdhu")
+drag_angle_modifier = SubResource("Curve_t8d2k")
 player = NodePath("../..")
+air_state = NodePath("../Air")
+idle_state = NodePath("../Idle")
+crouch_state = NodePath("../Crouch")
+crouch_move_state = NodePath("../CrouchMove")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=725918553 node_paths=PackedStringArray("player")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=725918553 node_paths=PackedStringArray("player", "air_state")]
 script = ExtResource("10_ogtao")
 player = NodePath("../..")
+air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "run_state")]
