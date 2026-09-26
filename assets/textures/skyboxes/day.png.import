@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck811by4d1d58"
-path.s3tc="res://.godot/imported/orange.png-da360cebfcc0919a93cae564d06c9695.s3tc.ctex"
+uid="uid://bdonf0e8gfk3i"
+path.s3tc="res://.godot/imported/day.png-07ae4438fe0b2a786fe280e7b8f9f393.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/prototype_textures/orange.png"
-dest_files=["res://.godot/imported/orange.png-da360cebfcc0919a93cae564d06c9695.s3tc.ctex"]
+source_file="res://assets/textures/skyboxes/day.png"
+dest_files=["res://.godot/imported/day.png-07ae4438fe0b2a786fe280e7b8f9f393.s3tc.ctex"]
 
 [params]
 

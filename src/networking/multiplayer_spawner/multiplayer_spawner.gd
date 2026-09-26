@@ -1,15 +1,13 @@
 extends MultiplayerSpawner
 
-signal player_ready(id: int)
-
 
 @export var network_player: PackedScene
+@export var debug: bool = false
 
 
 var ready_peers: Array[int] = []
 
 
-# BUG: spawn timing issues
 func _ready() -> void:
 	self.spawn_function = _spawn_player
 	
