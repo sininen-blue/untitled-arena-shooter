@@ -3,7 +3,17 @@
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_vt6n5"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
-[ext_resource type="Script" uid="uid://dsetpse5sstyw" path="res://src/resources/statemachine/state.gd" id="4_ketdh"]
+[ext_resource type="Script" uid="uid://cjiwmq1bir8ok" path="res://src/entities/player/states/idle.gd" id="4_0mfjg"]
+[ext_resource type="Script" uid="uid://cxii7gi18pu6t" path="res://src/entities/player/states/crouch.gd" id="5_p2qdy"]
+[ext_resource type="Script" uid="uid://camq1xc2u20a7" path="res://src/entities/player/states/crouch_move.gd" id="6_lqdhu"]
+[ext_resource type="Script" uid="uid://gs1aohogbsdn" path="res://src/entities/player/states/walk.gd" id="7_t8d2k"]
+[ext_resource type="Script" uid="uid://dw463oetvvvgl" path="res://src/entities/player/states/run.gd" id="8_yi0df"]
+[ext_resource type="Script" uid="uid://belprdl5m51qb" path="res://src/entities/player/states/slide.gd" id="9_0tyfe"]
+[ext_resource type="Script" uid="uid://diun488gbeol3" path="res://src/entities/player/states/jump.gd" id="10_ogtao"]
+[ext_resource type="Script" uid="uid://d0nlljs2xgkn3" path="res://src/entities/player/states/air.gd" id="11_a31ob"]
+[ext_resource type="Script" uid="uid://blj5mayog3l1k" path="res://src/entities/player/states/wall_climb.gd" id="12_5qgjf"]
+[ext_resource type="Script" uid="uid://dgr2whrvt056a" path="res://src/entities/player/states/wall_jump.gd" id="13_fjj3i"]
+[ext_resource type="Script" uid="uid://be3chck56d0cu" path="res://src/entities/player/states/wall_slide.gd" id="14_3d0mj"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4m8ck"]
 properties/0/path = NodePath(".:position")
@@ -47,45 +57,45 @@ script = ExtResource("3_wrxq6")
 metadata/_custom_type_script = "uid://ywl27ci1pkgm"
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=332085911]
-script = ExtResource("4_ketdh")
+script = ExtResource("4_0mfjg")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470]
-script = ExtResource("4_ketdh")
+script = ExtResource("5_p2qdy")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503]
-script = ExtResource("4_ketdh")
+script = ExtResource("6_lqdhu")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Walk" type="Node" parent="StateMachine" unique_id=583871187]
-script = ExtResource("4_ketdh")
+script = ExtResource("7_t8d2k")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Run" type="Node" parent="StateMachine" unique_id=1355851414]
-script = ExtResource("4_ketdh")
+script = ExtResource("8_yi0df")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807]
-script = ExtResource("4_ketdh")
+script = ExtResource("9_0tyfe")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Jump" type="Node" parent="StateMachine" unique_id=725918553]
-script = ExtResource("4_ketdh")
+script = ExtResource("10_ogtao")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=1757510152]
-script = ExtResource("4_ketdh")
+script = ExtResource("11_a31ob")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961]
-script = ExtResource("4_ketdh")
+script = ExtResource("12_5qgjf")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816]
-script = ExtResource("4_ketdh")
+script = ExtResource("13_fjj3i")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114]
-script = ExtResource("4_ketdh")
+script = ExtResource("14_3d0mj")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"

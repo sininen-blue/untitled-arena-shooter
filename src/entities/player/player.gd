@@ -12,6 +12,9 @@ const JUMP_VELOCITY = 4.5
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
 
+var input_direction: Vector2 = Vector2.ZERO
+var direction: Vector3 = Vector3.ZERO
+var wish_velocity: Vector3 = Vector3.ZERO
 
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
