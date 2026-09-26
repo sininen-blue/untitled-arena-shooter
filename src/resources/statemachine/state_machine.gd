@@ -39,6 +39,9 @@ func _input(event: InputEvent) -> void:
 
 
 func change_state(new_state: State) -> void:
+	if new_state.can_enter() == false:
+		return
+	
 	if current_state:
 		previous_state = current_state
 		current_state.exit()

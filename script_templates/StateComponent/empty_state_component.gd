@@ -1,7 +1,4 @@
-class_name State
-extends Node
-
-var state_machine: StateMachine = null
+extends StateComponent
 
 
 func enter() -> void:
@@ -22,7 +19,3 @@ func physics_update(_delta: float) -> void:
 
 func handle_input(_event: InputEvent) -> void:
 	pass
-
-
-func can_enter() -> bool:
-	return true

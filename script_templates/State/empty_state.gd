@@ -1,7 +1,4 @@
-class_name State
-extends Node
-
-var state_machine: StateMachine = null
+extends State
 
 
 func enter() -> void:

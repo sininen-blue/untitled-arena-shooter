@@ -1,7 +1,6 @@
-class_name State
-extends Node
+extends State
 
-var state_machine: StateMachine = null
+@export var player: Player
 
 
 func enter() -> void:
