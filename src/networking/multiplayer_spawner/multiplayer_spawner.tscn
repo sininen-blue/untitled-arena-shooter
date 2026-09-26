@@ -8,5 +8,3 @@ _spawnable_scenes = PackedStringArray("uid://hhrlbjgbdaqr")
 spawn_path = NodePath("..")
 script = ExtResource("1_waxug")
 network_player = ExtResource("2_ixsqt")
-_spawnable_scene_count = 1
-scenes/0 = "uid://hhrlbjgbdaqr"

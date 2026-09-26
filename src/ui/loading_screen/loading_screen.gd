@@ -11,7 +11,7 @@ func _ready() -> void:
 	loading_screen_ready.emit()
 
 
-func _on_scene_loader_progress_changed(progress: float) -> void:
+func _on_scene_loader_progress_changed(_progress: float) -> void:
 	pass
 
 

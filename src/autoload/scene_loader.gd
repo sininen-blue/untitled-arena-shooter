@@ -30,6 +30,7 @@ func _process(_delta: float) -> void:
 			load_finished.emit()
 
 
+@rpc("authority", "call_local", "reliable") 
 func load_scene(to: String) -> void:
 	scene_path = to
 	

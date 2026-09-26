@@ -6,7 +6,5 @@
 [node name="Main" type="Node" unique_id=1123520285]
 
 [node name="MultiplayerSpawner" parent="." unique_id=1167663308 instance=ExtResource("1_ukt3u")]
-_spawnable_scenes = PackedStringArray("uid://hhrlbjgbdaqr")
-scenes/0 = "uid://hhrlbjgbdaqr"
 
 [node name="TestArena1" parent="." unique_id=1873855294 instance=ExtResource("1_avv2o")]
