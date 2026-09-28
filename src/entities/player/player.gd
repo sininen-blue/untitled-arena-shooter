@@ -10,7 +10,7 @@ extends CharacterBody3D
 
 
 ## NOTE: DEBUG
-var health = 4
+@export var health: float = 4
 
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
@@ -61,10 +61,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		if %GunCast.is_colliding():
 			if %GunCast.get_collider() is Player:
-				%GunCast.get_collider().health -= 1 
-	
-	if health <= 0:
-		self.queue_free.call_deferred()
+				%GunCast.get_collider().take_damage.rpc(1)
 	
 	if self.is_on_floor():
 		wall_climb_state.time = 0
@@ -92,3 +89,10 @@ func _physics_process(_delta: float) -> void:
 
 func get_speed() -> float:
 	return self.velocity.length()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func take_damage(damage: float) -> void:
+	health -= damage
+	if health <= 0:
+		self.queue_free.call_deferred()
