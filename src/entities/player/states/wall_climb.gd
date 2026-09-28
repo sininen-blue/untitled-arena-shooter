@@ -5,7 +5,7 @@ extends State
 @export var accel: float = 2.0
 @export var drag: float = 1.0
 
-@export var wall_climb_strength: float = 20.0
+@export var wall_climb_strength: float = 13.0
 @export var wall_climb_duration: float = 1.25
 @export var wall_climb_curve: Curve
 
@@ -27,7 +27,11 @@ var current_wall_climb_strength: float = 0.0
 
 
 func enter() -> void:
-	pass
+	if player.velocity.y < 0:
+		if state_machine.previous_state == wall_slide_state:
+			player.velocity.y = 0
+		else:
+			player.velocity.y = player.velocity.y / 4
 
 
 func exit(new_state: State) -> void:

@@ -1,13 +1,14 @@
 extends State
 
 
-@export var speed: float = 10.0
+@export var speed: float = 8.0
 @export var accel: float = 5.0
 
 @export var player: Player
 @export var idle_state: State
 @export var walk_state: State
 @export var slide_state: State
+@export var crouch_move_state: State
 @export var jump_state: State
 @export var air_state: State
 
@@ -34,8 +35,9 @@ func physics_update(delta: float) -> void:
 		state_machine.change_state(idle_state)
 	if Input.is_action_just_released("run"):
 		state_machine.change_state(walk_state)
-	if Input.is_action_pressed("crouch"):
-		state_machine.change_state(slide_state)
+	if Input.is_action_just_pressed("crouch"):
+		if not state_machine.change_state(slide_state):
+			state_machine.change_state(crouch_move_state)
 	if jump_input_handler.consume():
 		state_machine.change_state(jump_state)
 	

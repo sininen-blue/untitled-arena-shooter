@@ -50,13 +50,14 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7051792, 0.5041323), -1.503925
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_ogtao"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6135458, 0.6280992), -1.3137748, -1.3137748, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8372093, 0.61797756), -1.3137748, -1.3137748, 0, 0, Vector2(1, 0), -2.6944685, 0.0, 0, 0]
 point_count = 3
 
-[node name="Player" type="CharacterBody3D" unique_id=1405837965]
+[node name="Player" type="CharacterBody3D" unique_id=1405837965 node_paths=PackedStringArray("wall_climb_state")]
 collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
+wall_climb_state = NodePath("StateMachine/WallClimb")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=376472050]
 replication_config = SubResource("SceneReplicationConfig_4m8ck")
@@ -137,12 +138,13 @@ run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Run" type="Node" parent="StateMachine" unique_id=1355851414 node_paths=PackedStringArray("player", "idle_state", "walk_state", "slide_state", "jump_state", "air_state") groups=["ground"]]
+[node name="Run" type="Node" parent="StateMachine" unique_id=1355851414 node_paths=PackedStringArray("player", "idle_state", "walk_state", "slide_state", "crouch_move_state", "jump_state", "air_state") groups=["ground"]]
 script = ExtResource("8_yi0df")
 player = NodePath("../..")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 slide_state = NodePath("../Slide")
+crouch_move_state = NodePath("../CrouchMove")
 jump_state = NodePath("../Jump")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
@@ -167,7 +169,6 @@ one_shot = true
 
 [node name="Jump" type="Node" parent="StateMachine" unique_id=725918553 node_paths=PackedStringArray("player", "air_state")]
 script = ExtResource("10_ogtao")
-jump_force = 10.0
 player = NodePath("../..")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
@@ -196,12 +197,13 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "idle_state", "walk_state", "run_state") groups=["wall"]]
+[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "wall_climb_state", "idle_state", "walk_state", "run_state") groups=["wall"]]
 script = ExtResource("14_3d0mj")
 wall_drag_strength_curve = SubResource("Curve_ogtao")
 player = NodePath("../..")
 air_state = NodePath("../Air")
 wall_jump_state = NodePath("../WallJump")
+wall_climb_state = NodePath("../WallClimb")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")

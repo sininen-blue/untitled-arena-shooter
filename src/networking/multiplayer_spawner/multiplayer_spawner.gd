@@ -41,5 +41,5 @@ func _spawn_player(id: int) -> Player:
 	var player: Player = network_player.instantiate()
 	player.name = str(id)
 	
-	player.position.y += 20
+	player.position.y += 2
 	return player

@@ -1,7 +1,7 @@
 extends State
 
 
-@export var jump_force: float = 4.0
+@export var jump_force: float = 7.8
 
 @export var player: Player
 @export var air_state: State

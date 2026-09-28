@@ -6,6 +6,8 @@ extends CharacterBody3D
 
 @export var mass: float = 2.0
 
+@export var wall_climb_state: State
+
 
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
@@ -44,6 +46,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
+	
+	if self.is_on_floor():
+		wall_climb_state.time = 0
 	
 	var twist_q = Quaternion(Vector3.UP, deg_to_rad(twist_input))
 	var body_current_q = basis.get_rotation_quaternion()

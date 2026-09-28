@@ -4,7 +4,7 @@ extends State
 @export var speed: float = 7.0
 @export var accel: float = 2.0
 @export var drag: float = 1.0
-@export var wall_drag: float = 13.5
+@export var wall_drag: float = 10.0
 @export var wall_slide_duration: float = 2.0
 
 @export var wall_drag_strength_curve: Curve
@@ -12,6 +12,7 @@ extends State
 @export var player: Player
 @export var air_state: State
 @export var wall_jump_state: State
+@export var wall_climb_state: State
 
 @export var idle_state: State
 @export var walk_state: State
@@ -26,7 +27,8 @@ var current_wall_drag_strength: float = 0.0
 
 
 func enter() -> void:
-	pass
+	if player.velocity.y < 0:
+		player.velocity.y = player.velocity.y / 4
 
 
 func exit(new_state: State) -> void:
@@ -41,6 +43,9 @@ func update(delta: float) -> void:
 func physics_update(delta: float) -> void:
 	if wall_raycasts.is_colliding() == false:
 		state_machine.change_state(air_state)
+	else:
+		if wall_raycasts.front_is_colliding():
+			state_machine.change_state(wall_climb_state)
 
 	if player.is_on_floor():
 		if player.direction.length() > 0:
