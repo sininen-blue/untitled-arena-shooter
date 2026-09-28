@@ -6,7 +6,7 @@ extends State
 @export var turn_weight: float = 2.0
 
 @export var max_slide_speed: float = 15.0
-@export var slide_boost: float = 2.0
+@export var slide_boost: float = 8.0
 
 @export var speed_threshold: float = 3.0
 @export var speed_threshold_angle_modifier_curve: Curve
@@ -98,7 +98,7 @@ func physics_update(delta: float) -> void:
 	is_going_down = player.velocity.dot(player.get_floor_normal())> 0
 
 	if is_going_down and player.velocity.length() < max_slide_speed:
-		player.velocity += player.velocity.normalized() * slide_boost* delta
+		player.velocity += player.velocity.normalized() * slide_boost * delta
 	
 	if is_going_down:
 		angle_sample_point = player.get_floor_angle() / player.floor_max_angle
@@ -114,7 +114,7 @@ func physics_update(delta: float) -> void:
 	new_velocity_length = Utils.exp_decay(player.velocity, Vector3.ZERO, current_drag, delta).length()
 	if player.get_floor_normal() != Vector3.ZERO:
 		slided_wish_velocity = player.wish_velocity.slide(player.get_floor_normal().normalized())
-	new_velocity_direction = Utils.exp_decay(player.velocity.normalized(), slided_wish_velocity, turn_weight, delta)
+	new_velocity_direction = Utils.exp_decay(player.velocity.normalized(), slided_wish_velocity.normalized(), turn_weight, delta)
 
 	player.velocity = new_velocity_direction * new_velocity_length
 
