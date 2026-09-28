@@ -93,8 +93,6 @@ one_shot = true
 wait_time = 0.125
 one_shot = true
 
-[node name="SlideInputHandler" type="Node" parent="." unique_id=1813656327]
-
 [node name="StateMachine" type="Node" parent="." unique_id=1340483548 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_wrxq6")
 initial_state = NodePath("Idle")
@@ -174,11 +172,12 @@ player = NodePath("../..")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "run_state", "jump_state", "wall_slide_state", "wall_climb_state")]
+[node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "slide_state", "run_state", "jump_state", "wall_slide_state", "wall_climb_state")]
 script = ExtResource("11_a31ob")
 player = NodePath("../..")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
+slide_state = NodePath("../Slide")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 wall_slide_state = NodePath("../WallSlide")
