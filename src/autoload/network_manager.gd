@@ -9,7 +9,10 @@ var peer: ENetMultiplayerPeer
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT)
+	var error: Error = peer.create_server(PORT)
+	if error:
+		printerr(error)
+	
 	multiplayer.multiplayer_peer = peer
 
 
@@ -18,7 +21,9 @@ func start_client(ip: String = "") -> void:
 		ip = IP_ADDR
 	
 	peer = ENetMultiplayerPeer.new()
-	peer.create_client(ip, PORT)
+	var error: Error = peer.create_client(ip, PORT)
+	if error:
+		printerr(error)
 	multiplayer.multiplayer_peer = peer
 	print_debug("Attempted to connect to: ", ip)
 
