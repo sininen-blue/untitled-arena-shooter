@@ -43,7 +43,7 @@ func change_state(new_state: State) -> bool:
 	
 	if current_state:
 		previous_state = current_state
-		current_state.exit()
+		current_state.exit(new_state)
 
 	current_state = states.get(new_state)
 

@@ -1,7 +1,7 @@
 extends State
 
 
-@export var drag: float = 1.0
+@export var drag: float = 8.0
 
 @export var player: Player
 @export var air_state: State
@@ -17,7 +17,7 @@ func enter() -> void:
 	player.head.position.y = 0.5
 
 
-func exit() -> void:
+func exit(new_state: State) -> void:
 	player.head.position.y = 1.0
 
 

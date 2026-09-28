@@ -12,7 +12,7 @@ func enter() -> void:
 	state_machine.change_state(air_state)
 
 
-func exit() -> void:
+func exit(new_state: State) -> void:
 	pass
 
 

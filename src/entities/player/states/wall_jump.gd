@@ -14,7 +14,7 @@ func enter() -> void:
 	player.velocity += (Vector3.UP + wall_raycasts.get_wall_normal()).normalized() * jump
 
 
-func exit() -> void:
+func exit(new_state: State) -> void:
 	pass
 
 

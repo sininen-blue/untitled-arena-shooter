@@ -27,11 +27,12 @@ var current_wall_climb_strength: float = 0.0
 
 
 func enter() -> void:
-	time = 0
-
-
-func exit() -> void:
 	pass
+
+
+func exit(new_state: State) -> void:
+	if new_state.is_in_group("ground"):
+		time = 0
 
 
 func update(_delta: float) -> void:
@@ -53,9 +54,12 @@ func physics_update(delta: float) -> void:
 				state_machine.change_state(walk_state)
 		else:
 			state_machine.change_state(idle_state) 
+	
+	if time > wall_climb_duration and wall_raycasts.is_colliding():
+		state_machine.change_state(wall_slide_state)
 
-	if Input.is_action_pressed("jump"):
-		state_machine.change_state(wall_jump_state)	
+	if Input.is_action_just_pressed("jump"):
+		state_machine.change_state(wall_jump_state)
 	
 
 	player.velocity += player.get_gravity() * player.mass * delta

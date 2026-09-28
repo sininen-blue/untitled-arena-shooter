@@ -98,7 +98,7 @@ script = ExtResource("3_wrxq6")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://ywl27ci1pkgm"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=332085911 node_paths=PackedStringArray("player", "air_state", "walk_state", "run_state", "crouch_state", "jump_satte")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=332085911 node_paths=PackedStringArray("player", "air_state", "walk_state", "run_state", "crouch_state", "jump_satte") groups=["ground"]]
 script = ExtResource("4_0mfjg")
 player = NodePath("../..")
 air_state = NodePath("../Air")
@@ -108,7 +108,7 @@ crouch_state = NodePath("../Crouch")
 jump_satte = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470 node_paths=PackedStringArray("player", "air_state", "idle_state", "jump_state", "crouch_move_state")]
+[node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470 node_paths=PackedStringArray("player", "air_state", "idle_state", "jump_state", "crouch_move_state") groups=["ground"]]
 script = ExtResource("5_p2qdy")
 player = NodePath("../..")
 air_state = NodePath("../Air")
@@ -117,7 +117,7 @@ jump_state = NodePath("../Jump")
 crouch_move_state = NodePath("../CrouchMove")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503 node_paths=PackedStringArray("player", "walk_state", "crouch_state", "air_state", "jump_state")]
+[node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503 node_paths=PackedStringArray("player", "walk_state", "crouch_state", "air_state", "jump_state") groups=["ground"]]
 script = ExtResource("6_lqdhu")
 player = NodePath("../..")
 walk_state = NodePath("../Walk")
@@ -126,7 +126,7 @@ air_state = NodePath("../Air")
 jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Walk" type="Node" parent="StateMachine" unique_id=583871187 node_paths=PackedStringArray("player", "air_state", "idle_state", "slide_state", "crouch_move_state", "run_state", "jump_state")]
+[node name="Walk" type="Node" parent="StateMachine" unique_id=583871187 node_paths=PackedStringArray("player", "air_state", "idle_state", "slide_state", "crouch_move_state", "run_state", "jump_state") groups=["ground"]]
 script = ExtResource("7_t8d2k")
 player = NodePath("../..")
 air_state = NodePath("../Air")
@@ -137,7 +137,7 @@ run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Run" type="Node" parent="StateMachine" unique_id=1355851414 node_paths=PackedStringArray("player", "idle_state", "walk_state", "slide_state", "jump_state", "air_state")]
+[node name="Run" type="Node" parent="StateMachine" unique_id=1355851414 node_paths=PackedStringArray("player", "idle_state", "walk_state", "slide_state", "jump_state", "air_state") groups=["ground"]]
 script = ExtResource("8_yi0df")
 player = NodePath("../..")
 idle_state = NodePath("../Idle")
@@ -147,7 +147,7 @@ jump_state = NodePath("../Jump")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "jump_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state")]
+[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "jump_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state") groups=["ground"]]
 script = ExtResource("9_0tyfe")
 speed_threshold_angle_modifier_curve = SubResource("Curve_0tyfe")
 slide_drag_curve = SubResource("Curve_lqdhu")
@@ -184,7 +184,7 @@ wall_slide_state = NodePath("../WallSlide")
 wall_climb_state = NodePath("../WallClimb")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player", "air_state", "wall_slide_state", "wall_jump_state", "idle_state", "walk_state", "run_state")]
+[node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player", "air_state", "wall_slide_state", "wall_jump_state", "idle_state", "walk_state", "run_state") groups=["wall"]]
 script = ExtResource("12_5qgjf")
 wall_climb_curve = SubResource("Curve_a31ob")
 player = NodePath("../..")
@@ -196,13 +196,7 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player", "air_state")]
-script = ExtResource("13_fjj3i")
-player = NodePath("../..")
-air_state = NodePath("../Air")
-metadata/_custom_type_script = "uid://dsetpse5sstyw"
-
-[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "idle_state", "walk_state", "run_state")]
+[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "idle_state", "walk_state", "run_state") groups=["wall"]]
 script = ExtResource("14_3d0mj")
 wall_drag_strength_curve = SubResource("Curve_ogtao")
 player = NodePath("../..")
@@ -211,6 +205,12 @@ wall_jump_state = NodePath("../WallJump")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
+metadata/_custom_type_script = "uid://dsetpse5sstyw"
+
+[node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player", "air_state") groups=["wall"]]
+script = ExtResource("13_fjj3i")
+player = NodePath("../..")
+air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="DebugHud" type="CanvasLayer" parent="." unique_id=1125550125]

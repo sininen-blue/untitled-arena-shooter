@@ -57,7 +57,7 @@ func enter() -> void:
 		boost_cooldown_timer.start()
 
 
-func exit() -> void:
+func exit(new_state: State) -> void:
 	player.head.position.y = 1.0
 
 
