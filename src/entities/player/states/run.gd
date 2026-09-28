@@ -1,7 +1,7 @@
 extends State
 
 
-@export var speed: float = 20.0
+@export var speed: float = 10.0
 @export var accel: float = 5.0
 
 @export var player: Player
@@ -19,7 +19,7 @@ func enter() -> void:
 	pass
 
 
-func exit(new_state: State) -> void:
+func exit(_new_state: State) -> void:
 	pass
 
 

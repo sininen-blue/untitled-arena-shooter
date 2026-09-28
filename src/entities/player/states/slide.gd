@@ -1,12 +1,12 @@
 extends State
 
 
-@export var entry_boost: float = 10.0
+@export var entry_boost: float = 5.0
 @export var entry_boost_cooldown: float = 1.2
 @export var turn_weight: float = 2.0
 
-@export var max_slide_speed: float = 40.0
-@export var slide_boost: float = 5.0
+@export var max_slide_speed: float = 20.0
+@export var slide_boost: float = 2.0
 
 @export var speed_threshold: float = 5.0
 @export var speed_threshold_angle_modifier_curve: Curve
@@ -57,7 +57,7 @@ func enter() -> void:
 		boost_cooldown_timer.start()
 
 
-func exit(new_state: State) -> void:
+func exit(_new_state: State) -> void:
 	player.head.position.y = 1.0
 
 

@@ -1,7 +1,7 @@
 extends State
 
 
-@export var jump_force: float = 5
+@export var jump_force: float = 4.0
 
 @export var player: Player
 @export var air_state: State
@@ -12,7 +12,7 @@ func enter() -> void:
 	state_machine.change_state(air_state)
 
 
-func exit(new_state: State) -> void:
+func exit(_new_state: State) -> void:
 	pass
 
 

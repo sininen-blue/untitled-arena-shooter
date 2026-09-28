@@ -2,6 +2,7 @@ extends State
 
 
 @export var jump: float = 10
+@export var horizontal_component: float = 2.0
 
 @export var player: Player
 @export var air_state: State
@@ -11,10 +12,12 @@ extends State
 
 
 func enter() -> void:
-	player.velocity += (Vector3.UP + wall_raycasts.get_wall_normal()).normalized() * jump
+	var vertical := Vector3.UP
+	var horizontal := wall_raycasts.get_wall_normal() * horizontal_component
+	player.velocity += (vertical + horizontal).normalized() * jump
 
 
-func exit(new_state: State) -> void:
+func exit(_new_state: State) -> void:
 	pass
 
 

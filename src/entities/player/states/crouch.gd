@@ -17,7 +17,7 @@ func enter() -> void:
 	player.head.position.y = 0.5
 
 
-func exit(new_state: State) -> void:
+func exit(_new_state: State) -> void:
 	player.head.position.y = 1.0
 
 

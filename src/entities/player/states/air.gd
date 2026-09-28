@@ -1,7 +1,7 @@
 extends State
 
 
-@export var speed: float = 10.0
+@export var speed: float = 8.0
 @export var accel: float = 2.0
 @export var deccel: float = 1.0
 
