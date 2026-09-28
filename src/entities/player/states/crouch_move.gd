@@ -11,6 +11,9 @@ extends State
 @export var jump_state: State
 
 
+@onready var jump_input_handler: Node = %JumpInputHandler
+
+
 func enter() -> void:
 	player.head.position.y = 0.5
 
@@ -28,10 +31,10 @@ func physics_update(delta: float) -> void:
 		state_machine.change_state(air_state)
 	if player.direction.length() <= 0:
 		state_machine.change_state(crouch_state)
-	if Input.is_action_just_pressed("jump"):
-		state_machine.change_state(jump_state)
 	if Input.is_action_just_released("crouch"):
 		state_machine.change_state(walk_state)
+	if jump_input_handler.consume():
+		state_machine.change_state(jump_state)
 	
 	player.wish_velocity = player.direction * speed
 	player.velocity = Utils.exp_decay(player.velocity, player.wish_velocity, accel, delta)

@@ -12,6 +12,9 @@ extends State
 @export var jump_state: State
 
 
+@onready var jump_input_handler: Node = %JumpInputHandler
+
+
 func enter() -> void:
 	pass
 
@@ -30,11 +33,11 @@ func physics_update(delta: float) -> void:
 	if player.direction.length() <= 0:
 		state_machine.change_state(idle_state)
 	if Input.is_action_just_pressed("crouch"):
-		state_machine.change_state(slide_state)
-		state_machine.change_state(crouch_move_state)
+		if not state_machine.change_state(slide_state):
+			state_machine.change_state(crouch_move_state)
 	if Input.is_action_just_pressed("run"):
 		state_machine.change_state(run_state)
-	if Input.is_action_just_pressed("jump"):
+	if jump_input_handler.consume():
 		state_machine.change_state(jump_state)
 	
 	player.wish_velocity = player.direction * speed

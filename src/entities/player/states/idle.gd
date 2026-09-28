@@ -10,6 +10,9 @@ extends State
 @export var jump_satte: State
 
 
+@onready var jump_input_handler: Node = %JumpInputHandler
+
+
 func enter() -> void:
 	pass
 
@@ -33,7 +36,7 @@ func physics_update(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("crouch"):
 		state_machine.change_state(crouch_state)
-	if Input.is_action_just_pressed("jump"):
+	if jump_input_handler.consume():
 		state_machine.change_state(jump_satte)
 
 	player.velocity = Utils.exp_decay(player.velocity, Vector3.ZERO, drag, delta)

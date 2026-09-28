@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_vt6n5"]
+[ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
 [ext_resource type="Script" uid="uid://cjiwmq1bir8ok" path="res://src/entities/player/states/idle.gd" id="4_0mfjg"]
 [ext_resource type="Script" uid="uid://cxii7gi18pu6t" path="res://src/entities/player/states/crouch.gd" id="5_p2qdy"]
@@ -14,6 +15,7 @@
 [ext_resource type="Script" uid="uid://blj5mayog3l1k" path="res://src/entities/player/states/wall_climb.gd" id="12_5qgjf"]
 [ext_resource type="Script" uid="uid://dgr2whrvt056a" path="res://src/entities/player/states/wall_jump.gd" id="13_fjj3i"]
 [ext_resource type="Script" uid="uid://be3chck56d0cu" path="res://src/entities/player/states/wall_slide.gd" id="14_3d0mj"]
+[ext_resource type="Script" uid="uid://cud2jpqwvuegw" path="res://src/debug/debug_label/debug_label.gd" id="16_t8d2k"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4m8ck"]
 properties/0/path = NodePath(".:position")
@@ -30,7 +32,7 @@ height = 1.45
 material = ExtResource("2_vt6n5")
 height = 1.5
 
-[sub_resource type="Curve" id="Curve_p2qdy"]
+[sub_resource type="Curve" id="Curve_0tyfe"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -38,12 +40,13 @@ point_count = 2
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_t8d2k"]
+[sub_resource type="Curve" id="Curve_yi0df"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=1405837965]
 collision_layer = 2
+floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=376472050]
@@ -63,6 +66,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera" type="Camera3D" parent="Head" unique_id=996360073]
 unique_name_in_owner = true
+
+[node name="JumpInputHandler" type="Node" parent="." unique_id=1358318381 node_paths=PackedStringArray("player", "state_machine", "air_state")]
+unique_name_in_owner = true
+script = ExtResource("3_lqdhu")
+player = NodePath("..")
+state_machine = NodePath("../StateMachine")
+air_state = NodePath("../StateMachine/Air")
+
+[node name="InputBuffer" type="Timer" parent="JumpInputHandler" unique_id=586585607]
+wait_time = 0.25
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="JumpInputHandler" unique_id=1262983829]
+wait_time = 0.125
+one_shot = true
+
+[node name="SlideInputHandler" type="Node" parent="." unique_id=1813656327]
 
 [node name="StateMachine" type="Node" parent="." unique_id=1340483548 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_wrxq6")
@@ -118,13 +138,14 @@ jump_state = NodePath("../Jump")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state")]
+[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "jump_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state")]
 script = ExtResource("9_0tyfe")
-speed_threshold_angle_modifier = SubResource("Curve_p2qdy")
+speed_threshold_angle_modifier_curve = SubResource("Curve_0tyfe")
 slide_drag_curve = SubResource("Curve_lqdhu")
-drag_angle_modifier = SubResource("Curve_t8d2k")
+drag_angle_modifier_curve = SubResource("Curve_yi0df")
 player = NodePath("../..")
 air_state = NodePath("../Air")
+jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
 crouch_state = NodePath("../Crouch")
 crouch_move_state = NodePath("../CrouchMove")
@@ -132,18 +153,23 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
+[node name="BoostCooldownTimer" type="Timer" parent="StateMachine/Slide" unique_id=242038590]
+one_shot = true
+
 [node name="Jump" type="Node" parent="StateMachine" unique_id=725918553 node_paths=PackedStringArray("player", "air_state")]
 script = ExtResource("10_ogtao")
+jump_force = 10.0
 player = NodePath("../..")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "run_state")]
+[node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "run_state", "jump_state")]
 script = ExtResource("11_a31ob")
 player = NodePath("../..")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player")]
@@ -160,3 +186,52 @@ metadata/_custom_type_script = "uid://dsetpse5sstyw"
 script = ExtResource("14_3d0mj")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
+
+[node name="DebugHud" type="CanvasLayer" parent="." unique_id=1125550125]
+layer = 90
+
+[node name="Control" type="Control" parent="DebugHud" unique_id=916442085]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="DebugValues" type="VBoxContainer" parent="DebugHud/Control" unique_id=1641609253]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="CurrentState" type="Label" parent="DebugHud/Control/DebugValues" unique_id=884169857 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../../StateMachine")
+member_type = "function"
+property = "get_current_state_name"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="PrevState" type="Label" parent="DebugHud/Control/DebugValues" unique_id=793386876 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../../StateMachine")
+member_type = "function"
+property = "get_previous_state_name"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="Speed" type="Label" parent="DebugHud/Control/DebugValues" unique_id=1524857499 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../..")
+member_type = "function"
+property = "get_speed"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="SlideSpeedThreshold" type="Label" parent="DebugHud/Control/DebugValues" unique_id=1273240688 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../../StateMachine/Slide")
+property = "current_speed_threshold"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"

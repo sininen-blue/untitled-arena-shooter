@@ -29,7 +29,4 @@ func handle_input(_event: InputEvent) -> void:
 
 
 func can_enter() -> bool:
-	if player.is_on_floor():
-		return true
-	else:
-		return false
+	return true

@@ -37,9 +37,9 @@ func _input(event: InputEvent) -> void:
 		current_state.handle_input(event)
 
 
-func change_state(new_state: State) -> void:
+func change_state(new_state: State) -> bool:
 	if new_state.can_enter() == false:
-		return
+		return false
 	
 	if current_state:
 		previous_state = current_state
@@ -50,6 +50,8 @@ func change_state(new_state: State) -> void:
 	if current_state:
 		state_changed.emit(current_state)
 		current_state.enter()
+	
+	return true
 
 
 func get_current_state_name() -> String:

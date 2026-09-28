@@ -64,3 +64,7 @@ func _physics_process(_delta: float) -> void:
 	direction = (self.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	
 	move_and_slide()
+
+
+func get_speed() -> float:
+	return self.velocity.length()
