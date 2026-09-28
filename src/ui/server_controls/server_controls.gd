@@ -7,6 +7,9 @@ extends Control
 @onready var player_list: VBoxContainer = %PlayerList
 @onready var player_list_spawner: MultiplayerSpawner = %PlayerListSpawner
 
+@onready var server_ip: Label = %ServerIp
+@onready var ip_input: LineEdit = %IpInput
+
 
 func _ready() -> void:
 	player_list_spawner.spawn_function = _spawn_player_card
@@ -25,10 +28,11 @@ func _on_start_server_pressed() -> void:
 	
 	if multiplayer.is_server():
 		player_list_spawner.spawn(multiplayer.get_unique_id())
+		server_ip.text = NetworkManager.get_local_ip()
 
 
 func _on_join_game_pressed() -> void:
-	NetworkManager.start_client()
+	NetworkManager.start_client(ip_input.text)
 
 
 func _on_start_game_pressed() -> void:

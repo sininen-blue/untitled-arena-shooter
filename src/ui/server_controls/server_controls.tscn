@@ -90,6 +90,23 @@ grow_vertical = 0
 text = "Start Game
 "
 
+[node name="ServerIp" type="Label" parent="." unique_id=1101141728]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 422.0
+offset_top = 110.0
+offset_right = 462.0
+offset_bottom = 133.0
+
+[node name="IpInput" type="LineEdit" parent="." unique_id=185584741]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 421.0
+offset_top = 329.0
+offset_right = 572.0
+offset_bottom = 360.0
+placeholder_text = "127.0.1.2 etc"
+
 [connection signal="pressed" from="StartServer" to="." method="_on_start_server_pressed"]
 [connection signal="pressed" from="JoinGame" to="." method="_on_join_game_pressed"]
 [connection signal="pressed" from="Start Game" to="." method="_on_start_game_pressed"]
