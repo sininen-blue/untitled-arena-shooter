@@ -9,7 +9,6 @@ var current_state: State
 var previous_state: State
 
 var states: Dictionary = { }
-var state_components: Dictionary = { }
 
 
 func _ready() -> void:
