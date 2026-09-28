@@ -185,27 +185,30 @@ wall_slide_state = NodePath("../WallSlide")
 wall_climb_state = NodePath("../WallClimb")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player", "air_state", "wall_slide_state", "idle_state", "walk_state", "run_state")]
+[node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player", "air_state", "wall_slide_state", "wall_jump_state", "idle_state", "walk_state", "run_state")]
 script = ExtResource("12_5qgjf")
 wall_climb_curve = SubResource("Curve_a31ob")
 player = NodePath("../..")
 air_state = NodePath("../Air")
 wall_slide_state = NodePath("../WallSlide")
+wall_jump_state = NodePath("../WallJump")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player")]
+[node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player", "air_state")]
 script = ExtResource("13_fjj3i")
 player = NodePath("../..")
+air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "idle_state", "walk_state", "run_state")]
+[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "idle_state", "walk_state", "run_state")]
 script = ExtResource("14_3d0mj")
 wall_drag_strength_curve = SubResource("Curve_ogtao")
 player = NodePath("../..")
 air_state = NodePath("../Air")
+wall_jump_state = NodePath("../WallJump")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")

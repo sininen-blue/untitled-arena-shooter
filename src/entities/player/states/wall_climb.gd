@@ -12,6 +12,7 @@ extends State
 @export var player: Player
 @export var air_state: State
 @export var wall_slide_state: State
+@export var wall_jump_state: State
 
 @export var idle_state: State
 @export var walk_state: State
@@ -52,6 +53,9 @@ func physics_update(delta: float) -> void:
 				state_machine.change_state(walk_state)
 		else:
 			state_machine.change_state(idle_state) 
+
+	if Input.is_action_pressed("jump"):
+		state_machine.change_state(wall_jump_state)	
 	
 
 	player.velocity += player.get_gravity() * player.mass * delta

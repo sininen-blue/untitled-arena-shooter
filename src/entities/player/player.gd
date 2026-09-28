@@ -27,7 +27,7 @@ func _ready() -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
 
 

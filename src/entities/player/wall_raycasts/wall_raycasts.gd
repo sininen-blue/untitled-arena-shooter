@@ -19,3 +19,16 @@ func is_colliding() -> bool:
 
 func front_is_colliding() -> bool:
 	return front.is_colliding()
+
+
+func get_wall_normal() -> Vector3:
+	var normal: Vector3 = Vector3.ZERO
+
+	if front.is_colliding():
+		normal = front.get_collision_normal()
+	if left.is_colliding():
+		normal = left.get_collision_normal()
+	if right.is_colliding():
+		normal = right.get_collision_normal()
+
+	return normal
