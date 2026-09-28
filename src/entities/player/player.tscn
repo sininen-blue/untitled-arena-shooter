@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://dgr2whrvt056a" path="res://src/entities/player/states/wall_jump.gd" id="13_fjj3i"]
 [ext_resource type="Script" uid="uid://be3chck56d0cu" path="res://src/entities/player/states/wall_slide.gd" id="14_3d0mj"]
 [ext_resource type="Script" uid="uid://cud2jpqwvuegw" path="res://src/debug/debug_label/debug_label.gd" id="16_t8d2k"]
+[ext_resource type="Script" uid="uid://ccbgt2rquptq3" path="res://src/entities/player/wall_raycasts/wall_raycasts.gd" id="17_yi0df"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4m8ck"]
 properties/0/path = NodePath(".:position")
@@ -44,6 +45,14 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_a31ob"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7051792, 0.5041323), -1.5039252, -1.5039252, 0, 0, Vector2(1, 0), -1.7443639, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_ogtao"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6135458, 0.6280992), -1.3137748, -1.3137748, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="Player" type="CharacterBody3D" unique_id=1405837965]
 collision_layer = 2
 floor_snap_length = 0.4
@@ -67,12 +76,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="Camera" type="Camera3D" parent="Head" unique_id=996360073]
 unique_name_in_owner = true
 
-[node name="JumpInputHandler" type="Node" parent="." unique_id=1358318381 node_paths=PackedStringArray("player", "state_machine", "air_state")]
+[node name="JumpInputHandler" type="Node" parent="." unique_id=1358318381 node_paths=PackedStringArray("player", "state_machine", "air_state", "wall_climb_state", "wall_slide_state")]
 unique_name_in_owner = true
 script = ExtResource("3_lqdhu")
 player = NodePath("..")
 state_machine = NodePath("../StateMachine")
 air_state = NodePath("../StateMachine/Air")
+wall_climb_state = NodePath("../StateMachine/WallClimb")
+wall_slide_state = NodePath("../StateMachine/WallSlide")
 
 [node name="InputBuffer" type="Timer" parent="JumpInputHandler" unique_id=586585607]
 wait_time = 0.25
@@ -163,18 +174,26 @@ player = NodePath("../..")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "run_state", "jump_state")]
+[node name="Air" type="Node" parent="StateMachine" unique_id=1757510152 node_paths=PackedStringArray("player", "idle_state", "walk_state", "run_state", "jump_state", "wall_slide_state", "wall_climb_state")]
 script = ExtResource("11_a31ob")
 player = NodePath("../..")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
+wall_slide_state = NodePath("../WallSlide")
+wall_climb_state = NodePath("../WallClimb")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player")]
+[node name="WallClimb" type="Node" parent="StateMachine" unique_id=414758961 node_paths=PackedStringArray("player", "air_state", "wall_slide_state", "idle_state", "walk_state", "run_state")]
 script = ExtResource("12_5qgjf")
+wall_climb_curve = SubResource("Curve_a31ob")
 player = NodePath("../..")
+air_state = NodePath("../Air")
+wall_slide_state = NodePath("../WallSlide")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player")]
@@ -182,9 +201,14 @@ script = ExtResource("13_fjj3i")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player")]
+[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "idle_state", "walk_state", "run_state")]
 script = ExtResource("14_3d0mj")
+wall_drag_strength_curve = SubResource("Curve_ogtao")
 player = NodePath("../..")
+air_state = NodePath("../Air")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="DebugHud" type="CanvasLayer" parent="." unique_id=1125550125]
@@ -235,3 +259,33 @@ script = ExtResource("16_t8d2k")
 target = NodePath("../../../../StateMachine/Slide")
 property = "current_speed_threshold"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="CurrentWallDrag" type="Label" parent="DebugHud/Control/DebugValues" unique_id=1003371842 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../../StateMachine/WallSlide")
+property = "current_wall_drag_strength"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="CurrentWallClimb" type="Label" parent="DebugHud/Control/DebugValues" unique_id=2069414715 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../../StateMachine/WallClimb")
+property = "current_wall_climb_strength"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="WallRaycasts" type="Node3D" parent="." unique_id=509607327]
+unique_name_in_owner = true
+script = ExtResource("17_yi0df")
+
+[node name="Front" type="RayCast3D" parent="WallRaycasts" unique_id=913121047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+target_position = Vector3(0, 0, -0.7)
+
+[node name="Left" type="RayCast3D" parent="WallRaycasts" unique_id=1326354013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+target_position = Vector3(-0.8, 0, 0)
+
+[node name="Right" type="RayCast3D" parent="WallRaycasts" unique_id=1633505155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+target_position = Vector3(0.8, 0, 0)

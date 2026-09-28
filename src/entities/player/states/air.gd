@@ -11,8 +11,12 @@ extends State
 @export var run_state: State
 @export var jump_state: State
 
+@export var wall_slide_state: State
+@export var wall_climb_state: State
+
 
 @onready var jump_input_handler: Node = %JumpInputHandler
+@onready var wall_raycasts: WallRaycasts = %WallRaycasts
 
 
 func enter() -> void:
@@ -37,6 +41,14 @@ func physics_update(delta: float) -> void:
 			state_machine.change_state(walk_state)
 		else:
 			state_machine.change_state(idle_state)
+	else:
+		if wall_raycasts.is_colliding():
+			if player.direction.length() > 0:
+				if not state_machine.change_state(wall_climb_state):
+					state_machine.change_state(wall_slide_state)
+			else:
+				state_machine.change_state(wall_slide_state)
+
 	
 	if jump_input_handler.consume():
 		state_machine.change_state(jump_state)

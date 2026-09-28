@@ -44,6 +44,7 @@ var new_velocity_length: float
 
 
 func _ready() -> void:
+	time = 0
 	boost_cooldown_timer.wait_time = entry_boost_cooldown
 
 

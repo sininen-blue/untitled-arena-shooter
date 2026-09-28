@@ -1,10 +1,32 @@
 extends State
 
+
+@export var speed: float = 10.0
+@export var accel: float = 2.0
+@export var drag: float = 1.0
+
+@export var wall_climb_strength: float = 20.0
+@export var wall_climb_duration: float = 1.25
+@export var wall_climb_curve: Curve
+
 @export var player: Player
+@export var air_state: State
+@export var wall_slide_state: State
+
+@export var idle_state: State
+@export var walk_state: State
+@export var run_state: State
+
+
+var time: float = 0.0
+var current_wall_climb_strength: float = 0.0
+
+
+@onready var wall_raycasts: WallRaycasts = %WallRaycasts
 
 
 func enter() -> void:
-	pass
+	time = 0
 
 
 func exit() -> void:
@@ -15,8 +37,38 @@ func update(_delta: float) -> void:
 	pass
 
 
-func physics_update(_delta: float) -> void:
-	pass
+func physics_update(delta: float) -> void:
+	if wall_raycasts.front_is_colliding() == false:
+		if wall_raycasts.is_colliding():
+			state_machine.change_state(wall_slide_state)
+		else:
+			state_machine.change_state(air_state)
+
+	if player.is_on_floor():
+		if player.direction.length() > 0:
+			if Input.is_action_pressed("run"):
+				state_machine.change_state(run_state)
+			else:
+				state_machine.change_state(walk_state)
+		else:
+			state_machine.change_state(idle_state) 
+	
+
+	player.velocity += player.get_gravity() * player.mass * delta
+
+	current_wall_climb_strength = wall_climb_curve.sample(time/wall_climb_duration) * wall_climb_strength
+	if Input.is_action_pressed("move_forward"):
+		time += 1 * delta
+		player.velocity.y += current_wall_climb_strength * delta
+
+	player.wish_velocity = player.direction * speed
+
+	if player.direction.length() > 0:
+		player.velocity.x = Utils.exp_decay(player.velocity.x, player.wish_velocity.x, accel, delta)
+		player.velocity.z = Utils.exp_decay(player.velocity.z, player.wish_velocity.z, accel, delta)
+	else:
+		player.velocity.x = Utils.exp_decay(player.velocity.x, player.direction.x, drag, delta)
+		player.velocity.z = Utils.exp_decay(player.velocity.z, player.direction.z, drag, delta)
 
 
 func handle_input(_event: InputEvent) -> void:
@@ -24,4 +76,6 @@ func handle_input(_event: InputEvent) -> void:
 
 
 func can_enter() -> bool:
-	return true
+	if wall_raycasts.front_is_colliding():
+		return true
+	return false

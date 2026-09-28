@@ -6,6 +6,8 @@ extends Node
 
 @export var state_machine: StateMachine
 @export var air_state: State
+@export var wall_climb_state: State
+@export var wall_slide_state: State
 
 
 var can_jump: bool = false
@@ -25,8 +27,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if player.is_on_floor() and state_machine.previous_state == air_state:
-		has_jumped = false
+	if state_machine.previous_state in [air_state, wall_climb_state, wall_slide_state]:
+		if player.is_on_floor():
+			has_jumped = false
 
 	if player.is_on_floor():
 		coyote_timer.start()
