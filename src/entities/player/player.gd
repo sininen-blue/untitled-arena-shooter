@@ -9,6 +9,9 @@ extends CharacterBody3D
 @export var wall_climb_state: State
 
 
+## NOTE: DEBUG
+var health = 4
+
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
 
@@ -29,9 +32,15 @@ func _ready() -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	camera.current = true
 
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if event.is_action_pressed("left_click"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
@@ -47,17 +56,27 @@ func _process(delta: float) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
+	
+	## NOTE: DEBUG
+	if Input.is_action_just_pressed("shoot"):
+		if %GunCast.is_colliding():
+			if %GunCast.get_collider() is Player:
+				%GunCast.get_collider().health -= 1 
+	
+	if health <= 0:
+		self.queue_free.call_deferred()
+	
 	if self.is_on_floor():
 		wall_climb_state.time = 0
 	
 	var twist_q = Quaternion(Vector3.UP, deg_to_rad(twist_input))
 	var body_current_q = basis.get_rotation_quaternion()
-	var smoothed_body_q = body_current_q.slerp(twist_q, delta * 50.0)
+	var smoothed_body_q = body_current_q.slerp(twist_q, delta * 40.0)
 	basis = Basis(smoothed_body_q)
 	
 	var pitch_q = Quaternion(Vector3.RIGHT, deg_to_rad(pitch_input))
 	var current_head_q = head.basis.get_rotation_quaternion()
-	var smoothed_head_q = current_head_q.slerp(pitch_q, delta * 50.0)
+	var smoothed_head_q = current_head_q.slerp(pitch_q, delta * 40.0)
 	head.basis = Basis(smoothed_head_q)
 
 

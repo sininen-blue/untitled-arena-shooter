@@ -74,6 +74,12 @@ mesh = SubResource("CapsuleMesh_crd4b")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
+[node name="GunCast" type="RayCast3D" parent="Head" unique_id=244317182]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -50)
+collision_mask = 3
+collide_with_areas = true
+
 [node name="Camera" type="Camera3D" parent="Head" unique_id=996360073]
 unique_name_in_owner = true
 
@@ -277,6 +283,30 @@ script = ExtResource("16_t8d2k")
 target = NodePath("../../../../StateMachine/WallClimb")
 property = "current_wall_climb_strength"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
+[node name="Hud" type="CanvasLayer" parent="." unique_id=982865618]
+
+[node name="Control" type="Control" parent="Hud" unique_id=198523636]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="ColorRect" parent="Hud/Control" unique_id=2143143827]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.4509804)
 
 [node name="WallRaycasts" type="Node3D" parent="." unique_id=509607327]
 unique_name_in_owner = true
