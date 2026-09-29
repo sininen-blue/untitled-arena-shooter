@@ -4,10 +4,12 @@ extends CharacterBody3D
 
 signal interacted(player: Player)
 
+@export var dropped_weapon: PackedScene
 
 @export var mouse_sensitivity: float = 0.1
 
 @export var mass: float = 2.0
+@export var weapon_throw_force: float = 8.0
 
 @export var wall_climb_state: State
 @export var wall_slide_state: State
@@ -32,6 +34,9 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var camera: Camera3D = %Camera
 @onready var hand_marker: Marker3D = $HandMarker
 
+@onready var interact_cast: RayCast3D = %InteractCast
+@onready var gun_cast: RayCast3D = %GunCast
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -55,7 +60,13 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	if event.is_action_pressed("interact"):
-		interacted.emit(self)
+		interacted.emit(self) # NOTE: remve move to collision required
+		
+		if interact_cast.is_colliding():
+			var interactable := interact_cast.get_collider()
+			interactable.interact(self)
+		elif interact_cast.is_colliding() == false and current_weapon:
+			drop_weapon()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -120,4 +131,14 @@ func get_weapon(weapon_instance: HitscanWeapon) -> void:
 
 
 func drop_weapon() -> void:
-	pass
+	if current_weapon:
+		var dropped_weapon_instance: DroppedWeapon = dropped_weapon.instantiate()
+		dropped_weapon_instance.weapon_instance = current_weapon.duplicate()
+		get_parent().add_child(dropped_weapon_instance)
+		dropped_weapon_instance.global_position = hand_marker.global_position
+
+		var throw_direction = (-global_basis.z + Vector3.UP).normalized()
+		dropped_weapon_instance.apply_central_impulse(throw_direction * weapon_throw_force)
+
+		hand_marker.remove_child(current_weapon)
+		current_weapon = null

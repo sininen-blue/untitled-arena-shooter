@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://b4et01dbvl15v" path="res://src/materials/prototype/green_prototype.tres" id="1_imnn4"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_3asdc"]
 [ext_resource type="PackedScene" uid="uid://cywkiulllec6l" path="res://src/entities/weapon_pickup/weapon_pickup.tscn" id="4_l6wl7"]
+[ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="5_lw0nj"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3asdc"]
 panorama = ExtResource("1_i3auu")
@@ -104,3 +105,6 @@ material = ExtResource("2_3asdc")
 
 [node name="WeaponPickup" parent="." unique_id=17605865 instance=ExtResource("4_l6wl7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.2675085)
+
+[node name="WeaponDrop" parent="." unique_id=1136660685 instance=ExtResource("5_lw0nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.265008, 0)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://hhrlbjgbdaqr"]
 
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
+[ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="2_0tyfe"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_vt6n5"]
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
@@ -60,6 +61,7 @@ point_count = 3
 collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
+dropped_weapon = ExtResource("2_0tyfe")
 wall_climb_state = NodePath("StateMachine/WallClimb")
 wall_slide_state = NodePath("StateMachine/WallSlide")
 
@@ -80,6 +82,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70000005, -0.5530962)
 [node name="Head" type="Node3D" parent="." unique_id=942467609]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="InteractCast" type="RayCast3D" parent="Head" unique_id=1674559908]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -2)
+collision_mask = 16
+collide_with_areas = true
+debug_shape_custom_color = Color(0.7334, 0.76, 0.228, 1)
 
 [node name="GunCast" type="RayCast3D" parent="Head" unique_id=244317182]
 unique_name_in_owner = true
