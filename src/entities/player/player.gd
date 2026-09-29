@@ -2,6 +2,9 @@ class_name  Player
 extends CharacterBody3D
 
 
+signal interacted(player: Player)
+
+
 @export var mouse_sensitivity: float = 0.1
 
 @export var mass: float = 2.0
@@ -13,6 +16,10 @@ extends CharacterBody3D
 ## NOTE: DEBUG
 @export var health: float = 4
 
+
+var current_weapon: HitscanWeapon
+
+
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
 
@@ -23,6 +30,7 @@ var wish_velocity: Vector3 = Vector3.ZERO
 
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
+@onready var hand_marker: Marker3D = $HandMarker
 
 
 func _enter_tree() -> void:
@@ -45,6 +53,10 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if event.is_action_pressed("left_click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	if event.is_action_pressed("interact"):
+		interacted.emit(self)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
@@ -62,10 +74,8 @@ func _process(delta: float) -> void:
 	
 	
 	## NOTE: DEBUG
-	if Input.is_action_just_pressed("shoot"):
-		if %GunCast.is_colliding():
-			if %GunCast.get_collider() is Player:
-				%GunCast.get_collider().take_damage.rpc(1)
+	if Input.is_action_pressed("shoot") and current_weapon:
+		current_weapon.shoot()
 	
 	# NOTE: put this in a compenent
 	if self.is_on_floor():
@@ -102,3 +112,12 @@ func take_damage(damage: float) -> void:
 	health -= damage
 	if health <= 0:
 		self.queue_free.call_deferred()
+
+
+func get_weapon(weapon_instance: HitscanWeapon) -> void:
+	current_weapon = weapon_instance
+	hand_marker.add_child(weapon_instance)
+
+
+func drop_weapon() -> void:
+	pass

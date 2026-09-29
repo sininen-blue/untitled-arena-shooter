@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bwqol0ratve68"]
 
+[ext_resource type="Script" uid="uid://jimv6dm7jnmt" path="res://src/entities/weapons/hitscan_weapon.gd" id="1_364lq"]
+
 [node name="TestWeapon" type="Node3D" unique_id=159616926]
+script = ExtResource("1_364lq")
 
 [node name="DebugModel" type="CSGBox3D" parent="." unique_id=204289909]
-size = Vector3(1, 0.2, 0.2)
+size = Vector3(0.2, 0.2, 1)
+
+[node name="ReloadTimer" type="Timer" parent="." unique_id=24940516]

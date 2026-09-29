@@ -29,7 +29,7 @@ func enter() -> void:
 	if player.velocity.y < 0:
 		player.velocity.y = player.velocity.y / 4
 	else:
-		player.velocity.y = player.velocity.y / 2
+		player.velocity.y = player.velocity.y / 1.5
 
 
 func exit(new_state: State) -> void:
