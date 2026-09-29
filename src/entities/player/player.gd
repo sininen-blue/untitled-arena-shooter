@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var mass: float = 2.0
 
 @export var wall_climb_state: State
+@export var wall_slide_state: State
 
 
 ## NOTE: DEBUG
@@ -63,8 +64,10 @@ func _process(delta: float) -> void:
 			if %GunCast.get_collider() is Player:
 				%GunCast.get_collider().take_damage.rpc(1)
 	
+	# NOTE: put this in a compenent
 	if self.is_on_floor():
 		wall_climb_state.time = 0
+		wall_slide_state.time = 0
 	
 	var twist_q = Quaternion(Vector3.UP, deg_to_rad(twist_input))
 	var body_current_q = basis.get_rotation_quaternion()

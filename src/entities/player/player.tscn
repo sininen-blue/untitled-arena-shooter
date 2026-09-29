@@ -52,15 +52,16 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5099602, 0.6692307), -2.0050313, -2.0050313, 0, 0, Vector2(1, 0), -0.24201132, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Curve" id="Curve_ogtao"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8372093, 0.61797756), -1.3137748, -1.3137748, 0, 0, Vector2(1, 0), -2.6944685, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_5qgjf"]
+_data = [Vector2(0, 0.19008267), 0.0, 0.0, 0, 0, Vector2(0.7091633, 0.38842976), 1.6819308, 1.6819308, 0, 0, Vector2(1, 1), 2.8211563, 0.0, 0, 0]
 point_count = 3
 
-[node name="Player" type="CharacterBody3D" unique_id=1405837965 node_paths=PackedStringArray("wall_climb_state")]
+[node name="Player" type="CharacterBody3D" unique_id=1405837965 node_paths=PackedStringArray("wall_climb_state", "wall_slide_state")]
 collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
 wall_climb_state = NodePath("StateMachine/WallClimb")
+wall_slide_state = NodePath("StateMachine/WallSlide")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=376472050]
 replication_config = SubResource("SceneReplicationConfig_4m8ck")
@@ -208,7 +209,7 @@ metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "wall_climb_state", "idle_state", "walk_state", "run_state") groups=["wall"]]
 script = ExtResource("14_3d0mj")
-wall_drag_strength_curve = SubResource("Curve_ogtao")
+gravity_strength_curve = SubResource("Curve_5qgjf")
 player = NodePath("../..")
 air_state = NodePath("../Air")
 wall_jump_state = NodePath("../WallJump")
@@ -284,7 +285,7 @@ metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 layout_mode = 2
 script = ExtResource("16_t8d2k")
 target = NodePath("../../../../StateMachine/WallSlide")
-property = "current_wall_drag_strength"
+property = "current_gravity_strength"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 
 [node name="CurrentWallClimb" type="Label" parent="DebugHud/Control/DebugValues" unique_id=2069414715 node_paths=PackedStringArray("target")]

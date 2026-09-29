@@ -35,6 +35,7 @@ func enter() -> void:
 	else:
 		player.velocity.y = player.velocity.y / 2
 
+
 func exit(new_state: State) -> void:
 	if new_state.is_in_group("ground"):
 		time = 0
@@ -47,7 +48,8 @@ func update(_delta: float) -> void:
 func physics_update(delta: float) -> void:
 	if wall_raycasts.front_is_colliding() == false:
 		if wall_raycasts.is_colliding():
-			state_machine.change_state(wall_slide_state)
+			if not state_machine.change_state(wall_slide_state):
+				state_machine.change_state(air_state)
 		else:
 			state_machine.change_state(air_state)
 
@@ -89,6 +91,6 @@ func handle_input(_event: InputEvent) -> void:
 
 
 func can_enter() -> bool:
-	if wall_raycasts.front_is_colliding():
+	if wall_raycasts.front_is_colliding() and time == 0:
 		return true
 	return false
