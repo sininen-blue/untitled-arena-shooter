@@ -8,7 +8,7 @@ extends State
 
 
 func enter() -> void:
-	player.velocity.y = jump_force
+	player.velocity += (player.get_floor_normal() + Vector3.UP).normalized() * jump_force
 	state_machine.change_state(air_state)
 
 

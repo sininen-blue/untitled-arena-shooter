@@ -49,7 +49,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_a31ob"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7051792, 0.5041323), -1.5039252, -1.5039252, 0, 0, Vector2(1, 0), -1.7443639, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5099602, 0.6692307), -2.0050313, -2.0050313, 0, 0, Vector2(1, 0), -0.24201132, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_ogtao"]

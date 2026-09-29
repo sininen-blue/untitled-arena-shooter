@@ -4,8 +4,8 @@ extends State
 @export var speed: float = 7.0
 @export var accel: float = 2.0
 @export var drag: float = 1.0
-@export var wall_drag: float = 10.0
-@export var wall_slide_duration: float = 2.0
+@export var wall_drag: float = 8.0
+@export var wall_slide_duration: float = 1.25
 
 @export var wall_drag_strength_curve: Curve
 

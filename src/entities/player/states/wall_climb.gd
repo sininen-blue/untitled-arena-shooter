@@ -5,8 +5,8 @@ extends State
 @export var accel: float = 2.0
 @export var drag: float = 1.0
 
-@export var wall_climb_strength: float = 13.0
-@export var wall_climb_duration: float = 1.25
+@export var wall_climb_strength: float = 3.5
+@export var wall_climb_duration: float = 0.75
 @export var wall_climb_curve: Curve
 
 @export var player: Player
@@ -32,7 +32,8 @@ func enter() -> void:
 			player.velocity.y = 0
 		else:
 			player.velocity.y = player.velocity.y / 4
-
+	else:
+		player.velocity.y = player.velocity.y / 2
 
 func exit(new_state: State) -> void:
 	if new_state.is_in_group("ground"):
@@ -65,13 +66,13 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		state_machine.change_state(wall_jump_state)
 	
-
-	player.velocity += player.get_gravity() * player.mass * delta
-
+	
 	current_wall_climb_strength = wall_climb_curve.sample(time/wall_climb_duration) * wall_climb_strength
 	if Input.is_action_pressed("move_forward"):
 		time += 1 * delta
 		player.velocity.y += current_wall_climb_strength * delta
+	else:
+		player.velocity += player.get_gravity() * player.mass/2 * delta
 
 	player.wish_velocity = player.direction * speed
 
