@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bwqol0ratve68"]
+
+[node name="TestWeapon" type="Node3D" unique_id=159616926]
+
+[node name="DebugModel" type="CSGBox3D" parent="." unique_id=204289909]
+size = Vector3(1, 0.2, 0.2)

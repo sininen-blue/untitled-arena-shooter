@@ -91,6 +91,6 @@ func handle_input(_event: InputEvent) -> void:
 
 
 func can_enter() -> bool:
-	if wall_raycasts.front_is_colliding() and time == 0:
+	if wall_raycasts.front_is_colliding() and time <= wall_climb_duration:
 		return true
 	return false

@@ -219,10 +219,11 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player", "air_state") groups=["wall"]]
+[node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player", "air_state", "wall_slide_state") groups=["wall"]]
 script = ExtResource("13_fjj3i")
 player = NodePath("../..")
 air_state = NodePath("../Air")
+wall_slide_state = NodePath("../WallSlide")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="DebugHud" type="CanvasLayer" parent="." unique_id=1125550125]
@@ -295,6 +296,14 @@ target = NodePath("../../../../StateMachine/WallClimb")
 property = "current_wall_climb_strength"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 
+[node name="Iscolliding" type="Label" parent="DebugHud/Control/DebugValues" unique_id=69792356 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../../WallRaycasts")
+member_type = "function"
+property = "is_colliding"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
 [node name="Hud" type="CanvasLayer" parent="." unique_id=982865618]
 
 [node name="Control" type="Control" parent="Hud" unique_id=198523636]
@@ -327,10 +336,34 @@ script = ExtResource("17_yi0df")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 target_position = Vector3(0, 0, -0.7)
 
+[node name="FrontBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1373530662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 0, -0.7)
+
+[node name="FrontTop" type="RayCast3D" parent="WallRaycasts" unique_id=2076350638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+target_position = Vector3(0, 0, -0.7)
+
 [node name="Left" type="RayCast3D" parent="WallRaycasts" unique_id=1326354013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 target_position = Vector3(-0.8, 0, 0)
 
+[node name="LeftBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1784784021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(-0.8, 0, 0)
+
+[node name="LeftTop" type="RayCast3D" parent="WallRaycasts" unique_id=441992871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+target_position = Vector3(-0.8, 0, 0)
+
 [node name="Right" type="RayCast3D" parent="WallRaycasts" unique_id=1633505155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+target_position = Vector3(0.8, 0, 0)
+
+[node name="RightBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1435640405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0.8, 0, 0)
+
+[node name="RightTop" type="RayCast3D" parent="WallRaycasts" unique_id=1182210959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 target_position = Vector3(0.8, 0, 0)

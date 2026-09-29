@@ -38,6 +38,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+		return
+	
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if event.is_action_pressed("left_click"):

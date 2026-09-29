@@ -5,6 +5,14 @@ extends Label
 @export_enum("property", "function") var member_type: String = "property"
 @export var property: String
 
+
+func _ready() -> void:
+	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+		self.visible = false
+		return
+	self.visible = true
+
+
 func _process(_delta: float) -> void:
 	if target == null:
 		return

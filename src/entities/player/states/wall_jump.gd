@@ -1,12 +1,13 @@
 extends State
 
 
-@export var jump: float = 10
+@export var jump: float = 5
 @export var vertical_component: float = 1.0
 @export var horizontal_component: float = 1.2
 
 @export var player: Player
 @export var air_state: State
+@export var wall_slide_state: State
 
 
 @onready var wall_raycasts: WallRaycasts = %WallRaycasts
@@ -29,6 +30,8 @@ func update(_delta: float) -> void:
 func physics_update(_delta: float) -> void:
 	if wall_raycasts.is_colliding() == false:
 		state_machine.change_state(air_state)
+	else:
+		state_machine.change_state(wall_slide_state)
 
 
 func handle_input(_event: InputEvent) -> void:
