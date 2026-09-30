@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
 [ext_resource type="Script" uid="uid://cjiwmq1bir8ok" path="res://src/entities/player/states/idle.gd" id="4_0mfjg"]
+[ext_resource type="Script" uid="uid://ccpwv8s3m6vi6" path="res://src/entities/player/head.gd" id="4_5qgjf"]
+[ext_resource type="PackedScene" uid="uid://c2v6wcejiaqct" path="res://src/entities/player/player_camera/camera.tscn" id="4_a31ob"]
 [ext_resource type="Script" uid="uid://b2ny7ea81hgc4" path="res://src/resources/hurtbox/hurtbox.gd" id="4_ogtao"]
 [ext_resource type="Script" uid="uid://cxii7gi18pu6t" path="res://src/entities/player/states/crouch.gd" id="5_p2qdy"]
 [ext_resource type="Script" uid="uid://camq1xc2u20a7" path="res://src/entities/player/states/crouch_move.gd" id="6_lqdhu"]
@@ -84,11 +86,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("CapsuleMesh_crd4b")
 
 [node name="HeadHurtbox" type="Area3D" parent="." unique_id=1287939419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0353771, 0)
 script = ExtResource("4_ogtao")
 metadata/_custom_type_script = "uid://b2ny7ea81hgc4"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HeadHurtbox" unique_id=699316145]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2117312, 0)
 shape = SubResource("SphereShape3D_ogtao")
 debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 
@@ -101,9 +103,19 @@ metadata/_custom_type_script = "uid://b2ny7ea81hgc4"
 shape = SubResource("BoxShape3D_ogtao")
 debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 
-[node name="Head" type="Node3D" parent="." unique_id=942467609]
+[node name="HeadTarget" type="Marker3D" parent="." unique_id=137720916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Head" type="Node3D" parent="." unique_id=942467609 node_paths=PackedStringArray("head_target")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("4_5qgjf")
+head_target = NodePath("../HeadTarget")
+
+[node name="Camera" parent="Head" unique_id=1049634563 node_paths=PackedStringArray("player", "state_machine") instance=ExtResource("4_a31ob")]
+unique_name_in_owner = true
+player = NodePath("../..")
+state_machine = NodePath("../../StateMachine")
 
 [node name="HandMarker" type="Marker3D" parent="Head" unique_id=1089889852]
 unique_name_in_owner = true
@@ -121,9 +133,6 @@ unique_name_in_owner = true
 target_position = Vector3(0, 0, -50)
 collision_mask = 5
 collide_with_areas = true
-
-[node name="Camera" type="Camera3D" parent="Head" unique_id=996360073]
-unique_name_in_owner = true
 
 [node name="JumpInputHandler" type="Node" parent="." unique_id=1358318381 node_paths=PackedStringArray("player", "state_machine", "air_state", "wall_climb_state", "wall_slide_state")]
 unique_name_in_owner = true

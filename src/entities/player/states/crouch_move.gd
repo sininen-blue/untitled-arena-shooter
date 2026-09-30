@@ -15,11 +15,11 @@ extends State
 
 
 func enter() -> void:
-	player.head.position.y = 0.5
+	player.head_target.position.y = 0.5
 
 
 func exit(_new_state: State) -> void:
-	player.head.position.y = 1.0
+	player.head_target.position.y = 1.0
 
 
 func update(_delta: float) -> void:

@@ -50,7 +50,7 @@ func _ready() -> void:
 
 
 func enter() -> void:
-	player.head.position.y = 0.25
+	player.head_target.position.y = 0.25
 
 	if boost_cooldown_timer.is_stopped():
 		player.velocity += player.velocity.normalized() * entry_boost
@@ -58,7 +58,7 @@ func enter() -> void:
 
 
 func exit(_new_state: State) -> void:
-	player.head.position.y = 1.0
+	player.head_target.position.y = 1.0
 
 
 func update(delta: float) -> void:

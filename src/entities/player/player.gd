@@ -31,8 +31,10 @@ var wish_velocity: Vector3 = Vector3.ZERO
 
 
 @onready var head: Node3D = %Head
+@onready var head_target: Marker3D = $HeadTarget
 @onready var camera: Camera3D = %Camera
 @onready var hand_marker: Marker3D = %HandMarker
+
 
 @onready var interact_cast: RayCast3D = %InteractCast
 @onready var gun_cast: RayCast3D = %GunCast
