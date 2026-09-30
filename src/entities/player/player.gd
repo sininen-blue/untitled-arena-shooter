@@ -4,8 +4,7 @@ extends CharacterBody3D
 
 signal interacted(player: Player)
 
-@export var dropped_weapon: PackedScene
-
+@export var dropped_spawner: DroppedSpawner
 @export var mouse_sensitivity: float = 0.1
 
 @export var mass: float = 2.0
@@ -47,7 +46,8 @@ func _ready() -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
-	
+	if get_parent() != null:
+		dropped_spawner = get_parent().dropped_spawner
 	camera.current = true
 
 
@@ -74,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		twist_input -= event.screen_relative.x * mouse_sensitivity
 		pitch_input -= event.screen_relative.y * mouse_sensitivity
 		pitch_input = clampf(pitch_input, -85, 85)
@@ -140,16 +140,11 @@ func get_weapon(weapon_instance: HitscanWeapon) -> void:
 
 func drop_weapon() -> void:
 	if current_weapon:
-		var dropped_weapon_instance: DroppedWeapon = dropped_weapon.instantiate()
-		dropped_weapon_instance.weapon_instance = current_weapon.duplicate()
-		get_parent().add_child(dropped_weapon_instance)
-		dropped_weapon_instance.global_position = hand_marker.global_position
-
+		var weapon: HitscanWeapon = current_weapon.duplicate()
+		var spawn_loc: Vector3 = hand_marker.global_position
 		var throw_direction: Vector3 = (-global_basis.z + Vector3.UP).normalized()
 		var throw_rotation: float = atan2(-global_basis.z.x, -global_basis.z.z)
-
-		dropped_weapon_instance.rotation.y = throw_rotation
-		dropped_weapon_instance.apply_central_impulse(throw_direction * weapon_throw_force)
+		dropped_spawner.request_spawn(weapon, spawn_loc, throw_direction, throw_rotation)
 
 		hand_marker.remove_child(current_weapon)
 		current_weapon = null

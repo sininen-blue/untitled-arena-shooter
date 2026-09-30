@@ -8,6 +8,9 @@ extends MultiplayerSpawner
 var ready_peers: Array[int] = []
 
 
+@onready var dropped_spawner: MultiplayerSpawner = $"../DroppedSpawner"
+
+
 func _ready() -> void:
 	self.spawn_function = _spawn_player
 	

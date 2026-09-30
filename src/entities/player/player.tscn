@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://hhrlbjgbdaqr"]
 
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
-[ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="2_0tyfe"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_vt6n5"]
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
@@ -70,14 +69,8 @@ point_count = 3
 collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
-dropped_weapon = ExtResource("2_0tyfe")
-mouse_sensitivity = null
-mass = null
-weapon_throw_force = null
 wall_climb_state = NodePath("StateMachine/WallClimb")
 wall_slide_state = NodePath("StateMachine/WallSlide")
-headshot_mult = null
-max_health = null
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=376472050]
 replication_config = SubResource("SceneReplicationConfig_4m8ck")
