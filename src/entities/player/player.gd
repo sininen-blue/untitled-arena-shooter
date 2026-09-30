@@ -15,8 +15,9 @@ signal interacted(player: Player)
 @export var wall_slide_state: State
 
 
-## NOTE: DEBUG
-@export var health: float = 4
+@export var headshot_mult: float = 1.5
+@export var max_health: float = 20
+@export var health: float = max_health
 
 
 var current_weapon: HitscanWeapon
@@ -32,7 +33,7 @@ var wish_velocity: Vector3 = Vector3.ZERO
 
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
-@onready var hand_marker: Marker3D = $HandMarker
+@onready var hand_marker: Marker3D = %HandMarker
 
 @onready var interact_cast: RayCast3D = %InteractCast
 @onready var gun_cast: RayCast3D = %GunCast
@@ -86,7 +87,14 @@ func _process(delta: float) -> void:
 	
 	## NOTE: DEBUG
 	if Input.is_action_pressed("shoot") and current_weapon:
-		current_weapon.shoot()
+		if current_weapon.shoot():
+			if gun_cast.is_colliding():
+				if gun_cast.get_collider() is HurtboxArea:
+					var hurtbox: HurtboxArea = gun_cast.get_collider()
+					hurtbox.take_hit(self, current_weapon.damage)
+				else:
+					pass
+					# TODO: decals and sparks
 	
 	# NOTE: put this in a compenent
 	if self.is_on_floor():
@@ -137,8 +145,19 @@ func drop_weapon() -> void:
 		get_parent().add_child(dropped_weapon_instance)
 		dropped_weapon_instance.global_position = hand_marker.global_position
 
-		var throw_direction = (-global_basis.z + Vector3.UP).normalized()
+		var throw_direction: Vector3 = (-global_basis.z + Vector3.UP).normalized()
+		var throw_rotation: float = atan2(-global_basis.z.x, -global_basis.z.z)
+
+		dropped_weapon_instance.rotation.y = throw_rotation
 		dropped_weapon_instance.apply_central_impulse(throw_direction * weapon_throw_force)
 
 		hand_marker.remove_child(current_weapon)
 		current_weapon = null
+
+
+func _on_head_hurtbox_hit(hitter: Node, damage: float) -> void:
+	take_damage.rpc(damage * headshot_mult)
+
+
+func _on_body_hurtbox_hit(hitter: Node, damage: float) -> void:
+	take_damage.rpc(damage)

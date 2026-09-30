@@ -7,3 +7,8 @@ func _ready() -> void:
 	var blue: float = randf_range(0, 1)
 	$DebugModel.material = $DebugModel.material.duplicate()
 	$DebugModel.material.albedo_color = Color(red, green, blue)
+
+
+func _process(_delta: float) -> void:
+	super._process(_delta)
+	$Ammo.text = str(ammo)

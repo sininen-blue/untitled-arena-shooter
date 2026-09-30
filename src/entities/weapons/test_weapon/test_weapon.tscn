@@ -12,3 +12,7 @@ size = Vector3(0.2, 0.2, 1)
 material = SubResource("StandardMaterial3D_n2wjn")
 
 [node name="ReloadTimer" type="Timer" parent="." unique_id=24940516]
+
+[node name="Ammo" type="Label3D" parent="." unique_id=1586735007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31285423, 0.14827913, -0.4335494)
+text = "30"

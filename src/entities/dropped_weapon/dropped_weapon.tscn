@@ -17,7 +17,8 @@ radius = 0.25
 collision_layer = 0
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_80twh")
-angular_damp = 50.0
+angular_damp = 20.0
+constant_torque = Vector3(0, 1, 0)
 script = ExtResource("1_x0ifw")
 weapon_scene = ExtResource("2_80twh")
 

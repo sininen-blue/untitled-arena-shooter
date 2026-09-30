@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _on_interact_area_interacted(interactee: Player) -> void:
-	var local_weapon_instance: HitscanWeapon = weapon_scene.instantiate()
+	var local_weapon_instance: HitscanWeapon = weapon_instance.duplicate()
 	
 	if interactee.current_weapon != null:
 		interactee.drop_weapon()

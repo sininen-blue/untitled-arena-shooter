@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
 [ext_resource type="Script" uid="uid://cjiwmq1bir8ok" path="res://src/entities/player/states/idle.gd" id="4_0mfjg"]
+[ext_resource type="Script" uid="uid://b2ny7ea81hgc4" path="res://src/resources/hurtbox/hurtbox.gd" id="4_ogtao"]
 [ext_resource type="Script" uid="uid://cxii7gi18pu6t" path="res://src/entities/player/states/crouch.gd" id="5_p2qdy"]
 [ext_resource type="Script" uid="uid://camq1xc2u20a7" path="res://src/entities/player/states/crouch_move.gd" id="6_lqdhu"]
 [ext_resource type="Script" uid="uid://gs1aohogbsdn" path="res://src/entities/player/states/walk.gd" id="7_t8d2k"]
@@ -31,11 +32,19 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
+radius = 0.3
 height = 1.45
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_crd4b"]
 material = ExtResource("2_vt6n5")
+radius = 0.3
 height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ogtao"]
+radius = 0.3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ogtao"]
+size = Vector3(0.5, 0.90000004, 0.5)
 
 [sub_resource type="Curve" id="Curve_0tyfe"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -62,8 +71,13 @@ collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
 dropped_weapon = ExtResource("2_0tyfe")
+mouse_sensitivity = null
+mass = null
+weapon_throw_force = null
 wall_climb_state = NodePath("StateMachine/WallClimb")
 wall_slide_state = NodePath("StateMachine/WallSlide")
+headshot_mult = null
+max_health = null
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=376472050]
 replication_config = SubResource("SceneReplicationConfig_4m8ck")
@@ -76,12 +90,31 @@ shape = SubResource("CapsuleShape3D_crd4b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("CapsuleMesh_crd4b")
 
-[node name="HandMarker" type="Marker3D" parent="." unique_id=1089889852]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70000005, -0.5530962)
+[node name="HeadHurtbox" type="Area3D" parent="." unique_id=1287939419]
+script = ExtResource("4_ogtao")
+metadata/_custom_type_script = "uid://b2ny7ea81hgc4"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HeadHurtbox" unique_id=699316145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2117312, 0)
+shape = SubResource("SphereShape3D_ogtao")
+debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
+
+[node name="BodyHurtbox" type="Area3D" parent="." unique_id=508406399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+script = ExtResource("4_ogtao")
+metadata/_custom_type_script = "uid://b2ny7ea81hgc4"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyHurtbox" unique_id=254339337]
+shape = SubResource("BoxShape3D_ogtao")
+debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 
 [node name="Head" type="Node3D" parent="." unique_id=942467609]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="HandMarker" type="Marker3D" parent="Head" unique_id=1089889852]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29999995, -0.5530962)
 
 [node name="InteractCast" type="RayCast3D" parent="Head" unique_id=1674559908]
 unique_name_in_owner = true
@@ -93,7 +126,7 @@ debug_shape_custom_color = Color(0.7334, 0.76, 0.228, 1)
 [node name="GunCast" type="RayCast3D" parent="Head" unique_id=244317182]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -50)
-collision_mask = 3
+collision_mask = 5
 collide_with_areas = true
 
 [node name="Camera" type="Camera3D" parent="Head" unique_id=996360073]
@@ -379,3 +412,6 @@ target_position = Vector3(0.65, 0, 0)
 [node name="RightTop" type="RayCast3D" parent="WallRaycasts" unique_id=1182210959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 target_position = Vector3(0.65, 0, 0)
+
+[connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
+[connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
