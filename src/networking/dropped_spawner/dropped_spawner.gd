@@ -11,7 +11,6 @@ extends MultiplayerSpawner
 
 func request_spawn(weapon: HitscanWeapon, spawn_loc: Vector3, throw_dir: Vector3, throw_rot: float) -> void:
 	var weapon_data: Dictionary = _serialize(weapon)
-	print(weapon_data)
 
 	spawn_dropped_weapon.rpc_id(1, weapon_data, spawn_loc, throw_dir, throw_rot)
 
@@ -25,8 +24,8 @@ func spawn_dropped_weapon(weapon_data: Dictionary, spawn_loc: Vector3, throw_dir
 	
 	var weapon: HitscanWeapon = load(weapon_data.get("file_path")).instantiate()
 	weapon.ammo = weapon_data.get("ammo")
-	print(weapon)
 	dropped_weapon_instance.weapon_instance = weapon
+	dropped_weapon_instance.spawner = self
 
 	dropped_weapons.add_child(dropped_weapon_instance, true)
 
@@ -36,7 +35,10 @@ func spawn_dropped_weapon(weapon_data: Dictionary, spawn_loc: Vector3, throw_dir
 
 	await get_tree().physics_frame
 	dropped_weapon_instance.apply_central_impulse(throw_dir * weapon_throw_force)
-	
+
+
+func request_despawn(weapon: DroppedWeapon) -> void:
+	dropped_weapons.remove_child.call_deferred(weapon)
 
 
 func _serialize(weapon: HitscanWeapon) -> Dictionary:

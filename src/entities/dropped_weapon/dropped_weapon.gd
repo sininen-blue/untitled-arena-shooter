@@ -2,6 +2,7 @@ class_name DroppedWeapon
 extends RigidBody3D
 
 
+@export var spawner: DroppedSpawner
 @export var weapon_scene: PackedScene 
 @export var weapon_instance: HitscanWeapon
 
@@ -19,4 +20,4 @@ func _on_interact_area_interacted(interactee: Player) -> void:
 		interactee.drop_weapon()
 	
 	interactee.get_weapon(local_weapon_instance)
-	self.queue_free.call_deferred()
+	spawner.request_despawn(self)
