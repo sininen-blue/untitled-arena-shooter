@@ -134,8 +134,8 @@ func take_damage(damage: float) -> void:
 
 
 func get_weapon(weapon_instance: HitscanWeapon) -> void:
-	current_weapon = weapon_instance
-	hand_marker.add_child(weapon_instance)
+	# NOTE: make an autoload for all of thiese
+	get_parent().request_weapon(self, weapon_instance)
 
 
 func drop_weapon() -> void:
@@ -146,7 +146,7 @@ func drop_weapon() -> void:
 		var throw_rotation: float = atan2(-global_basis.z.x, -global_basis.z.z)
 		dropped_spawner.request_spawn(weapon, spawn_loc, throw_direction, throw_rotation)
 
-		hand_marker.remove_child(current_weapon)
+		get_parent().request_remove_weapon(self)
 		current_weapon = null
 
 
