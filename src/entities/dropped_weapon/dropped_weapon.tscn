@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://be5yb17j17k0n"]
 
 [ext_resource type="Script" uid="uid://uwhkxbio8kho" path="res://src/entities/dropped_weapon/dropped_weapon.gd" id="1_x0ifw"]
-[ext_resource type="PackedScene" uid="uid://bwqol0ratve68" path="res://src/entities/weapons/test_weapon/test_weapon.tscn" id="2_80twh"]
 [ext_resource type="PackedScene" uid="uid://8gq88kmkkkxo" path="res://src/resources/interact_area/interact_area.tscn" id="3_mowev"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_80twh"]
@@ -28,7 +27,6 @@ physics_material_override = SubResource("PhysicsMaterial_80twh")
 angular_damp = 20.0
 constant_torque = Vector3(0, 1, 0)
 script = ExtResource("1_x0ifw")
-weapon_scene = ExtResource("2_80twh")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=629063915]
 replication_config = SubResource("SceneReplicationConfig_mowev")

@@ -13,6 +13,7 @@ var pending_position: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
+	print(weapon_file_path)
 	weapon_instance = load(weapon_file_path).instantiate()
 	weapon_instance.ammo = weapon_ammo
 	add_child(weapon_instance)
@@ -25,6 +26,7 @@ func _ready() -> void:
 
 func _on_interact_area_interacted(interactee: Player) -> void:
 	var local_weapon_instance: HitscanWeapon = weapon_instance.duplicate()
+	local_weapon_instance.ammo = weapon_ammo
 	
 	if interactee.current_weapon != null:
 		interactee.drop_weapon()
