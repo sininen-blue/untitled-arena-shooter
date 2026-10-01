@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://be3chck56d0cu" path="res://src/entities/player/states/wall_slide.gd" id="14_3d0mj"]
 [ext_resource type="Script" uid="uid://cud2jpqwvuegw" path="res://src/debug/debug_label/debug_label.gd" id="16_t8d2k"]
 [ext_resource type="Script" uid="uid://ccbgt2rquptq3" path="res://src/entities/player/wall_raycasts/wall_raycasts.gd" id="17_yi0df"]
+[ext_resource type="Shader" uid="uid://1vsbcu7e417i" path="res://src/shaders/speedlines.gdshader" id="20_5qgjf"]
+[ext_resource type="Script" uid="uid://dqym1pawtheqn" path="res://src/entities/player/shaders.gd" id="20_fjj3i"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4m8ck"]
 properties/0/path = NodePath(".:position")
@@ -51,6 +53,10 @@ size = Vector3(0.5, 0.90000004, 0.5)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.9840202, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_3d0mj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Curve" id="Curve_0tyfe"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -70,6 +76,28 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_5qgjf"]
 _data = [Vector2(0, 0.19008267), 0.0, 0.0, 0, 0, Vector2(0.7091633, 0.38842976), 1.6819308, 1.6819308, 0, 0, Vector2(1, 1), 2.8211563, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Curve" id="Curve_dao75"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.61565834, 0.19565213), 0.92556024, 0.92556024, 0, 0, Vector2(0.8149466, 0.8550725), 2.0979354, 2.0979354, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fjj3i"]
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3d0mj"]
+noise = SubResource("FastNoiseLite_fjj3i")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dao75"]
+shader = ExtResource("20_5qgjf")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/noise = SubResource("NoiseTexture2D_3d0mj")
+shader_parameter/sample_radius = 0.5
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/center_radius = 0.5
+shader_parameter/hole_smoothness = 0.4
+shader_parameter/hole_radius = 0.50000002375
+shader_parameter/transparency = 1.0
 
 [node name="Player" type="CharacterBody3D" unique_id=1405837965 node_paths=PackedStringArray("wall_climb_state", "wall_slide_state")]
 collision_layer = 2
@@ -123,6 +151,7 @@ unique_name_in_owner = true
 player = NodePath("../..")
 state_machine = NodePath("../../StateMachine")
 wall_raycasts = NodePath("../../WallRaycasts")
+fov_curve = SubResource("Curve_3d0mj")
 
 [node name="HandMarker" type="Marker3D" parent="Head" unique_id=1089889852]
 unique_name_in_owner = true
@@ -381,6 +410,29 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.4509804)
+
+[node name="Shaders" type="CanvasLayer" parent="." unique_id=1863526419 node_paths=PackedStringArray("player")]
+script = ExtResource("20_fjj3i")
+player = NodePath("..")
+lines_curve = SubResource("Curve_dao75")
+
+[node name="Control" type="Control" parent="Shaders" unique_id=754099523]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SpeedLines" type="ColorRect" parent="Shaders/Control" unique_id=1325027727]
+material = SubResource("ShaderMaterial_dao75")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="WallRaycasts" type="Node3D" parent="." unique_id=509607327]
 unique_name_in_owner = true
