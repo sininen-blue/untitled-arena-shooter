@@ -1,5 +1,6 @@
 extends State
 
+signal air_to_ground(force: float)
 
 @export var speed: float = 8.0
 @export var accel: float = 2.0
@@ -16,6 +17,9 @@ extends State
 @export var wall_climb_state: State
 
 
+var previous_y_velocity: float = 0
+
+
 @onready var jump_input_handler: Node = %JumpInputHandler
 @onready var wall_raycasts: WallRaycasts = %WallRaycasts
 
@@ -24,8 +28,9 @@ func enter() -> void:
 	pass
 
 
-func exit(_new_state: State) -> void:
-	pass
+func exit(new_state: State) -> void:
+	if new_state.is_in_group("ground"):
+		air_to_ground.emit(previous_y_velocity)
 
 
 func update(_delta: float) -> void:
@@ -65,6 +70,9 @@ func physics_update(delta: float) -> void:
 	else:
 		player.velocity.x = Utils.exp_decay(player.velocity.x, player.direction.x, deccel, delta)
 		player.velocity.z = Utils.exp_decay(player.velocity.z, player.direction.z, deccel, delta)
+	
+	
+	previous_y_velocity = player.velocity.y
 
 
 func handle_input(_event: InputEvent) -> void:

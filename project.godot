@@ -30,6 +30,7 @@ window/stretch/mode="canvas_items"
 
 ground="states that are grounded"
 wall="states that are wall related"
+slide="player slide state"
 
 [input]
 

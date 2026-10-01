@@ -35,7 +35,21 @@ func is_colliding() -> bool:
 
 
 func front_is_colliding() -> bool:
-	return front.is_colliding()
+	if _has_active_collision(front_raycasts):
+		return true
+	return false
+
+
+func left_is_colliding() -> bool:
+	if _has_active_collision(left_raycasts):
+		return true
+	return false
+
+
+func right_is_colliding() -> bool:
+	if _has_active_collision(right_raycasts):
+		return true
+	return false
 
 
 func get_wall_normal() -> Vector3:

@@ -47,6 +47,10 @@ radius = 0.3
 [sub_resource type="BoxShape3D" id="BoxShape3D_ogtao"]
 size = Vector3(0.5, 0.90000004, 0.5)
 
+[sub_resource type="Curve" id="Curve_fjj3i"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.9840202, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Curve" id="Curve_0tyfe"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -106,16 +110,19 @@ debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 [node name="HeadTarget" type="Marker3D" parent="." unique_id=137720916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Head" type="Node3D" parent="." unique_id=942467609 node_paths=PackedStringArray("head_target")]
+[node name="Head" type="Node3D" parent="." unique_id=942467609 node_paths=PackedStringArray("state_machine", "head_target")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("4_5qgjf")
+state_machine = NodePath("../StateMachine")
 head_target = NodePath("../HeadTarget")
+landing_pos_curve = SubResource("Curve_fjj3i")
 
-[node name="Camera" parent="Head" unique_id=1049634563 node_paths=PackedStringArray("player", "state_machine") instance=ExtResource("4_a31ob")]
+[node name="Camera" parent="Head" unique_id=1049634563 node_paths=PackedStringArray("player", "state_machine", "wall_raycasts") instance=ExtResource("4_a31ob")]
 unique_name_in_owner = true
 player = NodePath("../..")
 state_machine = NodePath("../../StateMachine")
+wall_raycasts = NodePath("../../WallRaycasts")
 
 [node name="HandMarker" type="Marker3D" parent="Head" unique_id=1089889852]
 unique_name_in_owner = true
@@ -166,7 +173,7 @@ crouch_state = NodePath("../Crouch")
 jump_satte = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470 node_paths=PackedStringArray("player", "air_state", "idle_state", "jump_state", "crouch_move_state") groups=["ground"]]
+[node name="Crouch" type="Node" parent="StateMachine" unique_id=1394655470 node_paths=PackedStringArray("player", "air_state", "idle_state", "jump_state", "crouch_move_state") groups=["ground", "slide"]]
 script = ExtResource("5_p2qdy")
 player = NodePath("../..")
 air_state = NodePath("../Air")
@@ -175,7 +182,7 @@ jump_state = NodePath("../Jump")
 crouch_move_state = NodePath("../CrouchMove")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503 node_paths=PackedStringArray("player", "walk_state", "crouch_state", "air_state", "jump_state") groups=["ground"]]
+[node name="CrouchMove" type="Node" parent="StateMachine" unique_id=600319503 node_paths=PackedStringArray("player", "walk_state", "crouch_state", "air_state", "jump_state") groups=["ground", "slide"]]
 script = ExtResource("6_lqdhu")
 player = NodePath("../..")
 walk_state = NodePath("../Walk")
@@ -206,7 +213,7 @@ jump_state = NodePath("../Jump")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
-[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "jump_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state") groups=["ground"]]
+[node name="Slide" type="Node" parent="StateMachine" unique_id=1019206807 node_paths=PackedStringArray("player", "air_state", "jump_state", "idle_state", "crouch_state", "crouch_move_state", "walk_state", "run_state") groups=["ground", "slide"]]
 script = ExtResource("9_0tyfe")
 speed_threshold_angle_modifier_curve = SubResource("Curve_0tyfe")
 slide_drag_curve = SubResource("Curve_lqdhu")
@@ -381,39 +388,40 @@ script = ExtResource("17_yi0df")
 
 [node name="Front" type="RayCast3D" parent="WallRaycasts" unique_id=913121047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-target_position = Vector3(0, 0, -0.65)
+target_position = Vector3(0, 0, -0.35)
 
 [node name="FrontBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1373530662]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-target_position = Vector3(0, 0, -0.65)
+target_position = Vector3(0, 0, -0.35)
 
 [node name="FrontTop" type="RayCast3D" parent="WallRaycasts" unique_id=2076350638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-target_position = Vector3(0, 0, -0.65)
+target_position = Vector3(0, 0, -0.35)
 
 [node name="Left" type="RayCast3D" parent="WallRaycasts" unique_id=1326354013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-target_position = Vector3(-0.65, 0, 0)
+target_position = Vector3(-0.35, 0, 0)
 
 [node name="LeftBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1784784021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-target_position = Vector3(-0.65, 0, 0)
+target_position = Vector3(-0.35, 0, 0)
 
 [node name="LeftTop" type="RayCast3D" parent="WallRaycasts" unique_id=441992871]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-target_position = Vector3(-0.65, 0, 0)
+target_position = Vector3(-0.35, 0, 0)
 
 [node name="Right" type="RayCast3D" parent="WallRaycasts" unique_id=1633505155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-target_position = Vector3(0.65, 0, 0)
+target_position = Vector3(0.35, 0, 0)
 
 [node name="RightBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1435640405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-target_position = Vector3(0.65, 0, 0)
+target_position = Vector3(0.35, 0, 0)
 
 [node name="RightTop" type="RayCast3D" parent="WallRaycasts" unique_id=1182210959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-target_position = Vector3(0.65, 0, 0)
+target_position = Vector3(0.35, 0, 0)
 
 [connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
 [connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
+[connection signal="air_to_ground" from="StateMachine/Air" to="Head" method="_on_air_air_to_ground"]
