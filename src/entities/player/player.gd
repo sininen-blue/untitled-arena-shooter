@@ -7,6 +7,8 @@ signal interacted(player: Player)
 @export var dropped_spawner: DroppedSpawner
 @export var mouse_sensitivity: float = 0.1
 
+@export var locked: bool = false
+
 @export var mass: float = 2.0
 @export var weapon_throw_force: float = 8.0
 
@@ -116,6 +118,9 @@ func _process(delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+		return
+	
+	if locked:
 		return
 	
 	input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_back")

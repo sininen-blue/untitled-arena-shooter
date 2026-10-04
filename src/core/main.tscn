@@ -15,7 +15,8 @@ spawn_path = NodePath("../DroppedWeapons")
 script = ExtResource("1_ivtyw")
 dropped_weapon_scene = ExtResource("2_x62ka")
 
-[node name="MultiplayerSpawner" parent="." unique_id=1167663308 instance=ExtResource("1_ukt3u")]
+[node name="PlayerSpawner" parent="." unique_id=1167663308 instance=ExtResource("1_ukt3u")]
+unique_name_in_owner = true
 debug = true
 
 [node name="TestArena1" parent="." unique_id=1873855294 instance=ExtResource("1_avv2o")]
