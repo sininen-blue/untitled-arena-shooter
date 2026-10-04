@@ -14,6 +14,7 @@ extends Camera3D
 @export var max_fov: float = 90.0
 @export var min_fov: float = 75.0
 @export var fov_curve: Curve
+@export var fov_weight: float = 4.0
 
 
 @export_group("slide")
@@ -26,11 +27,15 @@ extends Camera3D
 @export var wall_slide_weight: float = 4.0
 
 
+var target_fov: float = 0.0
+
+
 func _process(delta: float) -> void:
 	var speed: float = clampf(player.velocity.length(), 0, max_speed)
 	var sample_point: float = speed / max_speed
 	var speed_weight: float = fov_curve.sample_baked(sample_point)
-	self.fov = min_fov + (max_fov - min_fov) * speed_weight
+	target_fov = min_fov + (max_fov - min_fov) * speed_weight
+	self.fov = Utils.exp_decay(self.fov, target_fov, fov_weight, delta)
 
 	
 	match state_machine.current_state.name:

@@ -22,8 +22,8 @@ NetworkManager="*uid://grwkrgtw7mxq"
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=1366
+window/size/viewport_height=768
 window/stretch/mode="canvas_items"
 
 [global_group]

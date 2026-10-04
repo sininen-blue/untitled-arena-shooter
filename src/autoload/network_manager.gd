@@ -7,25 +7,29 @@ const PORT: int = 8500
 var peer: ENetMultiplayerPeer
 
 
-func start_server() -> void:
+func start_server() -> Error:
 	peer = ENetMultiplayerPeer.new()
 	var error: Error = peer.create_server(PORT)
-	if error:
-		printerr(error)
+	if error != OK:
+		return error
 	
 	multiplayer.multiplayer_peer = peer
+	return OK
 
 
-func start_client(ip: String = "") -> void:
+func start_client(ip: String = "") -> Error:
 	if ip == "":
 		ip = IP_ADDR
 	
 	peer = ENetMultiplayerPeer.new()
+	# TODO: resolve ip first, then resovle connection afterwards
+	# place two errors here
 	var error: Error = peer.create_client(ip, PORT)
-	if error:
-		printerr(error)
+	if error != OK:
+		return error
+	
 	multiplayer.multiplayer_peer = peer
-	print_debug("Attempted to connect to: ", ip)
+	return OK
 
 
 func get_local_ip() -> String:

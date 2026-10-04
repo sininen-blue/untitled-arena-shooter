@@ -5,6 +5,16 @@ extends Node
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 
 
+func switch_map() -> void:
+	pass
+
+func ready_players() -> void:
+	pass
+
+func release_players() -> void:
+	pass
+
+
 func request_weapon(requester: Player, weapon_instance: HitscanWeapon) -> void:
 	var weapon_path: String = weapon_instance.scene_file_path
 	var ammo: int = weapon_instance.ammo
@@ -32,7 +42,6 @@ func remove_weapon(target_name: String) -> void:
 	var target: Player = _find_player(target_name)
 	
 	target.hand_marker.remove_child(target.current_weapon)
-	
 
 
 func _find_player(player_name: String) -> Player:

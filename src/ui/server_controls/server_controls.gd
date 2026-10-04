@@ -13,7 +13,7 @@ extends Control
 
 func _ready() -> void:
 	player_list_spawner.spawn_function = _spawn_player_card
-	multiplayer.peer_connected.connect(_on_multiplayer_peer_connected)	
+	multiplayer.peer_connected.connect(_on_multiplayer_peer_connected)
 
 
 func _on_multiplayer_peer_connected(id: int) -> void:
