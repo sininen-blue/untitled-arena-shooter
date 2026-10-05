@@ -8,6 +8,7 @@ signal killed(by: int, player: Player)
 
 @export var dropped_spawner: DroppedSpawner
 @export var weapon_pickup_sync: WeaponPickupSync
+@export var decal_spawner: DecalSpawner
 
 @export var mouse_sensitivity: float = 0.1
 
@@ -27,9 +28,9 @@ signal killed(by: int, player: Player)
 
 var current_weapon: HitscanWeapon
 
-
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
+var recoil_offset: float = 0.0
 
 var input_direction: Vector2 = Vector2.ZERO
 var direction: Vector3 = Vector3.ZERO
@@ -57,6 +58,8 @@ func _ready() -> void:
 	if get_parent() != null: # NOTE: should replace these
 		dropped_spawner = get_parent().dropped_spawner
 		weapon_pickup_sync = get_parent().weapon_pickup_sync
+		decal_spawner = get_parent().decal_spawner
+	
 	
 	camera.current = true
 
@@ -95,16 +98,27 @@ func _process(delta: float) -> void:
 		return
 	
 	
-	## NOTE: DEBUG
 	if Input.is_action_pressed("shoot") and current_weapon:
-		if current_weapon.shoot():
+		if current_weapon.can_shoot():
+			current_weapon.shoot()
+			current_weapon.apply_spread(gun_cast)
+			
+			if recoil_offset < current_weapon.max_head_recoil:
+				recoil_offset += current_weapon.head_recoil
+			
 			if gun_cast.is_colliding():
 				if gun_cast.get_collider() is HurtboxArea:
-					var hurtbox: HurtboxArea = gun_cast.get_collider()
-					hurtbox.take_hit(self, current_weapon.damage)
-				else:
 					pass
-					# TODO: decals and sparks
+				else:
+					decal_spawner.request_spawn(gun_cast.get_collision_point())
+	
+	if current_weapon:
+		current_weapon.apply_spread_recovery(gun_cast, delta)
+		recoil_offset = Utils.exp_decay(recoil_offset, 0, current_weapon.head_recoil_recovery, delta)
+	else:
+		# defaultcamera recovery
+		pass
+	
 	
 	# NOTE: put this in a compenent
 	if self.is_on_floor():
@@ -116,7 +130,8 @@ func _process(delta: float) -> void:
 	var smoothed_body_q = body_current_q.slerp(twist_q, delta * 40.0)
 	basis = Basis(smoothed_body_q)
 	
-	var pitch_q = Quaternion(Vector3.RIGHT, deg_to_rad(pitch_input))
+	var target_pitch = clampf(pitch_input + recoil_offset, -85.0, 85.0)
+	var pitch_q = Quaternion(Vector3.RIGHT, deg_to_rad(target_pitch))
 	var current_head_q = head.basis.get_rotation_quaternion()
 	var smoothed_head_q = current_head_q.slerp(pitch_q, delta * 40.0)
 	head.basis = Basis(smoothed_head_q)

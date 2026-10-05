@@ -6,7 +6,9 @@
 
 [node name="TestWeapon" type="Node3D" unique_id=159616926]
 script = ExtResource("1_2cfou")
+max_spread = 4.0
 fire_rate = 0.08
+ammo = 50
 
 [node name="DebugModel" type="CSGBox3D" parent="." unique_id=204289909]
 size = Vector3(0.2, 0.2, 1)

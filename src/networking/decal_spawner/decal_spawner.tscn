@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cw1lqivfocbbo"]
+
+[ext_resource type="Script" uid="uid://cb05ey4n3a5rt" path="res://src/networking/decal_spawner/decal_spawner.gd" id="1_jbo7n"]
+[ext_resource type="PackedScene" uid="uid://c8wjiffnvmals" path="res://src/resources/hit_decal/hit_decal.tscn" id="2_lxu44"]
+
+[node name="DecalSpawner" type="MultiplayerSpawner" unique_id=499064189]
+spawn_path = NodePath("../Decals")
+script = ExtResource("1_jbo7n")
+hit_decal_scene = ExtResource("2_lxu44")

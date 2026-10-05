@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cb81knlvb1boa"]
+
+[ext_resource type="Script" uid="uid://14cj7enhgial" path="res://src/networking/score_handler/score_handler.gd" id="1_1sppe"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nxx65"]
+properties/0/path = NodePath(".:scores")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="ScoreHandler" type="Node" unique_id=2061641455]
+script = ExtResource("1_1sppe")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1002843647]
+replication_config = SubResource("SceneReplicationConfig_nxx65")

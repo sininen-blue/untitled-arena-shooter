@@ -168,7 +168,7 @@ unique_name_in_owner = true
 target_position = Vector3(0, 0, -2)
 collision_mask = 16
 collide_with_areas = true
-debug_shape_custom_color = Color(0.7334, 0.76, 0.228, 1)
+debug_shape_custom_color = Color(0.7334, 0.76, 0.228, 0.4)
 
 [node name="GunCast" type="RayCast3D" parent="Head" unique_id=244317182]
 unique_name_in_owner = true

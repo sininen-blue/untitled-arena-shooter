@@ -4,12 +4,12 @@ extends Node3D
 
 @export var damage: float = 1
 
-@export var min_spread: float = 0
-@export var max_spread: float = 0
-@export var accuracy_curve: float = 0
+@export var max_spread: float = 1.2
+@export var spread_recovery: float = 3.0
 
-@export var v_recoil: float = 0
-@export var h_recoil: float = 0
+@export var head_recoil: float = 5.0
+@export var max_head_recoil: float = 80.0
+@export var head_recoil_recovery: float = 3.0
 
 @export var fire_rate: float = 0.2
 @export var ammo = 20
@@ -22,19 +22,30 @@ extends Node3D
 var time: float = 0
 
 
-func shoot() -> bool:
+func can_shoot() -> bool:
 	if time <= 0 and ammo > 0:
-		time = fire_rate
-		ammo -= 1
-		
-		recoil()
 		return true
 	return false
 
-# apply horizontal and vertical recoil
-# look at player? change raycast angles?
-# or do i want raycasts on the gun itself, :w
-# shoot
+
+func shoot() -> void:
+	time = fire_rate
+	ammo -= 1
+	
+	recoil()
+
+
+func apply_spread(ray: RayCast3D) -> void:
+	var horizontal_spread: float = randf_range(-max_spread, max_spread)
+	var vertical_spread: float = randf_range(-max_spread, max_spread)
+	
+	ray.rotation_degrees.y = vertical_spread
+	ray.rotation_degrees.x = horizontal_spread
+
+
+func apply_spread_recovery(ray: RayCast3D, delta: float) -> void:
+	ray.rotation = Utils.exp_decay(ray.rotation, Vector3.ZERO, spread_recovery, delta)
+
 
 
 # recoil increases back

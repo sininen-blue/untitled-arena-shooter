@@ -6,6 +6,7 @@ var current_level: BaseLevel
 
 @onready var weapon_pickup_sync: WeaponPickupSync = %WeaponPickupSync
 @onready var dropped_spawner: DroppedSpawner = $DroppedSpawner
+@onready var decal_spawner: DecalSpawner = %DecalSpawner
 @onready var player_spawner: PlayerSpawner = %PlayerSpawner
 @onready var score_handler: ScoreHandler = $ScoreHandler
 @onready var winner_screen: WinnerScreen = %WinnerScreen

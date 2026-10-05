@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c8wjiffnvmals"]
+
+[ext_resource type="Texture2D" uid="uid://di04khg6yqyo0" path="res://icon.svg" id="1_c4npw"]
+[ext_resource type="Script" uid="uid://5eli17b54q8" path="res://src/resources/hit_decal/hit_decal.gd" id="2_j3g87"]
+
+[node name="HitDecal" type="Decal" unique_id=75172976]
+size = Vector3(0.2, 0.2, 0.2)
+texture_albedo = ExtResource("1_c4npw")
+script = ExtResource("2_j3g87")

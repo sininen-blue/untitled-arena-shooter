@@ -4,7 +4,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2wjn"]
 
-[node name="TestWeapon" type="Node3D" unique_id=159616926]
+[node name="TestShotgun" type="Node3D" unique_id=159616926]
 script = ExtResource("1_yicq4")
 damage = 7.0
 fire_rate = 0.5
