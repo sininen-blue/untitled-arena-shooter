@@ -31,10 +31,17 @@ func start_client(ip: String = "") -> Error:
 	multiplayer.multiplayer_peer = peer
 	return OK
 
-
 func get_local_ip() -> String:
 	var addresses = IP.get_local_addresses()
+	var candidates = []
+	
 	for addr in addresses:
-		if not addr.begins_with("127.") and ":" not in addr:
-			return addr
-	return "127.0.0.1" 
+		if ":" in addr or addr.begins_with("127."):
+			continue
+		# Prefer typical LAN ranges
+		if addr.begins_with("192.168.") or addr.begins_with("10."):
+			candidates.push_front(addr)  # highest priority
+		elif not addr.begins_with("172.17.") and not addr.begins_with("169.254."):
+			candidates.push_back(addr)   # lower priority fallback
+	
+	return candidates[0] if candidates.size() > 0 else "127.0.0.1"
