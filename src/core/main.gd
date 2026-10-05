@@ -156,6 +156,7 @@ func _on_winner_screen_finished() -> void:
 	reset_player_healths()
 	reset_player_visibilities()
 	reset_player_weapons()
+	dropped_spawner.clear_dropped_weapons()
 	
 	await get_tree().create_timer(2).timeout
 	release_players.rpc()

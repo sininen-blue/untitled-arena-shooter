@@ -13,6 +13,13 @@ func _ready() -> void:
 	spawn_function = _spawn_function
 
 
+func clear_dropped_weapons() -> void:
+	for child in dropped_weapons.get_children():
+		if child is DroppedWeapon:
+			request_despawn(child)
+
+
+
 func request_spawn(weapon: HitscanWeapon, spawn_loc: Vector3, throw_dir: Vector3, throw_rot: float) -> void:
 	var weapon_data: Dictionary = _serialize(weapon)
 
