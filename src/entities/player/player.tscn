@@ -390,6 +390,13 @@ member_type = "function"
 property = "is_colliding"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 
+[node name="locked" type="Label" parent="DebugHud/Control/DebugValues" unique_id=64854245 node_paths=PackedStringArray("target")]
+layout_mode = 2
+script = ExtResource("16_t8d2k")
+target = NodePath("../../../..")
+property = "locked"
+metadata/_custom_type_script = "uid://cud2jpqwvuegw"
+
 [node name="Hud" type="CanvasLayer" parent="." unique_id=982865618]
 
 [node name="Control" type="Control" parent="Hud" unique_id=198523636]
