@@ -24,6 +24,7 @@ func _ready() -> void:
 	if pending_position != Vector3.ZERO:
 		self.global_position = pending_position
 
+
 func _on_interact_area_interacted(interactee: Player) -> void:
 	var local_weapon_instance: HitscanWeapon = weapon_instance.duplicate()
 	local_weapon_instance.ammo = weapon_ammo
@@ -32,4 +33,8 @@ func _on_interact_area_interacted(interactee: Player) -> void:
 		interactee.drop_weapon()
 	
 	interactee.get_weapon(local_weapon_instance)
+	spawner.request_despawn(self)
+
+
+func _on_despawn_timer_timeout() -> void:
 	spawner.request_despawn(self)

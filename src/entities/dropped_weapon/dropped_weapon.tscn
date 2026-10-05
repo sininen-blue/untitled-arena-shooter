@@ -39,4 +39,10 @@ shape = SubResource("SphereShape3D_mowev")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=1922888195]
 shape = SubResource("SphereShape3D_crd4b")
 
+[node name="DespawnTimer" type="Timer" parent="." unique_id=1326449084]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
 [connection signal="interacted" from="InteractArea" to="." method="_on_interact_area_interacted"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
