@@ -24,7 +24,7 @@ func _ready() -> void:
 	await get_tree().create_timer(.5).timeout # TODO: fuckass grace, replace at some point
 	place_players()
 	await get_tree().create_timer(2).timeout # TODO: replace with timer
-	release_players()
+	release_players.rpc()
 
 
 func switch_map() -> void:
@@ -53,6 +53,7 @@ func _set_player_position(player_name: String, pos: Vector3) -> void:
 		player.locked = true
 
 
+@rpc("any_peer", "call_local", "reliable")
 func release_players() -> void:
 	for child: Node in get_children():
 		if child is Player:
