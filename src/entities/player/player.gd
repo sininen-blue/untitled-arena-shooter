@@ -163,6 +163,11 @@ func drop_weapon() -> void:
 		current_weapon = null
 
 
+func remove_weapon() -> void:
+	weapon_pickup_sync.request_remove_weapon(self)
+	current_weapon = null
+
+
 func _on_head_hurtbox_hit(hitter: Node, damage: float) -> void:
 	take_damage.rpc(int(hitter.name), damage * headshot_mult)
 

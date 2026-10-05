@@ -50,6 +50,7 @@ func place_players() -> void:
 
 
 func reset_player_healths() -> void:
+	# TODO: reconfigure this to be a singular call
 	var players: Array[Player] = []
 	for child: Node in get_children():
 		if child is Player:
@@ -57,6 +58,26 @@ func reset_player_healths() -> void:
 	
 	for player: Player in players:
 		_reset_player_health.rpc_id(player.get_multiplayer_authority(), player.name)
+
+
+func reset_player_visibilities() -> void:
+	var players: Array[Player] = []
+	for child: Node in get_children():
+		if child is Player:
+			players.append(child)
+	
+	for player: Player in players:
+		_reset_player_visibility.rpc_id(player.get_multiplayer_authority(), player.name)
+
+
+func reset_player_weapons() -> void:
+	var players: Array[Player] = []
+	for child: Node in get_children():
+		if child is Player:
+			players.append(child)
+	
+	for player: Player in players:
+		_reset_player_weapon.rpc_id(player.get_multiplayer_authority(), player.name)
 
 
 func connect_signals() -> void:
@@ -83,8 +104,8 @@ func ready_scores() -> void:
 func _set_player_position(player_name: String, pos: Vector3) -> void:
 	var player: Player = Utils.find_player(player_name, self)
 	if player:
-		player.global_position = pos
 		player.locked = true
+		player.global_position = pos
 
 
 @rpc("authority", "call_local", "reliable")
@@ -92,6 +113,20 @@ func _reset_player_health(player_name: String) -> void:
 	var player: Player = Utils.find_player(player_name, self)
 	if player:
 		player.health = player.max_health
+
+
+@rpc("authority", "call_local", "reliable")
+func _reset_player_visibility(player_name: String) -> void:
+	var player: Player = Utils.find_player(player_name, self)
+	if player:
+		player.visible = true
+
+
+@rpc("authority", "call_local", "reliable")
+func _reset_player_weapon(player_name: String) -> void:
+	var player: Player = Utils.find_player(player_name, self)
+	if player and player.current_weapon != null:
+		player.remove_weapon()
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -119,6 +154,8 @@ func _on_winner_screen_finished() -> void:
 	
 	place_players()
 	reset_player_healths()
+	reset_player_visibilities()
+	reset_player_weapons()
 	
 	await get_tree().create_timer(2).timeout
 	release_players.rpc()
