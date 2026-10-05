@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 
 signal interacted(player: Player)
+signal killed(player: Player)
+
 
 @export var dropped_spawner: DroppedSpawner
 @export var weapon_pickup_sync: WeaponPickupSync
@@ -137,11 +139,11 @@ func get_speed() -> float:
 	return self.velocity.length()
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
 func take_damage(damage: float) -> void:
 	health -= damage
 	if health <= 0:
-		self.queue_free.call_deferred()
+		killed.emit(self)
 
 
 func get_weapon(weapon_instance: HitscanWeapon) -> void:
