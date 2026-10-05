@@ -74,7 +74,7 @@ offset_right = 133.0
 offset_bottom = 118.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "192.168.1.10"
+text = "10.10.28.8"
 placeholder_text = "Server IP"
 alignment = 1
 

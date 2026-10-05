@@ -4,11 +4,24 @@
 [ext_resource type="Script" uid="uid://bdislv4btfe03" path="res://src/networking/dropped_spawner/dropped_spawner.gd" id="1_ivtyw"]
 [ext_resource type="PackedScene" uid="uid://cjt13arq1kr1t" path="res://src/networking/multiplayer_spawner/multiplayer_spawner.tscn" id="1_ukt3u"]
 [ext_resource type="Script" uid="uid://bcld2k1h10kh" path="res://src/core/main.gd" id="1_w61mg"]
+[ext_resource type="Script" uid="uid://14cj7enhgial" path="res://src/networking/score_handler/score_handler.gd" id="2_nxx65"]
 [ext_resource type="Script" uid="uid://vg213oqqmuas" path="res://src/networking/weapon_pickup_sync/weapon_pickup_sync.gd" id="2_q2b63"]
 [ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="2_x62ka"]
+[ext_resource type="PackedScene" uid="uid://b4ifippudd7pg" path="res://src/networking/winner_screen/winner_screen.tscn" id="8_2uitn"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nxx65"]
+properties/0/path = NodePath(".:scores")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Main" type="Node" unique_id=1123520285]
 script = ExtResource("1_w61mg")
+
+[node name="ScoreHandler" type="Node" parent="." unique_id=844783249]
+script = ExtResource("2_nxx65")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="ScoreHandler" unique_id=1870876948]
+replication_config = SubResource("SceneReplicationConfig_nxx65")
 
 [node name="WeaponPickupSync" type="Node" parent="." unique_id=98868351]
 unique_name_in_owner = true
@@ -27,3 +40,34 @@ debug = true
 [node name="TestArena1" parent="." unique_id=1873855294 instance=ExtResource("1_avv2o")]
 
 [node name="DroppedWeapons" type="Node3D" parent="." unique_id=55739508]
+
+[node name="Countdown" type="Timer" parent="." unique_id=1780602067]
+one_shot = true
+
+[node name="GlobalHud" type="CanvasLayer" parent="." unique_id=1345447660]
+layer = 50
+
+[node name="Control" type="Control" parent="GlobalHud" unique_id=827654055]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GlobalHud/Control" unique_id=1427485463]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Scores: "
+
+[node name="WinnerScreen" parent="GlobalHud/Control" unique_id=1831784229 instance=ExtResource("8_2uitn")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[connection signal="finished" from="GlobalHud/Control/WinnerScreen" to="." method="_on_winner_screen_finished"]

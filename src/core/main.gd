@@ -7,6 +7,8 @@ var current_level: BaseLevel
 @onready var weapon_pickup_sync: WeaponPickupSync = %WeaponPickupSync
 @onready var dropped_spawner: DroppedSpawner = $DroppedSpawner
 @onready var player_spawner: PlayerSpawner = %PlayerSpawner
+@onready var score_handler: ScoreHandler = $ScoreHandler
+@onready var winner_screen: WinnerScreen = %WinnerScreen
 
 
 func _ready() -> void:
@@ -23,6 +25,8 @@ func _ready() -> void:
 	await player_spawner.all_players_spawned
 	await get_tree().create_timer(.5).timeout # TODO: fuckass grace, replace at some point
 	place_players()
+	connect_signals()
+	ready_scores()
 	await get_tree().create_timer(2).timeout # TODO: replace with timer
 	release_players.rpc()
 
@@ -45,6 +49,36 @@ func place_players() -> void:
 		_set_player_position.rpc_id(player.get_multiplayer_authority(), player.name, pos)
 
 
+func reset_player_healths() -> void:
+	var players: Array[Player] = []
+	for child: Node in get_children():
+		if child is Player:
+			players.append(child)
+	
+	for player: Player in players:
+		_reset_player_health.rpc_id(player.get_multiplayer_authority(), player.name)
+
+
+func connect_signals() -> void:
+	var players: Array[Player] = []
+	for child: Node in get_children():
+		if child is Player:
+			players.append(child)
+	
+	for player: Player in players:
+		player.killed.connect(_on_player_killed)
+
+
+func ready_scores() -> void:
+	var players: Array[Player] = []
+	for child: Node in get_children():
+		if child is Player:
+			players.append(child)
+	
+	for player: Player in players:
+		score_handler.add_score(int(player.name), 0)
+
+
 @rpc("authority", "call_local", "reliable")
 func _set_player_position(player_name: String, pos: Vector3) -> void:
 	var player: Player = Utils.find_player(player_name, self)
@@ -53,8 +87,38 @@ func _set_player_position(player_name: String, pos: Vector3) -> void:
 		player.locked = true
 
 
+@rpc("authority", "call_local", "reliable")
+func _reset_player_health(player_name: String) -> void:
+	var player: Player = Utils.find_player(player_name, self)
+	if player:
+		player.health = player.max_health
+
+
 @rpc("any_peer", "call_local", "reliable")
 func release_players() -> void:
 	for child: Node in get_children():
 		if child is Player:
 			child.locked = false
+
+
+func _on_player_killed(by_id: int, who: Player) -> void:
+	if multiplayer.is_server() == false:
+		return
+	
+	score_handler.add_score(by_id, 1)
+	show_winner()
+
+
+func show_winner() -> void:
+	winner_screen.start()
+
+
+func _on_winner_screen_finished() -> void:
+	if multiplayer.is_server() != true:
+		return
+	
+	place_players()
+	reset_player_healths()
+	
+	await get_tree().create_timer(2).timeout
+	release_players.rpc()

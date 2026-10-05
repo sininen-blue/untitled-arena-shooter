@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 
 signal interacted(player: Player)
-signal killed(player: Player)
+signal killed(by: int, player: Player)
 
 
 @export var dropped_spawner: DroppedSpawner
@@ -140,10 +140,11 @@ func get_speed() -> float:
 
 
 @rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
-func take_damage(damage: float) -> void:
+func take_damage(hitter_id: int, damage: float) -> void:
 	health -= damage
 	if health <= 0:
-		killed.emit(self)
+		self.visible = false
+		killed.emit(hitter_id, self)
 
 
 func get_weapon(weapon_instance: HitscanWeapon) -> void:
@@ -163,8 +164,8 @@ func drop_weapon() -> void:
 
 
 func _on_head_hurtbox_hit(hitter: Node, damage: float) -> void:
-	take_damage.rpc(damage * headshot_mult)
+	take_damage.rpc(int(hitter.name), damage * headshot_mult)
 
 
 func _on_body_hurtbox_hit(hitter: Node, damage: float) -> void:
-	take_damage.rpc(damage)
+	take_damage.rpc(int(hitter.name), damage)
