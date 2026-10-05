@@ -17,3 +17,10 @@ static func exp_decay_curved(
 	var t := 1.0 - exp(-weight * delta)
 	var shaped_t := curve.sample_baked(t)
 	return start + (target - start) * shaped_t
+
+
+static func find_player(player_name: String, root: Node) -> Player:
+	for child: Node in root.get_children():
+		if child is Player and child.name == player_name:
+			return child
+	return null

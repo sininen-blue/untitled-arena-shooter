@@ -4,10 +4,15 @@
 [ext_resource type="Script" uid="uid://bdislv4btfe03" path="res://src/networking/dropped_spawner/dropped_spawner.gd" id="1_ivtyw"]
 [ext_resource type="PackedScene" uid="uid://cjt13arq1kr1t" path="res://src/networking/multiplayer_spawner/multiplayer_spawner.tscn" id="1_ukt3u"]
 [ext_resource type="Script" uid="uid://bcld2k1h10kh" path="res://src/core/main.gd" id="1_w61mg"]
+[ext_resource type="Script" uid="uid://vg213oqqmuas" path="res://src/networking/weapon_pickup_sync/weapon_pickup_sync.gd" id="2_q2b63"]
 [ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="2_x62ka"]
 
 [node name="Main" type="Node" unique_id=1123520285]
 script = ExtResource("1_w61mg")
+
+[node name="WeaponPickupSync" type="Node" parent="." unique_id=98868351]
+unique_name_in_owner = true
+script = ExtResource("2_q2b63")
 
 [node name="DroppedSpawner" type="MultiplayerSpawner" parent="." unique_id=1608061271]
 _spawnable_scenes = PackedStringArray("uid://be5yb17j17k0n")
