@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dyx4bp4pq7ecf"]
+
+[ext_resource type="Script" uid="uid://bmt2ngivsr1y2" path="res://src/entities/slipper/slipper.gd" id="1_2ukko"]
+[ext_resource type="PackedScene" uid="uid://dnrnx08rthj4" path="res://src/resources/hitbox/hitbox_area.tscn" id="2_74trw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2in8s"]
+bounce = 1.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_reqoy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2ukko"]
+radius = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vehwe"]
+
+[node name="Slipper" type="RigidBody3D" unique_id=1376362658]
+physics_material_override = SubResource("PhysicsMaterial_2in8s")
+script = ExtResource("1_2ukko")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1281681404]
+replication_config = SubResource("SceneReplicationConfig_reqoy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1254008881]
+shape = SubResource("SphereShape3D_2ukko")
+
+[node name="DebugModel" type="CSGBox3D" parent="." unique_id=1474333976]
+size = Vector3(0.2, 0.05, 0.1)
+
+[node name="HitboxArea" parent="." unique_id=1142347245 instance=ExtResource("2_74trw")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxArea" unique_id=1086890861]
+shape = SubResource("SphereShape3D_vehwe")

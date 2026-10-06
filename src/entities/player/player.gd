@@ -7,6 +7,7 @@ signal killed(by: int, player: Player)
 
 
 @export var dropped_spawner: DroppedSpawner
+@export var slipper_spawner: SlipperSpanwner
 @export var weapon_pickup_sync: WeaponPickupSync
 @export var decal_spawner: DecalSpawner
 
@@ -17,9 +18,11 @@ signal killed(by: int, player: Player)
 @export var mass: float = 2.0
 @export var weapon_throw_force: float = 8.0
 
+@export var slipper_throw_force: float = 12.0
+@export var max_slipper_ammo: int = 2
+
 @export var wall_climb_state: State
 @export var wall_slide_state: State
-
 
 @export var headshot_mult: float = 1.5
 @export var max_health: float = 20
@@ -27,6 +30,7 @@ signal killed(by: int, player: Player)
 
 
 var current_weapon: HitscanWeapon
+var current_slipper_ammo: int = max_slipper_ammo
 
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
@@ -57,6 +61,7 @@ func _ready() -> void:
 	
 	if get_parent() != null: # NOTE: should replace these
 		dropped_spawner = get_parent().dropped_spawner
+		slipper_spawner = get_parent().slipper_spawner
 		weapon_pickup_sync = get_parent().weapon_pickup_sync
 		decal_spawner = get_parent().decal_spawner
 	
@@ -81,6 +86,10 @@ func _input(event: InputEvent) -> void:
 			interactable.interact(self)
 		elif interact_cast.is_colliding() == false and current_weapon:
 			drop_weapon()
+	
+	if event.is_action_pressed("throw") and current_slipper_ammo > 0:
+		var throw_vec: Vector3 = -head.global_basis.z * slipper_throw_force
+		slipper_spawner.request_spawn(self, hand_marker.global_position, throw_vec)
 
 
 func _unhandled_input(event: InputEvent) -> void:

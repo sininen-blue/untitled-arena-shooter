@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://vg213oqqmuas" path="res://src/networking/weapon_pickup_sync/weapon_pickup_sync.gd" id="2_q2b63"]
 [ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="2_x62ka"]
 [ext_resource type="PackedScene" uid="uid://cw1lqivfocbbo" path="res://src/networking/decal_spawner/decal_spawner.tscn" id="6_nlf45"]
+[ext_resource type="PackedScene" uid="uid://cehjd8kyl6sjn" path="res://src/networking/slipper_spawner/slipper_spawner.tscn" id="8_2in8s"]
 [ext_resource type="PackedScene" uid="uid://b4ifippudd7pg" path="res://src/networking/winner_screen/winner_screen.tscn" id="8_2uitn"]
 
 [node name="Main" type="Node" unique_id=1123520285]
@@ -32,11 +33,17 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 debug = true
 
+[node name="SlipperSpawner" parent="." unique_id=152510604 instance=ExtResource("8_2in8s")]
+unique_name_in_owner = true
+spawn_path = NodePath("../Slippers")
+
 [node name="TestArena1" parent="." unique_id=1873855294 instance=ExtResource("1_avv2o")]
 
 [node name="DroppedWeapons" type="Node3D" parent="." unique_id=55739508]
 
 [node name="Decals" type="Node3D" parent="." unique_id=968590565]
+
+[node name="Slippers" type="Node3D" parent="." unique_id=369481168]
 
 [node name="Countdown" type="Timer" parent="." unique_id=1780602067]
 one_shot = true

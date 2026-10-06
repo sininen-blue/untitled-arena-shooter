@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cehjd8kyl6sjn"]
+
+[ext_resource type="Script" uid="uid://cbfh86fru4jux" path="res://src/networking/slipper_spawner/slipper_spawner.gd" id="1_k0amo"]
+[ext_resource type="PackedScene" uid="uid://dyx4bp4pq7ecf" path="res://src/entities/slipper/slipper.tscn" id="2_hy6sf"]
+
+[node name="SlipperSpawner" type="MultiplayerSpawner" unique_id=152510604]
+script = ExtResource("1_k0amo")
+slipper_scene = ExtResource("2_hy6sf")

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dnrnx08rthj4"]
+
+[ext_resource type="Script" uid="uid://frakjswouesk" path="res://src/resources/hitbox/hitbox_area.gd" id="1_en02p"]
+
+[node name="HitboxArea" type="Area3D" unique_id=1142347245]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_en02p")
