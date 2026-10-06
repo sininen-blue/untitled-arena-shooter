@@ -17,6 +17,7 @@ radius = 0.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_vehwe"]
 
 [node name="Slipper" type="RigidBody3D" unique_id=1376362658]
+collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_2in8s")
 script = ExtResource("1_2ukko")
 

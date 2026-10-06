@@ -12,6 +12,7 @@ signal killed(by: int, player: Player)
 @export var decal_spawner: DecalSpawner
 
 @export var mouse_sensitivity: float = 0.1
+@export var default_head_recoil_recovery: float = 3.0
 
 @export var locked: bool = false
 
@@ -125,8 +126,7 @@ func _process(delta: float) -> void:
 		current_weapon.apply_spread_recovery(gun_cast, delta)
 		recoil_offset = Utils.exp_decay(recoil_offset, 0, current_weapon.head_recoil_recovery, delta)
 	else:
-		# defaultcamera recovery
-		pass
+		recoil_offset = Utils.exp_decay(recoil_offset, 0, default_head_recoil_recovery, delta)
 	
 	
 	# NOTE: put this in a compenent
