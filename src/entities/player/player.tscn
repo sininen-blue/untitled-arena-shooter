@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_vt6n5"]
+[ext_resource type="PackedScene" uid="uid://bo3r1tab2mj3k" path="res://src/resources/hurtbox/hurtbox.tscn" id="3_fjj3i"]
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
 [ext_resource type="Script" uid="uid://cjiwmq1bir8ok" path="res://src/entities/player/states/idle.gd" id="4_0mfjg"]
 [ext_resource type="Script" uid="uid://ccpwv8s3m6vi6" path="res://src/entities/player/head.gd" id="4_5qgjf"]
 [ext_resource type="PackedScene" uid="uid://c2v6wcejiaqct" path="res://src/entities/player/player_camera/camera.tscn" id="4_a31ob"]
-[ext_resource type="Script" uid="uid://b2ny7ea81hgc4" path="res://src/resources/hurtbox/hurtbox.gd" id="4_ogtao"]
 [ext_resource type="Script" uid="uid://cxii7gi18pu6t" path="res://src/entities/player/states/crouch.gd" id="5_p2qdy"]
 [ext_resource type="Script" uid="uid://camq1xc2u20a7" path="res://src/entities/player/states/crouch_move.gd" id="6_lqdhu"]
 [ext_resource type="Script" uid="uid://gs1aohogbsdn" path="res://src/entities/player/states/walk.gd" id="7_t8d2k"]
@@ -48,6 +48,9 @@ height = 1.45
 material = ExtResource("2_vt6n5")
 radius = 0.3
 height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_crd4b"]
+radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ogtao"]
 radius = 0.3
@@ -123,21 +126,32 @@ shape = SubResource("CapsuleShape3D_crd4b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("CapsuleMesh_crd4b")
 
-[node name="HeadHurtbox" type="Area3D" parent="." unique_id=1287939419]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0353771, 0)
-script = ExtResource("4_ogtao")
-metadata/_custom_type_script = "uid://b2ny7ea81hgc4"
+[node name="ParryCololdownTimer" type="Timer" parent="." unique_id=1401908605]
+unique_name_in_owner = true
+wait_time = 1.2
+one_shot = true
+
+[node name="ParryHurtbox" type="Area3D" parent="." unique_id=82098675]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParryHurtbox" unique_id=1232236669]
+shape = SubResource("SphereShape3D_crd4b")
+debug_color = Color(0.5519741, 0.43427676, 0.9215086, 0.41960785)
+
+[node name="HeadHurtbox" parent="." unique_id=1611386087 instance=ExtResource("3_fjj3i")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HeadHurtbox" unique_id=699316145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0353771, 0)
 shape = SubResource("SphereShape3D_ogtao")
 debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 
-[node name="BodyHurtbox" type="Area3D" parent="." unique_id=508406399]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-script = ExtResource("4_ogtao")
-metadata/_custom_type_script = "uid://b2ny7ea81hgc4"
+[node name="BodyHurtbox" parent="." unique_id=992720588 instance=ExtResource("3_fjj3i")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyHurtbox" unique_id=254339337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("BoxShape3D_ogtao")
 debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 
@@ -487,6 +501,4 @@ target_position = Vector3(0.35, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 target_position = Vector3(0.35, 0, 0)
 
-[connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
-[connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
 [connection signal="air_to_ground" from="StateMachine/Air" to="Head" method="_on_air_air_to_ground"]

@@ -51,6 +51,9 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var interact_cast: RayCast3D = %InteractCast
 @onready var gun_cast: RayCast3D = %GunCast
 
+@onready var parry_cololdown_timer: Timer = %ParryCololdownTimer
+@onready var parry_hurtbox: Area3D = %ParryHurtbox
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -91,6 +94,32 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("throw") and current_slipper_ammo > 0:
 		var throw_vec: Vector3 = -head.global_basis.z * slipper_throw_force
 		slipper_spawner.request_spawn(self, hand_marker.global_position, throw_vec)
+	
+	if event.is_action_pressed("parry") and parry_cololdown_timer.is_stopped():
+		parry_cololdown_timer.start()
+		
+		if parry_hurtbox.has_overlapping_areas():
+			var slipper_hitboxes: Array[Area3D] = parry_hurtbox.get_overlapping_areas()
+			var slippers: Array[Slipper] = []
+			for hitbox: Area3D in slipper_hitboxes:
+				slippers.append(hitbox.get_parent())
+			
+			# sort by distances
+			# separate closest one
+			# shoot closest one to where the head is looking at
+			slippers.sort_custom(func(a, b): 
+				return (
+					head.global_position.distance_squared_to(a.global_position) >
+					head.global_position.distance_squared_to(b.global_position)
+					)
+				)
+			
+			var closest: Slipper = slippers.pop_front()
+			closest.global_position = hand_marker.global_position
+			closest.apply_central_impulse(-head.global_basis.z * slipper_throw_force*2)
+			for slipper: Slipper in slippers:
+				var dir: Vector3 = head.global_position.direction_to(slipper.global_position)
+				slipper.apply_central_impulse(dir * slipper_throw_force/2)
 
 
 func _unhandled_input(event: InputEvent) -> void:
