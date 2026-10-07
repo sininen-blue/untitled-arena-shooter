@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dmritjv58w5wf" path="res://src/ui/components/wavy_background/wavy_background.tscn" id="3_u6m5k"]
 [ext_resource type="PackedScene" uid="uid://vfkgf45q6dhe" path="res://src/ui/components/player_card/player_card.tscn" id="4_eaoas"]
 [ext_resource type="Script" uid="uid://wkbdu3t26c5k" path="res://src/ui/components/animated_button/animated_button.gd" id="4_yuboo"]
+[ext_resource type="Script" uid="uid://bbf2o3isff6l" path="res://src/ui/components/animated_line_edit/animated_line_edit.gd" id="6_ffd1b"]
 
 [node name="Lobby" type="Control" unique_id=644691439]
 layout_mode = 3
@@ -97,7 +98,7 @@ text = "Start"
 script = ExtResource("4_yuboo")
 metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
-[node name="NameInput" type="LineEdit" parent="." unique_id=164140456]
+[node name="NameInput" type="LineEdit" parent="." unique_id=511160837]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -112,6 +113,8 @@ grow_horizontal = 0
 grow_vertical = 2
 placeholder_text = "Edit Name"
 alignment = 1
+script = ExtResource("6_ffd1b")
+metadata/_custom_type_script = "uid://bbf2o3isff6l"
 
 [node name="NameSaveButton" type="Button" parent="NameInput" unique_id=2135295128]
 layout_mode = 1
