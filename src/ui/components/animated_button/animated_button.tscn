@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cxkgulqs3ep20"]
+
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_ek007"]
+[ext_resource type="Script" uid="uid://wkbdu3t26c5k" path="res://src/ui/components/animated_button/animated_button.gd" id="2_x64pg"]
+
+[node name="AnimatedButton" type="Button" unique_id=1739498400]
+offset_right = 8.0
+offset_bottom = 8.0
+offset_transform_enabled = true
+theme = ExtResource("1_ek007")
+script = ExtResource("2_x64pg")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,6 +1,23 @@
 [gd_scene format=3 uid="uid://bxd7p5s43abo3"]
 
 [ext_resource type="Script" uid="uid://yghh6yxdrs7k" path="res://src/ui/main_menu/main_menu.gd" id="1_2hyyg"]
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_4ux21"]
+[ext_resource type="Shader" uid="uid://ccg7ajvth2btr" path="res://src/shaders/warped.gdshader" id="3_osdni"]
+[ext_resource type="Script" uid="uid://c5gi1pgr2o6ay" path="res://src/ui/main_menu/background.gd" id="4_3oi2e"]
+[ext_resource type="Script" uid="uid://wkbdu3t26c5k" path="res://src/ui/components/animated_button/animated_button.gd" id="5_vivct"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux21"]
+shader = ExtResource("3_osdni")
+shader_parameter/speed = 0.6
+shader_parameter/amp = 0.1
+shader_parameter/freq = 30.0
+shader_parameter/stripes = 3.0
+shader_parameter/stripe_thickness = 5.0
+shader_parameter/stripe_color = Color(0.22540002, 0.85423326, 0.98, 1)
+shader_parameter/background_color = Color(0.2842, 0.8176468, 0.98, 1)
+shader_parameter/mouse_pos = Vector2(0.5, 0.5)
+shader_parameter/bend_radius = 0.25
+shader_parameter/bend_strength = 0.3
 
 [node name="MainMenu" type="Control" unique_id=1190425906]
 layout_mode = 3
@@ -9,9 +26,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4ux21")
 script = ExtResource("1_2hyyg")
 host_button_target = &"uid://cu3tjhbfhufxo"
 join_button_target = &"uid://cu3tjhbfhufxo"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=899675011]
+material = SubResource("ShaderMaterial_4ux21")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25, 0.4375, 1, 1)
+script = ExtResource("4_3oi2e")
 
 [node name="Title" type="Label" parent="." unique_id=1977942573]
 layout_mode = 1
@@ -26,24 +55,29 @@ offset_right = 114.0
 offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0.39866677, 0.52, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 48
 text = "Untitled Arena Shooter Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HostButton" type="Button" parent="." unique_id=148305196]
+[node name="HostButton" type="Button" parent="." unique_id=125789458]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -68.5
+offset_top = -19.5
+offset_right = 68.5
+offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Host Game"
+script = ExtResource("5_vivct")
+metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
 [node name="ErrorLabel" type="Label" parent="." unique_id=606166912]
 visible = false
@@ -78,21 +112,23 @@ text = "10.10.28.8"
 placeholder_text = "Server IP"
 alignment = 1
 
-[node name="JoinButton" type="Button" parent="." unique_id=559821788]
+[node name="JoinButton" type="Button" parent="." unique_id=1737285046]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.0
-offset_top = 126.0
-offset_right = 44.0
-offset_bottom = 157.0
+offset_left = -65.5
+offset_top = 122.0
+offset_right = 66.5
+offset_bottom = 161.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
 text = "Join Game"
+script = ExtResource("5_vivct")
+metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
 [connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="text_changed" from="IPInput" to="." method="_on_ip_input_text_changed"]

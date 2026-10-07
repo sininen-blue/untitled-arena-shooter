@@ -1,0 +1,45 @@
+[gd_resource type="Theme" format=3 uid="uid://ditpuniu5gvfg"]
+
+[ext_resource type="FontFile" uid="uid://bmsjqlydsv8gt" path="res://assets/fonts/Kaph-Regular.otf" id="1_7pet1"]
+[ext_resource type="Texture2D" uid="uid://bdhe836mcch5d" path="res://assets/textures/ui/Blue/Default/button_square_depth_flat.png" id="1_j8cc4"]
+[ext_resource type="Texture2D" uid="uid://c0v0u878p8y67" path="res://assets/textures/ui/Blue/Default/button_square_depth_gradient.png" id="2_hlo8g"]
+[ext_resource type="Texture2D" uid="uid://dok1y8wg4olgq" path="res://assets/textures/ui/Blue/Default/button_square_depth_gloss.png" id="2_j8cc4"]
+[ext_resource type="Texture2D" uid="uid://bbpnprdg8csi8" path="res://assets/textures/ui/Blue/Default/button_square_gradient.png" id="4_gbb2p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ux21"]
+texture = ExtResource("1_j8cc4")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gbb2p"]
+texture = ExtResource("2_hlo8g")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlo8g"]
+texture = ExtResource("2_j8cc4")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7pet1"]
+texture = ExtResource("4_gbb2p")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_7pet1")
+Button/styles/disabled = SubResource("StyleBoxTexture_4ux21")
+Button/styles/hover = SubResource("StyleBoxTexture_gbb2p")
+Button/styles/normal = SubResource("StyleBoxTexture_hlo8g")
+Button/styles/pressed = SubResource("StyleBoxTexture_7pet1")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/fonts/font = ExtResource("1_7pet1")
