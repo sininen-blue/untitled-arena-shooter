@@ -26,6 +26,8 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_2ukko")
+sender_immunity_duration = null
+bounce_despawn_duration = null
 
 [node name="DespawnTimer" type="Timer" parent="." unique_id=1682245327]
 wait_time = 5.0

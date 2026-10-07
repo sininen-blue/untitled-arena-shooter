@@ -224,9 +224,10 @@ func remove_weapon() -> void:
 	current_weapon = null
 
 
-func _on_head_hurtbox_hit(hitter: Node, damage: float) -> void:
-	take_damage.rpc(int(hitter.name), damage * headshot_mult)
+# hitter can either be a node or an int
+func _on_head_hurtbox_hit(hitter_id: int, damage: float) -> void:
+	take_damage.rpc(hitter_id, damage * headshot_mult)
 
 
-func _on_body_hurtbox_hit(hitter: Node, damage: float) -> void:
-	take_damage.rpc(int(hitter.name), damage)
+func _on_body_hurtbox_hit(hitter_id: int, damage: float) -> void:
+	take_damage.rpc(hitter_id, damage * headshot_mult)

@@ -15,10 +15,12 @@ var can_bounce: bool = true
 
 
 @onready var despawn_timer: Timer = $DespawnTimer
+@onready var damage_hitbox: HitboxArea = $DamageHitbox
 
 
 func _ready() -> void:
 	despawn_timer.start()
+	damage_hitbox.sender = sender
 	
 	self.physics_material_override = PhysicsMaterial.new()
 	self.physics_material_override.bounce = 1.0

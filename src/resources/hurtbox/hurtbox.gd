@@ -2,11 +2,12 @@ class_name HurtboxArea
 extends Area3D
 
 
-signal hit(hitter: Node, damage: float)
+# hitter node or int
+signal hit(hitter, damage: float)
 
 
 func _on_area_entered(area: Area3D) -> void:
-	var hitter: Node = area.sender
+	var hitter: int = area.sender
 	var damage: float = area.damage
 	
 	hit.emit(hitter, damage)

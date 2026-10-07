@@ -502,4 +502,6 @@ target_position = Vector3(0.35, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 target_position = Vector3(0.35, 0, 0)
 
+[connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
+[connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
 [connection signal="air_to_ground" from="StateMachine/Air" to="Head" method="_on_air_air_to_ground"]
