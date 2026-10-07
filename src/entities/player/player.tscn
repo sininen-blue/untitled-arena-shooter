@@ -49,8 +49,9 @@ material = ExtResource("2_vt6n5")
 radius = 0.3
 height = 1.5
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_crd4b"]
-radius = 1.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2in8s"]
+radius = 0.7
+height = 2.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ogtao"]
 radius = 0.3
@@ -138,7 +139,7 @@ collision_layer = 64
 collision_mask = 32
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ParryHurtbox" unique_id=1232236669]
-shape = SubResource("SphereShape3D_crd4b")
+shape = SubResource("CapsuleShape3D_2in8s")
 debug_color = Color(0.5519741, 0.43427676, 0.9215086, 0.41960785)
 
 [node name="HeadHurtbox" parent="." unique_id=1611386087 instance=ExtResource("3_fjj3i")]

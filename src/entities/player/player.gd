@@ -20,6 +20,7 @@ signal killed(by: int, player: Player)
 @export var weapon_throw_force: float = 8.0
 
 @export var slipper_throw_force: float = 12.0
+@export var parry_force: float = 15.0
 @export var max_slipper_ammo: int = 2
 
 @export var wall_climb_state: State
@@ -104,9 +105,6 @@ func _input(event: InputEvent) -> void:
 			for hitbox: Area3D in slipper_hitboxes:
 				slippers.append(hitbox.get_parent())
 			
-			# sort by distances
-			# separate closest one
-			# shoot closest one to where the head is looking at
 			slippers.sort_custom(func(a, b): 
 				return (
 					head.global_position.distance_squared_to(a.global_position) >
@@ -115,9 +113,14 @@ func _input(event: InputEvent) -> void:
 				)
 			
 			var closest: Slipper = slippers.pop_front()
+			closest.reset_bounce()
 			closest.global_position = hand_marker.global_position
 			closest.apply_central_impulse(-head.global_basis.z * slipper_throw_force*2)
+			
+			self.velocity += head.global_basis.z * parry_force
+			
 			for slipper: Slipper in slippers:
+				slipper.reset_bounce()
 				var dir: Vector3 = head.global_position.direction_to(slipper.global_position)
 				slipper.apply_central_impulse(dir * slipper_throw_force/2)
 
