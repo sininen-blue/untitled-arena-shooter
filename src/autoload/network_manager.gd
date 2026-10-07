@@ -14,6 +14,7 @@ func start_server() -> Error:
 		return error
 	
 	multiplayer.multiplayer_peer = peer
+	PlayerNames.request_add_name(multiplayer.get_unique_id(), "Host")
 	return OK
 
 

@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://cu3tjhbfhufxo"]
 
 [ext_resource type="Script" uid="uid://pnj50lpifeig" path="res://src/ui/lobby/lobby.gd" id="1_gersy"]
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_lclkp"]
+[ext_resource type="PackedScene" uid="uid://dmritjv58w5wf" path="res://src/ui/components/wavy_background/wavy_background.tscn" id="3_u6m5k"]
+[ext_resource type="PackedScene" uid="uid://vfkgf45q6dhe" path="res://src/ui/components/player_card/player_card.tscn" id="4_eaoas"]
+[ext_resource type="Script" uid="uid://wkbdu3t26c5k" path="res://src/ui/components/animated_button/animated_button.gd" id="4_yuboo"]
 
 [node name="Lobby" type="Control" unique_id=644691439]
 layout_mode = 3
@@ -9,9 +13,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lclkp")
 script = ExtResource("1_gersy")
+player_card_scene = ExtResource("4_eaoas")
 start_button_target = &"uid://boeckno5yl7wq"
 metadata/_edit_lock_ = true
+
+[node name="WavyBackground" parent="." unique_id=1274248347 instance=ExtResource("3_u6m5k")]
+layout_mode = 1
 
 [node name="ServerIPLabel" type="Label" parent="." unique_id=368164526]
 layout_mode = 1
@@ -23,52 +32,102 @@ offset_top = 51.0
 offset_right = 35.0
 offset_bottom = 74.0
 grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.12156863, 0.5882353, 0.74509805, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 32
 text = "127.0.0.1"
 
-[node name="HostPlayer" type="Panel" parent="." unique_id=540976259]
-layout_mode = 0
-offset_left = 229.0
-offset_top = 185.0
-offset_right = 435.0
-offset_bottom = 339.0
-
-[node name="Label" type="Label" parent="HostPlayer" unique_id=1474549171]
-layout_mode = 0
-offset_left = 89.0
-offset_top = 32.0
-offset_right = 129.0
-offset_bottom = 55.0
-text = "Host"
-
-[node name="PlayerOne" type="Panel" parent="." unique_id=1780478847]
-visible = false
-layout_mode = 0
-offset_left = 680.0
-offset_top = 407.0
-offset_right = 886.0
-offset_bottom = 561.0
-
-[node name="PlayerOneName" type="Label" parent="PlayerOne" unique_id=1839184116]
-layout_mode = 0
-offset_left = 89.0
-offset_top = 32.0
-offset_right = 129.0
-offset_bottom = 55.0
-text = "Player One"
-
-[node name="StartButton" type="Button" parent="." unique_id=141708058]
+[node name="PlayersPanel" type="Panel" parent="." unique_id=440787990]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -281.0
+offset_right = 199.0
+offset_bottom = 281.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PlayersPanel" unique_id=477672472]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_top = 17.0
+offset_right = 45.0
+offset_bottom = 36.0
+grow_horizontal = 2
+text = "Players"
+horizontal_alignment = 1
+
+[node name="PlayerList" type="VBoxContainer" parent="PlayersPanel" unique_id=1443295396]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.5
+offset_top = -215.0
+offset_right = 150.5
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="StartButton" type="Button" parent="." unique_id=34848376]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -98.0
-offset_top = -69.0
-offset_right = -90.0
-offset_bottom = -61.0
-grow_horizontal = 0
+offset_left = -75.0
+offset_top = -85.0
+offset_right = 76.0
+offset_bottom = -24.0
+grow_horizontal = 2
 grow_vertical = 0
 text = "Start"
+script = ExtResource("4_yuboo")
+metadata/_custom_type_script = "uid://wkbdu3t26c5k"
+
+[node name="NameInput" type="LineEdit" parent="." unique_id=164140456]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -66.0
+offset_right = -119.0
+offset_bottom = -2.5
+grow_horizontal = 0
+grow_vertical = 2
+placeholder_text = "Edit Name"
+alignment = 1
+
+[node name="NameSaveButton" type="Button" parent="NameInput" unique_id=2135295128]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -34.5
+offset_top = 9.5
+offset_right = 36.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Save"
+script = ExtResource("4_yuboo")
+metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

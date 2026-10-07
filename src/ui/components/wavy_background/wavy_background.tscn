@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dmritjv58w5wf"]
+
+[ext_resource type="Shader" uid="uid://ccg7ajvth2btr" path="res://src/shaders/warped.gdshader" id="1_af3od"]
+[ext_resource type="Script" uid="uid://c5gi1pgr2o6ay" path="res://src/ui/main_menu/background.gd" id="2_hnccs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux21"]
+shader = ExtResource("1_af3od")
+shader_parameter/speed = 0.6
+shader_parameter/amp = 0.1
+shader_parameter/freq = 30.0
+shader_parameter/stripes = 3.0
+shader_parameter/stripe_thickness = 5.0
+shader_parameter/stripe_color = Color(0.22540002, 0.85423326, 0.98, 1)
+shader_parameter/background_color = Color(0.2842, 0.8176468, 0.98, 1)
+shader_parameter/mouse_pos = Vector2(0.5, 0.5)
+shader_parameter/bend_radius = 0.25
+shader_parameter/bend_strength = 0.3
+
+[node name="WavyBackground" type="ColorRect" unique_id=1274248347]
+material = SubResource("ShaderMaterial_4ux21")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25, 0.4375, 1, 1)
+script = ExtResource("2_hnccs")

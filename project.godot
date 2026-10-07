@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneLoader="*uid://dsnwt873r7boj"
 NetworkManager="*uid://grwkrgtw7mxq"
+PlayerNames="*uid://qu47tq7m6jce"
 
 [display]
 

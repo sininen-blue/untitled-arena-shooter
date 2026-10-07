@@ -10,6 +10,7 @@ extends Control
 
 
 func _ready() -> void:
+	ip_input.grab_focus()
 	join_button.disabled = ip_input.text == ""
 
 
