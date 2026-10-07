@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dyx4bp4pq7ecf"]
 
 [ext_resource type="Script" uid="uid://bmt2ngivsr1y2" path="res://src/entities/slipper/slipper.gd" id="1_2ukko"]
+[ext_resource type="PackedScene" uid="uid://dnrnx08rthj4" path="res://src/resources/hitbox/hitbox_area.tscn" id="2_74trw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2in8s"]
 
@@ -15,6 +16,9 @@ radius = 0.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_crd4b"]
 radius = 0.4
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_vehwe"]
+radius = 0.3
+
 [node name="Slipper" type="RigidBody3D" unique_id=1376362658]
 collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_2in8s")
@@ -22,6 +26,11 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_2ukko")
+
+[node name="DespawnTimer" type="Timer" parent="." unique_id=1682245327]
+wait_time = 5.0
+one_shot = true
+autostart = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1281681404]
 replication_config = SubResource("SceneReplicationConfig_reqoy")
@@ -32,9 +41,16 @@ shape = SubResource("SphereShape3D_2ukko")
 [node name="DebugModel" type="CSGBox3D" parent="." unique_id=1474333976]
 size = Vector3(0.2, 0.05, 0.1)
 
-[node name="SlipperHitbox" type="Area3D" parent="." unique_id=1680758804]
+[node name="ParryHitbox" type="Area3D" parent="." unique_id=1680758804]
 collision_layer = 32
 collision_mask = 64
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SlipperHitbox" unique_id=1003568007]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ParryHitbox" unique_id=1003568007]
 shape = SubResource("SphereShape3D_crd4b")
+
+[node name="DamageHitbox" parent="." unique_id=1142347245 instance=ExtResource("2_74trw")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageHitbox" unique_id=2028849038]
+shape = SubResource("SphereShape3D_vehwe")
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

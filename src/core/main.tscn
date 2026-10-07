@@ -44,6 +44,7 @@ spawn_path = NodePath("../Slippers")
 [node name="Decals" type="Node3D" parent="." unique_id=968590565]
 
 [node name="Slippers" type="Node3D" parent="." unique_id=369481168]
+unique_name_in_owner = true
 
 [node name="Countdown" type="Timer" parent="." unique_id=1780602067]
 one_shot = true
