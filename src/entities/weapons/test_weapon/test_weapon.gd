@@ -1,6 +1,9 @@
 extends HitscanWeapon
 
 
+@onready var muzzle: Marker3D = $Muzzle
+
+
 func _ready() -> void:
 	var red: float = randf_range(0, 1)
 	var green: float = randf_range(0, 1)
