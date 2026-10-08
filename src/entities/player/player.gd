@@ -143,7 +143,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():
 			current_weapon.shoot()
-			current_weapon.apply_spread(gun_cast)
+			current_weapon.apply_spread(gun_cast, self.get_speed())
+			gun_cast.force_raycast_update()
 			
 			if recoil_offset < current_weapon.max_head_recoil:
 				recoil_offset += current_weapon.head_recoil
