@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cw1lqivfocbbo" path="res://src/networking/decal_spawner/decal_spawner.tscn" id="6_nlf45"]
 [ext_resource type="PackedScene" uid="uid://cehjd8kyl6sjn" path="res://src/networking/slipper_spawner/slipper_spawner.tscn" id="8_2in8s"]
 [ext_resource type="PackedScene" uid="uid://b4ifippudd7pg" path="res://src/networking/winner_screen/winner_screen.tscn" id="8_2uitn"]
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="10_7o0du"]
+[ext_resource type="PackedScene" uid="uid://bc8i1ne2uwrpt" path="res://src/ui/components/countdown/countdown.tscn" id="12_7561f"]
 
 [node name="Main" type="Node" unique_id=1123520285]
 script = ExtResource("1_w61mg")
@@ -59,6 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("10_7o0du")
 
 [node name="Label" type="Label" parent="GlobalHud/Control" unique_id=1427485463]
 layout_mode = 1
@@ -72,6 +75,10 @@ grow_horizontal = 2
 text = "Scores: "
 
 [node name="WinnerScreen" parent="GlobalHud/Control" unique_id=1831784229 instance=ExtResource("8_2uitn")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Countdown" parent="GlobalHud/Control" unique_id=1578566330 instance=ExtResource("12_7561f")]
 unique_name_in_owner = true
 layout_mode = 1
 
