@@ -153,7 +153,7 @@ func _process(delta: float) -> void:
 				if gun_cast.get_collider() is HurtboxArea:
 					pass
 				else:
-					decal_spawner.request_spawn(gun_cast.get_collision_point())
+					decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
 	
 	if current_weapon:
 		current_weapon.apply_spread_recovery(gun_cast, delta)
