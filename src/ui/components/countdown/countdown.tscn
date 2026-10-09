@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bc8i1ne2uwrpt"]
+
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_gi3s3"]
+[ext_resource type="Script" uid="uid://3syrhjf05xei" path="res://src/ui/components/countdown/countdown.gd" id="2_vrd7g"]
+
+[sub_resource type="Curve" id="Curve_vrd7g"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Countdown" type="Control" unique_id=1578566330]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gi3s3")
+script = ExtResource("2_vrd7g")
+scale_curve = SubResource("Curve_vrd7g")
+
+[node name="Label" type="Label" parent="." unique_id=214163171]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+theme_override_font_sizes/font_size = 128
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=354473715]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

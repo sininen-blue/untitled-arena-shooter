@@ -11,6 +11,7 @@ var current_level: BaseLevel
 @onready var player_spawner: PlayerSpawner = %PlayerSpawner
 @onready var score_handler: ScoreHandler = $ScoreHandler
 @onready var winner_screen: WinnerScreen = %WinnerScreen
+@onready var countdown: Countdown = %Countdown
 
 
 func _ready() -> void:
@@ -26,10 +27,12 @@ func _ready() -> void:
 
 	await player_spawner.all_players_spawned
 	await get_tree().create_timer(.5).timeout # TODO: fuckass grace, replace at some point
+
 	place_players()
 	connect_signals()
 	ready_scores()
-	await get_tree().create_timer(2).timeout # TODO: replace with timer
+	countdown.start(3)
+	await countdown.finished
 	release_players.rpc()
 
 

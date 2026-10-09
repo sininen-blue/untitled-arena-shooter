@@ -4,7 +4,13 @@ extends Node3D
 
 @export var damage: float = 1
 
-@export var max_spread: float = 1.2
+@export var min_spread: float = 0.5
+@export var max_spread: float = 10.0
+@export var max_speed: float = 7
+@export var min_speed: float = 2
+@export var speed_spread_curve: Curve
+
+
 @export var spread_recovery: float = 3.0
 
 @export var head_recoil: float = 5.0
@@ -19,6 +25,7 @@ extends Node3D
 @export var max_angle: float = 15.0
 
 
+var current_spread: float = 0.0
 var time: float = 0
 
 
@@ -35,9 +42,20 @@ func shoot() -> void:
 	recoil()
 
 
-func apply_spread(ray: RayCast3D) -> void:
-	var horizontal_spread: float = randf_range(-max_spread, max_spread)
-	var vertical_spread: float = randf_range(-max_spread, max_spread)
+func apply_spread(ray: RayCast3D, player_speed: float) -> void:
+	var clamped_player_speed: float = 0
+	if player_speed < min_speed:
+		clamped_player_speed = 0
+	else:
+		clamped_player_speed = clampf(player_speed, min_speed, max_speed)
+
+	var sample_point: float = (clamped_player_speed - min_speed)/(max_speed - min_speed)
+	var spread_weight: float = speed_spread_curve.sample(sample_point)
+
+	current_spread = min_spread + ((max_spread - min_spread) * spread_weight)
+
+	var horizontal_spread: float = randf_range(-current_spread, current_spread)
+	var vertical_spread: float = randf_range(-current_spread, current_spread)
 	
 	ray.rotation_degrees.y = vertical_spread
 	ray.rotation_degrees.x = horizontal_spread

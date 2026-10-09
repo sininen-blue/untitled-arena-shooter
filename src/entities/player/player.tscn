@@ -63,6 +63,27 @@ size = Vector3(0.5, 0.90000004, 0.5)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.9840202, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_coeo4"]
+direction = Vector3(0, 0, -1)
+spread = 0.0
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_45xpv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6594203), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ngh1c"]
+transparency = 1
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_45xpv"]
+material = SubResource("StandardMaterial3D_ngh1c")
+size = 0.2
+sections = 10
+curve = SubResource("Curve_45xpv")
+
 [sub_resource type="Curve" id="Curve_3d0mj"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -166,6 +187,16 @@ script = ExtResource("4_5qgjf")
 state_machine = NodePath("../StateMachine")
 head_target = NodePath("../HeadTarget")
 landing_pos_curve = SubResource("Curve_fjj3i")
+
+[node name="TracerEmitter" type="GPUParticles3D" parent="Head" unique_id=524593845]
+emitting = false
+amount = 1
+lifetime = 0.09999999999999999
+one_shot = true
+trail_enabled = true
+trail_lifetime = 0.09999999999999999
+process_material = SubResource("ParticleProcessMaterial_coeo4")
+draw_pass_1 = SubResource("RibbonTrailMesh_45xpv")
 
 [node name="Camera" parent="Head" unique_id=1049634563 node_paths=PackedStringArray("player", "state_machine", "wall_raycasts") instance=ExtResource("4_a31ob")]
 unique_name_in_owner = true

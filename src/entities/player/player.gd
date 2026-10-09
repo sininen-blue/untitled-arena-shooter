@@ -47,6 +47,7 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var head_target: Marker3D = $HeadTarget
 @onready var camera: Camera3D = %Camera
 @onready var hand_marker: Marker3D = %HandMarker
+@onready var tracer_emitter: GPUParticles3D = $Head/TracerEmitter
 
 
 @onready var interact_cast: RayCast3D = %InteractCast
@@ -142,8 +143,13 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():
+			
+			tracer_emitter.global_position = current_weapon.muzzle.global_position
+			tracer_emitter.emitting = true
+			
 			current_weapon.shoot()
-			current_weapon.apply_spread(gun_cast)
+			current_weapon.apply_spread(gun_cast, self.get_speed())
+			gun_cast.force_raycast_update()
 			
 			if recoil_offset < current_weapon.max_head_recoil:
 				recoil_offset += current_weapon.head_recoil
@@ -152,7 +158,7 @@ func _process(delta: float) -> void:
 				if gun_cast.get_collider() is HurtboxArea:
 					pass
 				else:
-					decal_spawner.request_spawn(gun_cast.get_collision_point())
+					decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
 	
 	if current_weapon:
 		current_weapon.apply_spread_recovery(gun_cast, delta)

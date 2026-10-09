@@ -3,7 +3,38 @@
 [ext_resource type="Texture2D" uid="uid://di04khg6yqyo0" path="res://icon.svg" id="1_c4npw"]
 [ext_resource type="Script" uid="uid://5eli17b54q8" path="res://src/resources/hit_decal/hit_decal.gd" id="2_j3g87"]
 
+[sub_resource type="Curve" id="Curve_j3g87"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7468879, 0.5652173), -1.088127, -1.088127, 0, 0, Vector2(1, 0), -2.2655687, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qqj5a"]
+curve = SubResource("Curve_j3g87")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j3g87"]
+direction = Vector3(1, 0.3, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 2, 0)
+damping_min = 3.0000002
+damping_max = 5.0
+scale_curve = SubResource("CurveTexture_qqj5a")
+
+[sub_resource type="SphereMesh" id="SphereMesh_tmg42"]
+radius = 0.1
+height = 0.2
+
 [node name="HitDecal" type="Decal" unique_id=75172976]
 size = Vector3(0.2, 0.2, 0.2)
 texture_albedo = ExtResource("1_c4npw")
 script = ExtResource("2_j3g87")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=2035405999]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+emitting = false
+amount = 10
+lifetime = 1.4000000000000001
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_j3g87")
+draw_pass_1 = SubResource("SphereMesh_tmg42")
