@@ -13,6 +13,7 @@ func request_weapon(requester: Player, weapon_instance: HitscanWeapon) -> void:
 func give_weapon(target_name: String, weapon_path: String, ammo: int) -> void:
 	var weapon_instance: HitscanWeapon = load(weapon_path).instantiate()
 	weapon_instance.ammo = ammo
+	weapon_instance.held = true
 	
 	var target: Player = Utils.find_player(target_name, get_parent())
 	

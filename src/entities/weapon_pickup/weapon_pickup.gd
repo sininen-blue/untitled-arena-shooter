@@ -8,7 +8,7 @@ extends Node3D
 
 @export var respawn_time: float = 3.0
 @export var rotation_speed: float = 4
-@export var weapon_tilt: float = 15
+@export var weapon_tilt: float = 45
 @export var weapon_visible: bool = false
 
 
@@ -26,7 +26,7 @@ func _ready() -> void:
 	self.add_child(weapon_instance)
 	
 	weapon_visible = true
-	weapon_instance.rotate_x(weapon_tilt)
+	weapon_instance.rotation_degrees.x = weapon_tilt
 	weapon_instance.global_position = weapon_spawn_marker.global_position
 	
 	if multiplayer.is_server():

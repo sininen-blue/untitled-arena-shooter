@@ -27,6 +27,7 @@ extends Node3D
 
 var current_spread: float = 0.0
 var time: float = 0
+var held: bool = false
 
 
 func can_shoot() -> bool:
@@ -81,7 +82,8 @@ func _process(delta: float) -> void:
 	if time >= 0:
 		time -= 1 * delta
 	
-	if position.z > 0:
-		self.position.z = Utils.exp_decay(self.position.z, 0, 3, delta)
-	if rotation.x > 0:
-		self.rotation.x = Utils.exp_decay(self.rotation.x, 0, 7, delta)
+	if held:
+		if position.z > 0:
+			self.position.z = Utils.exp_decay(self.position.z, 0, 3, delta)
+		if rotation.x > 0:
+			self.rotation.x = Utils.exp_decay(self.rotation.x, 0, 7, delta)
