@@ -8,6 +8,8 @@ extends Control
 
 @onready var player_list: VBoxContainer = %PlayerList
 @onready var server_ip_label: Label = $ServerIPLabel
+@onready var start_button: AnimatedButton = $StartButton
+@onready var ready_button: AnimatedButton = $ReadyButton
 
 
 func _ready() -> void:
@@ -24,6 +26,17 @@ func _ready() -> void:
 			var player_name: String = NetworkManager.players[player_id].get("name")
 			var is_ready: bool = NetworkManager.players[player_id].get("is_ready")
 			_add_player_card(player_id, player_name, is_ready)
+
+	if multiplayer.is_server():
+		start_button.disabled = true
+		start_button.visible = true
+	
+	if NetworkManager.players.has(multiplayer.get_unique_id()):
+		var is_ready: bool = NetworkManager.players[multiplayer.get_unique_id()].get("is_ready")
+		if is_ready:
+			ready_button.text = "Unready?"
+		else:
+			ready_button.text = "Ready!"
 
 
 func _add_player_card(id: int, player_name: String, is_ready: bool) -> void:
@@ -55,6 +68,29 @@ func _on_players_changed() -> void:
 
 		card.player_name = NetworkManager.players[card.player_id].get("name")
 		card.is_ready = NetworkManager.players[card.player_id].get("is_ready")
+	
+	var all_ready: bool = true
+	for player_id in NetworkManager.players:
+		if NetworkManager.players[player_id].get("is_ready") == false:
+			all_ready = false
+			break
+	
+	if multiplayer.multiplayer_peer == null:
+		return
+
+	if multiplayer.is_server() and all_ready:
+		start_button.disabled = false
+
+	if NetworkManager.players.has(multiplayer.get_unique_id()):
+		var is_ready: bool = NetworkManager.players[multiplayer.get_unique_id()].get("is_ready")
+		if is_ready:
+			ready_button.text = "Unready?"
+		else:
+			ready_button.text = "Ready!"
+
+
+func _on_ready_button_pressed() -> void:
+	NetworkManager.request_ready_update(ready_button.text == "Ready!")
 
 
 func _on_back_button_pressed() -> void:
@@ -64,3 +100,7 @@ func _on_back_button_pressed() -> void:
 
 func _on_server_disconnect() -> void:
 	SceneLoader.load_scene(back_target)
+
+
+func _on_start_button_pressed() -> void:
+	SceneLoader.load_scene.rpc(start_target)

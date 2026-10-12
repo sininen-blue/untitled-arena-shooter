@@ -72,6 +72,10 @@ func disconnect_server() -> void:
 	players.clear()
 
 
+func request_ready_update(is_ready: bool) -> void:
+	_update_ready.rpc_id(1, is_ready)
+
+
 func get_local_ip() -> String:
 	var addresses = IP.get_local_addresses()
 	var candidates = []
@@ -126,3 +130,17 @@ func _sync_players(data: Dictionary) -> void:
 				peer_left.emit(id)
 
 	players_changed.emit()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _update_ready(is_ready: bool) -> void:
+	if not multiplayer.is_server():
+		return
+
+	var id: int = multiplayer.get_remote_sender_id()
+	if id == 0:
+		id = multiplayer.get_unique_id()
+
+	players[id].set("is_ready", is_ready)
+	_sync_players.rpc(players)
+	

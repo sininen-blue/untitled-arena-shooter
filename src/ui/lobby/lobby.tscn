@@ -18,6 +18,7 @@ theme = ExtResource("1_lclkp")
 script = ExtResource("1_gersy")
 player_card_scene = ExtResource("4_eaoas")
 back_target = &"uid://bxd7p5s43abo3"
+start_target = &"uid://boeckno5yl7wq"
 metadata/_edit_lock_ = true
 
 [node name="WavyBackground" parent="." unique_id=1274248347 instance=ExtResource("3_u6m5k")]
@@ -95,23 +96,22 @@ theme_override_constants/separation = 32
 [node name="StartButton" type="Button" parent="." unique_id=34848376]
 visible = false
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -85.0
-offset_right = 76.0
-offset_bottom = -24.0
-grow_horizontal = 2
+offset_left = -309.0
+offset_top = -169.0
+offset_right = -125.0
+offset_bottom = -89.0
+grow_horizontal = 0
 grow_vertical = 0
-text = "Start"
+text = "LETS GO!"
 script = ExtResource("4_yuboo")
 metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
 [node name="ReadyButton" type="Button" parent="." unique_id=273187662]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -164,3 +164,5 @@ script = ExtResource("4_yuboo")
 metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ReadyButton" to="." method="_on_ready_button_pressed"]
