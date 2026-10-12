@@ -23,9 +23,11 @@ func start_client(ip: String = "") -> Error:
 		ip = IP_ADDR
 	
 	peer = ENetMultiplayerPeer.new()
-	# TODO: resolve ip first, then resovle connection afterwards
-	# place two errors here
-	var error: Error = peer.create_client(ip, PORT)
+	var resolved_ip: String = IP.resolve_hostname(ip, IP.TYPE_IPV4)
+	if resolved_ip.is_empty():
+		return ERR_CANT_RESOLVE
+
+	var error: Error = peer.create_client(resolved_ip, PORT)
 	if error != OK:
 		return error
 	
