@@ -17,7 +17,7 @@ grow_vertical = 2
 theme = ExtResource("1_lclkp")
 script = ExtResource("1_gersy")
 player_card_scene = ExtResource("4_eaoas")
-start_button_target = &"uid://boeckno5yl7wq"
+back_target = &"uid://bxd7p5s43abo3"
 metadata/_edit_lock_ = true
 
 [node name="WavyBackground" parent="." unique_id=1274248347 instance=ExtResource("3_u6m5k")]
@@ -37,6 +37,17 @@ theme_override_colors/font_outline_color = Color(0.12156863, 0.5882353, 0.745098
 theme_override_constants/outline_size = 32
 theme_override_font_sizes/font_size = 32
 text = "127.0.0.1"
+
+[node name="BackButton" type="Button" parent="." unique_id=8868665]
+layout_mode = 1
+offset_left = 53.0
+offset_top = 42.0
+offset_right = 220.0
+offset_bottom = 120.0
+text = "Back to Main Menu"
+autowrap_mode = 3
+script = ExtResource("4_yuboo")
+metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
 [node name="PlayersPanel" type="Panel" parent="." unique_id=440787990]
 layout_mode = 1
@@ -82,6 +93,7 @@ grow_vertical = 2
 theme_override_constants/separation = 32
 
 [node name="StartButton" type="Button" parent="." unique_id=34848376]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -95,6 +107,24 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Start"
+script = ExtResource("4_yuboo")
+metadata/_custom_type_script = "uid://wkbdu3t26c5k"
+
+[node name="ReadyButton" type="Button" parent="." unique_id=273187662]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = -84.0
+offset_right = 76.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Ready"
 script = ExtResource("4_yuboo")
 metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
@@ -133,4 +163,4 @@ text = "Save"
 script = ExtResource("4_yuboo")
 metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -34,6 +34,7 @@ func _on_join_button_pressed() -> void:
 	var error: Error = NetworkManager.start_client(ip)
 	match error:
 		OK:
+			await multiplayer.connected_to_server
 			SceneLoader.load_scene(join_button_target)
 		ERR_ALREADY_IN_USE:
 			error_label.visible = true

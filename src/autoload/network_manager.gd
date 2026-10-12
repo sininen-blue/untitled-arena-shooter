@@ -47,6 +47,21 @@ func start_client(ip: String = "") -> Error:
 	return OK
 
 
+func disconnect_client() -> void:
+	if peer == null or multiplayer.is_server():
+		return
+
+	peer.close()
+	multiplayer.multiplayer_peer = null
+	peer = null
+
+	var ids: Array = players.keys()
+	players.clear()
+	for id: int in ids:
+		peer_left.emit(id)
+	players_changed.emit()
+
+
 func get_local_ip() -> String:
 	var addresses = IP.get_local_addresses()
 	var candidates = []
@@ -88,5 +103,16 @@ func _on_peer_disconnected(id: int) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _sync_players(data: Dictionary) -> void:
+	var old_players: Dictionary = players.duplicate()
 	players = data
+
+	# Server already emitted these when it mutated the list.
+	if not multiplayer.is_server():
+		for id: int in players:
+			if not old_players.has(id):
+				peer_joined.emit(id)
+		for id: int in old_players:
+			if not players.has(id):
+				peer_left.emit(id)
+
 	players_changed.emit()
