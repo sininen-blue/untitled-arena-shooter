@@ -62,6 +62,16 @@ func disconnect_client() -> void:
 	players_changed.emit()
 
 
+func disconnect_server() -> void:
+	if peer == null or not multiplayer.is_server():
+		return
+
+	peer.close()
+	multiplayer.multiplayer_peer = null
+	peer = null
+	players.clear()
+
+
 func get_local_ip() -> String:
 	var addresses = IP.get_local_addresses()
 	var candidates = []
