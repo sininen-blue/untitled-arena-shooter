@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dobs0lgals321"]
+
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_al7bb"]
+[ext_resource type="Script" uid="uid://dnbqq7xx7h2g8" path="res://src/ui/components/player_score_card/player_score_card.gd" id="2_luxon"]
+
+[node name="PlayerScoreCard" type="HBoxContainer" unique_id=1914259169]
+custom_minimum_size = Vector2(0, 60)
+theme = ExtResource("1_al7bb")
+alignment = 1
+script = ExtResource("2_luxon")
+
+[node name="NameLabel" type="Label" parent="." unique_id=40706241]
+layout_mode = 2
+text = "Host"
+
+[node name="Spacer" type="Control" parent="." unique_id=365369669]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1157759373]
+layout_mode = 2
+text = "2"

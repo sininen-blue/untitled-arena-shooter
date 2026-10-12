@@ -131,17 +131,15 @@ func release_players() -> void:
 		if child is Player:
 			child.locked = false
 
-
+# shouldn't be on player kill but on player last
 func _on_player_killed(by_id: int, who: Player) -> void:
 	if multiplayer.is_server() == false:
 		return
 	
 	score_handler.add_score(by_id, 1)
-	show_winner()
-
-
-func show_winner() -> void:
-	winner_screen.start()
+	winner_screen.start.rpc() # placeholder
+	# then open score panel, do animation, finish, restart
+	# once someone has a 5, change scene to victory
 
 
 func _on_winner_screen_finished() -> void:

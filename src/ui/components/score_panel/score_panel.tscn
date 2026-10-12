@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://65k3trxjhft5"]
+
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_8mljb"]
+[ext_resource type="PackedScene" uid="uid://dobs0lgals321" path="res://src/ui/components/player_score_card/player_score_card.tscn" id="2_ck5vr"]
+
+[node name="ScorePanel" type="Panel" unique_id=806119554]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -337.5
+offset_top = -209.0
+offset_right = 337.5
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8mljb")
+
+[node name="Title" type="Label" parent="." unique_id=1584702138]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = 25.0
+offset_right = 44.0
+offset_bottom = 44.0
+grow_horizontal = 2
+text = "Scores!"
+
+[node name="ScoreContainer" type="VBoxContainer" parent="." unique_id=721649862]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -306.5
+offset_top = -151.5
+offset_right = 306.5
+offset_bottom = 171.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="PlayerScore" parent="ScoreContainer" unique_id=1914259169 instance=ExtResource("2_ck5vr")]
+layout_mode = 2
+
+[node name="Goal" type="Label" parent="." unique_id=1000403980]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.0
+offset_top = -50.0
+offset_right = 44.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "First to 10 Points!"

@@ -16,7 +16,3 @@ func add_score(player_id: int, amount: int) -> void:
 		scores[player_id] = 0
 	
 	scores[player_id] += amount
-
-
-func _process(delta: float) -> void:
-	label.text = "scores: " + str(scores)
