@@ -13,14 +13,18 @@
 [ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="10_7o0du"]
 [ext_resource type="PackedScene" uid="uid://bc8i1ne2uwrpt" path="res://src/ui/components/countdown/countdown.tscn" id="12_7561f"]
 
-[node name="Main" type="Node" unique_id=1123520285]
+[node name="Main" type="Node" unique_id=1123520285 node_paths=PackedStringArray("current_level")]
 script = ExtResource("1_w61mg")
+current_level = NodePath("TestArena1")
 
 [node name="ScoreHandler" parent="." unique_id=2061641455 instance=ExtResource("2_2uitn")]
 
 [node name="WeaponPickupSync" type="Node" parent="." unique_id=98868351]
 unique_name_in_owner = true
 script = ExtResource("2_q2b63")
+
+[node name="PlayerSpawner" parent="." unique_id=1167663308 instance=ExtResource("1_ukt3u")]
+unique_name_in_owner = true
 
 [node name="DroppedSpawner" type="MultiplayerSpawner" parent="." unique_id=1608061271]
 _spawnable_scenes = PackedStringArray("uid://be5yb17j17k0n")
@@ -30,10 +34,6 @@ dropped_weapon_scene = ExtResource("2_x62ka")
 
 [node name="DecalSpawner" parent="." unique_id=499064189 instance=ExtResource("6_nlf45")]
 unique_name_in_owner = true
-
-[node name="PlayerSpawner" parent="." unique_id=1167663308 instance=ExtResource("1_ukt3u")]
-unique_name_in_owner = true
-debug = true
 
 [node name="SlipperSpawner" parent="." unique_id=152510604 instance=ExtResource("8_2in8s")]
 unique_name_in_owner = true

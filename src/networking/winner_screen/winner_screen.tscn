@@ -2,11 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cc8yxhka70bsf" path="res://src/networking/winner_screen/winner_screen.gd" id="1_au387"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nlf45"]
-properties/0/path = NodePath("AnimationPlayer:active")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
 [sub_resource type="Animation" id="Animation_8ol0i"]
 length = 0.001
 tracks/0/type = "value"
@@ -108,9 +103,6 @@ grow_vertical = 2
 offset_transform_enabled = true
 text = "Winner"
 script = ExtResource("1_au387")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=836390397]
-replication_config = SubResource("SceneReplicationConfig_nlf45")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=253849859]
 libraries/ = SubResource("AnimationLibrary_8ol0i")

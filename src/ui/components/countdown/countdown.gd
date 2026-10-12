@@ -31,6 +31,7 @@ func _ready() -> void:
 		start()
 
 
+@rpc("any_peer", "call_local", "reliable")
 func start(start_number: float = default_start_number) -> void:
 	self.visible = true
 	current_number = start_number

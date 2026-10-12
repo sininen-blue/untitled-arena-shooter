@@ -6,13 +6,10 @@ signal all_players_spawned
 
 
 @export var network_player: PackedScene
-@export var debug: bool = false
 
 
-var ready_peers: Array[int] = []
-
-
-@onready var dropped_spawner: MultiplayerSpawner = $"../DroppedSpawner"
+var to_spawn: int = 0
+var has_spawned: int = 0
 
 
 func _ready() -> void:
@@ -20,36 +17,24 @@ func _ready() -> void:
 
 
 func start() -> void:
-	if multiplayer.is_server():
-		ready_peers.append(multiplayer.get_unique_id())
-		_check_all_ready()
-	else:
-		_notify_ready.rpc_id(1)
-
-
-@rpc("any_peer", "reliable")
-func _notify_ready() -> void:
-	if multiplayer.is_server() == false:
+	if not multiplayer.is_server():
 		return
 	
-	var id: int = multiplayer.get_remote_sender_id()
-	ready_peers.append(id)
-	_check_all_ready()
-
-
-func _check_all_ready() -> void:
-	var peers: PackedInt32Array = multiplayer.get_peers()
-	peers.append(multiplayer.get_unique_id())
+	to_spawn = NetworkManager.players.size()
 	
-	if ready_peers.size() == peers.size():
-		for id: int in ready_peers:
-			self.spawn.call_deferred(id)
-
-		all_players_spawned.emit()
+	for player_id: int in NetworkManager.players:
+		spawn.call_deferred(player_id)
 
 
 func _spawn_player(id: int) -> Player:
 	var player: Player = network_player.instantiate()
 	player.name = str(id)
 	
+	player.ready.connect(_on_player_ready)
 	return player
+
+
+func _on_player_ready() -> void:
+	has_spawned += 1
+	if has_spawned == to_spawn:
+		all_players_spawned.emit()
