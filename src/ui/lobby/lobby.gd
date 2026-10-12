@@ -94,7 +94,10 @@ func _on_ready_button_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
-	NetworkManager.disconnect_client()
+	if multiplayer.is_server():
+		NetworkManager.disconnect_server()
+	else:
+		NetworkManager.disconnect_client()
 	SceneLoader.load_scene(back_target)
 
 
