@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cm7aubifywjrl"
-path.s3tc="res://.godot/imported/bamboo_pistol_base.png-6edc0e8e06cd99b4885a8f3c9890ebaf.s3tc.ctex"
+uid="uid://iu88a8o7n28j"
+path.s3tc="res://.godot/imported/bamboo_pistol_endesga-32-32x.png-9c0b830cea00b385f49349dedb712cd4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "bc07d8f4ec34e5413906f01fbee9fe9a"
+"md5": "99f304b368eb9991304d243d46f70b5e"
 }
 
 [deps]
 
-source_file="res://assets/models/weapons/bamboo_pistol/bamboo_pistol_base.png"
-dest_files=["res://.godot/imported/bamboo_pistol_base.png-6edc0e8e06cd99b4885a8f3c9890ebaf.s3tc.ctex"]
+source_file="res://assets/models/weapons/bamboo_pistol/bamboo_pistol_endesga-32-32x.png"
+dest_files=["res://.godot/imported/bamboo_pistol_endesga-32-32x.png-9c0b830cea00b385f49349dedb712cd4.s3tc.ctex"]
 
 [params]
 
