@@ -19,5 +19,9 @@ func _ready() -> void:
 		global_position = pending_position
 
 	if pending_normal:
-		self.global_transform.basis = Basis.looking_at(-pending_normal, Vector3.UP)
-		self.rotation_degrees.x += 90
+		var up := Vector3.UP
+		if absf(pending_normal.normalized().dot(Vector3.UP)) > 0.999:
+			up = Vector3.RIGHT
+
+		global_transform.basis = Basis.looking_at(-pending_normal, up)
+		rotation_degrees.x += 90
