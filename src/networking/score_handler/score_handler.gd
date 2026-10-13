@@ -5,9 +5,6 @@ extends Node
 @export var scores: Dictionary[int, int] = {}
 
 
-@onready var label: Label = $"../GlobalHud/Control/Label"
-
-
 func add_score(player_id: int, amount: int) -> void:
 	if multiplayer.is_server() == false:
 		return

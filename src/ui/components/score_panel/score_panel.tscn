@@ -15,6 +15,7 @@ offset_right = 337.5
 offset_bottom = 202.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("1_8mljb")
 
 [node name="Title" type="Label" parent="." unique_id=1584702138]
