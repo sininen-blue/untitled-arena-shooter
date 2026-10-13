@@ -132,7 +132,7 @@ func release_players() -> void:
 			child.locked = false
 
 # shouldn't be on player kill but on player last
-func _on_player_killed(by_id: int, who: Player) -> void:
+func _on_player_killed(by_id: int, _who: Player) -> void:
 	if multiplayer.is_server() == false:
 		return
 	
