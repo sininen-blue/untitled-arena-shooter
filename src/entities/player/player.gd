@@ -61,6 +61,9 @@ var wish_velocity: Vector3 = Vector3.ZERO
 
 @onready var health_bar: HealthBar = %HealthBar
 
+@onready var head_hurtbox: HurtboxArea = $HeadHurtbox
+@onready var body_hurtbox: HurtboxArea = $BodyHurtbox
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -221,8 +224,11 @@ func take_damage(hitter_id: int, damage: float) -> void:
 	health -= damage
 	health_bar.current_health = health
 	if health <= 0:
-		self.visible = false
 		killed.emit(hitter_id, self)
+		self.visible = false
+		self.position.y = -500
+
+		# TODO: switch camera to floating camera, disable areas
 
 
 func get_weapon(weapon_instance: HitscanWeapon) -> void:

@@ -9,6 +9,7 @@ signal clients_ready
 
 var ready_clients: Array[int]
 var players: Array
+var players_killed: Array[int]
 
 
 @onready var weapon_pickup_sync: WeaponPickupSync = %WeaponPickupSync
@@ -96,6 +97,11 @@ func ready_scores() -> void:
 		score_handler.add_score(int(player.name), 0)
 
 
+func reset_scores() -> void:
+	for player_id: int in score_handler.scores:
+		score_handler.scores[player_id] = 0
+
+
 @rpc("authority", "call_local", "reliable")
 func _set_player_position(player_name: String, pos: Vector3) -> void:
 	var player: Player = Utils.find_player(player_name, self)
@@ -109,6 +115,7 @@ func _reset_player_health(player_name: String) -> void:
 	var player: Player = Utils.find_player(player_name, self)
 	if player:
 		player.health = player.max_health
+		player.health_bar.current_health = player.health
 
 
 @rpc("authority", "call_local", "reliable")
@@ -131,15 +138,20 @@ func release_players() -> void:
 		if child is Player:
 			child.locked = false
 
-# shouldn't be on player kill but on player last
-func _on_player_killed(by_id: int, _who: Player) -> void:
+
+func _on_player_killed(by_id: int, who: Player) -> void:
 	if multiplayer.is_server() == false:
 		return
-	
-	score_handler.add_score(by_id, 1)
-	winner_screen.start.rpc() # placeholder
-	# then open score panel, do animation, finish, restart
-	# once someone has a 5, change scene to victory
+
+	players_killed.append(int(who.name))
+
+	if players_killed.size() == NetworkManager.players.size()-1:
+		for player_id in NetworkManager.players:
+			if player_id not in players_killed:
+				score_handler.add_score(player_id, 1)
+				break
+
+		winner_screen.start.rpc()
 
 
 func _on_winner_screen_finished() -> void:
@@ -150,6 +162,8 @@ func _on_winner_screen_finished() -> void:
 	reset_player_healths()
 	reset_player_visibilities()
 	reset_player_weapons()
+	reset_scores()
+	players_killed.clear()
 	dropped_spawner.clear_dropped_weapons()
 	
 	await get_tree().create_timer(2).timeout
