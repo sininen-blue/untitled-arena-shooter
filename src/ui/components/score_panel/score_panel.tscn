@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_8mljb"]
 [ext_resource type="PackedScene" uid="uid://dobs0lgals321" path="res://src/ui/components/player_score_card/player_score_card.tscn" id="2_ck5vr"]
+[ext_resource type="Script" uid="uid://b0ris5gj82sxn" path="res://src/ui/components/score_panel/score_panel.gd" id="2_i23iq"]
 
 [node name="ScorePanel" type="Panel" unique_id=806119554]
 anchors_preset = 8
@@ -17,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_8mljb")
+script = ExtResource("2_i23iq")
 
 [node name="Title" type="Label" parent="." unique_id=1584702138]
 layout_mode = 1
