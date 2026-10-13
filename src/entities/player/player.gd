@@ -73,7 +73,6 @@ func _ready() -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
-	
 	hud.visible = true
 	shaders.visible = true
 	health_bar.max_health = max_health
