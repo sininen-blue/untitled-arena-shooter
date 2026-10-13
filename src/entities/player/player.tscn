@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://be3chck56d0cu" path="res://src/entities/player/states/wall_slide.gd" id="14_3d0mj"]
 [ext_resource type="Script" uid="uid://cud2jpqwvuegw" path="res://src/debug/debug_label/debug_label.gd" id="16_t8d2k"]
 [ext_resource type="Script" uid="uid://ccbgt2rquptq3" path="res://src/entities/player/wall_raycasts/wall_raycasts.gd" id="17_yi0df"]
+[ext_resource type="PackedScene" uid="uid://bi0vym24xav1s" path="res://src/ui/components/health_bar/health_bar.tscn" id="20_3d0mj"]
 [ext_resource type="Shader" uid="uid://1vsbcu7e417i" path="res://src/shaders/speedlines.gdshader" id="20_5qgjf"]
 [ext_resource type="Script" uid="uid://dqym1pawtheqn" path="res://src/entities/player/shaders.gd" id="20_fjj3i"]
 
@@ -451,11 +452,9 @@ metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 
 [node name="Control" type="Control" parent="Hud" unique_id=198523636]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -470,6 +469,14 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.4509804)
+
+[node name="HealthBar" parent="Hud/Control" unique_id=2021831688 instance=ExtResource("20_3d0mj")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 43.0
+offset_top = -61.0
+offset_right = 379.0
+offset_bottom = -21.0
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=1863526419 node_paths=PackedStringArray("player")]
 script = ExtResource("20_fjj3i")

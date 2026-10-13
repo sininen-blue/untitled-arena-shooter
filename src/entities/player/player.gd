@@ -56,6 +56,8 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var parry_cololdown_timer: Timer = %ParryCololdownTimer
 @onready var parry_hurtbox: Area3D = %ParryHurtbox
 
+@onready var health_bar: HealthBar = %HealthBar
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -65,6 +67,8 @@ func _ready() -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
+	health_bar.max_health = max_health
+
 	if get_parent() != null: # NOTE: should replace these
 		dropped_spawner = get_parent().dropped_spawner
 		slipper_spawner = get_parent().slipper_spawner
@@ -78,6 +82,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
+	
+	if event.is_action_pressed("debug_take_damage"):
+		take_damage(multiplayer.get_unique_id(), 5.0)
 	
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -204,6 +211,7 @@ func get_speed() -> float:
 @rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
 func take_damage(hitter_id: int, damage: float) -> void:
 	health -= damage
+	health_bar.current_health = health
 	if health <= 0:
 		self.visible = false
 		killed.emit(hitter_id, self)

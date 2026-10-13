@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bi0vym24xav1s"]
+
+[ext_resource type="Texture2D" uid="uid://dcjlyruieyxg8" path="res://assets/textures/ui/Blue/Default/button_square_border.png" id="1_ykbo0"]
+[ext_resource type="Texture2D" uid="uid://dixxxfn4w6way" path="res://assets/textures/ui/Red/Default/button_square_gloss.png" id="2_14c16"]
+[ext_resource type="Script" uid="uid://b1k3xuqxjsdmg" path="res://src/ui/components/health_bar/health_bar.gd" id="3_fjafm"]
+
+[node name="HealthBar" type="TextureProgressBar" unique_id=2021831688]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -54.0
+offset_right = 350.0
+offset_bottom = -14.0
+grow_vertical = 0
+step = 0.1
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 10
+stretch_margin_right = 10
+stretch_margin_bottom = 10
+texture_under = ExtResource("1_ykbo0")
+texture_progress = ExtResource("2_14c16")
+script = ExtResource("3_fjafm")
