@@ -20,6 +20,7 @@ var players_killed: Array[int]
 @onready var score_handler: ScoreHandler = $ScoreHandler
 @onready var winner_screen: WinnerScreen = %WinnerScreen
 @onready var countdown: Countdown = %Countdown
+@onready var score_panel: ScorePanel = %ScorePanel
 
 
 func _ready() -> void:
@@ -139,7 +140,7 @@ func release_players() -> void:
 			child.locked = false
 
 
-func _on_player_killed(by_id: int, who: Player) -> void:
+func _on_player_killed(_by_id: int, who: Player) -> void:
 	if multiplayer.is_server() == false:
 		return
 
@@ -158,6 +159,9 @@ func _on_winner_screen_finished() -> void:
 	if multiplayer.is_server() != true:
 		return
 	
+	score_panel.start.rpc()
+	await score_panel.finished
+
 	place_players()
 	reset_player_healths()
 	reset_player_visibilities()
@@ -166,5 +170,6 @@ func _on_winner_screen_finished() -> void:
 	players_killed.clear()
 	dropped_spawner.clear_dropped_weapons()
 	
-	await get_tree().create_timer(2).timeout
+	countdown.start.rpc(3)
+	await countdown.finished
 	release_players.rpc()

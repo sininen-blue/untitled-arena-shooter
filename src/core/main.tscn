@@ -78,6 +78,8 @@ unique_name_in_owner = true
 layout_mode = 1
 
 [node name="ScorePanel" parent="GlobalHud/Control" unique_id=806119554 instance=ExtResource("13_0g4b3")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_top = -205.5
 offset_bottom = 205.5
