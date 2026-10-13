@@ -37,6 +37,9 @@ func start(start_number: float = default_start_number) -> void:
 	current_number = start_number
 	max_number = start_number
 
+	label.visible = true
+	label.offset_transform_scale = Vector2.ONE
+	label.offset_transform_rotation = 0.0
 	label.text = str(int(current_number))
 	timer.start(1)
 
