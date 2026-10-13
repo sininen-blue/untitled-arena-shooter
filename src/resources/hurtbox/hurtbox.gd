@@ -2,8 +2,7 @@ class_name HurtboxArea
 extends Area3D
 
 
-# hitter node or int
-signal hit(hitter, damage: float)
+signal hit(hitter: int, damage: float)
 
 
 func _on_area_entered(area: Area3D) -> void:
@@ -13,5 +12,5 @@ func _on_area_entered(area: Area3D) -> void:
 	hit.emit(hitter, damage)
 
 
-func take_hit(hitter: Node, damage: float) -> void:
+func take_hit(hitter: int, damage: float) -> void:
 	hit.emit(hitter, damage)

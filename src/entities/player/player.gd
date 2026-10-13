@@ -53,6 +53,9 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var interact_cast: RayCast3D = %InteractCast
 @onready var gun_cast: RayCast3D = %GunCast
 
+@onready var hud: CanvasLayer = $Hud
+@onready var shaders: CanvasLayer = $Shaders
+
 @onready var parry_cololdown_timer: Timer = %ParryCololdownTimer
 @onready var parry_hurtbox: Area3D = %ParryHurtbox
 
@@ -67,6 +70,9 @@ func _ready() -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
+	
+	hud.visible = true
+	shaders.visible = true
 	health_bar.max_health = max_health
 
 	if get_parent() != null: # NOTE: should replace these
@@ -163,7 +169,9 @@ func _process(delta: float) -> void:
 			
 			if gun_cast.is_colliding():
 				if gun_cast.get_collider() is HurtboxArea:
-					pass
+					var hurtbox := gun_cast.get_collider() as HurtboxArea
+					if hurtbox.get_parent() != self:
+						hurtbox.take_hit(multiplayer.get_unique_id(), current_weapon.damage)
 				else:
 					decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
 	
@@ -238,10 +246,9 @@ func remove_weapon() -> void:
 	current_weapon = null
 
 
-# hitter can either be a node or an int
 func _on_head_hurtbox_hit(hitter_id: int, damage: float) -> void:
 	take_damage.rpc(hitter_id, damage * headshot_mult)
 
 
 func _on_body_hurtbox_hit(hitter_id: int, damage: float) -> void:
-	take_damage.rpc(hitter_id, damage * headshot_mult)
+	take_damage.rpc(hitter_id, damage)

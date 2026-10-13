@@ -17,6 +17,12 @@ var time: float = 0
 
 
 func _ready() -> void:
+	if player.is_multiplayer_authority() == false:
+		visible = false
+		set_process(false)
+		return
+
+	
 	var tween = create_tween().set_loops()
 	tween.tween_method(func(v): 
 		speed_lines.material.set_shader_parameter("sample_radius", v), 0.5, 0.8, 3.0)
@@ -25,7 +31,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	
 	if player.velocity.length() < min_speed:
 		speed_lines.material.set_shader_parameter("transparency", 0)
 	else:

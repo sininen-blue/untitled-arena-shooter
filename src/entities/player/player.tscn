@@ -449,6 +449,7 @@ property = "locked"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 
 [node name="Hud" type="CanvasLayer" parent="." unique_id=982865618]
+visible = false
 
 [node name="Control" type="Control" parent="Hud" unique_id=198523636]
 layout_mode = 3
@@ -479,6 +480,7 @@ offset_right = 379.0
 offset_bottom = -21.0
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=1863526419 node_paths=PackedStringArray("player")]
+visible = false
 script = ExtResource("20_fjj3i")
 player = NodePath("..")
 lines_curve = SubResource("Curve_dao75")
