@@ -189,22 +189,16 @@ func _process(delta: float) -> void:
 		wall_climb_state.time = 0
 		wall_slide_state.time = 0
 	
-	var twist_q = Quaternion(Vector3.UP, deg_to_rad(twist_input))
-	var body_current_q = basis.get_rotation_quaternion()
-	var smoothed_body_q = body_current_q.slerp(twist_q, delta * 40.0)
-	basis = Basis(smoothed_body_q)
-	
-	var target_pitch = clampf(pitch_input + recoil_offset, -85.0, 85.0)
-	var pitch_q = Quaternion(Vector3.RIGHT, deg_to_rad(target_pitch))
-	var current_head_q = head.basis.get_rotation_quaternion()
-	var smoothed_head_q = current_head_q.slerp(pitch_q, delta * 40.0)
-	head.basis = Basis(smoothed_head_q)
+	var target_pitch := clampf(pitch_input + recoil_offset, -85.0, 85.0)
+	head.basis = Basis(Quaternion(Vector3.RIGHT, deg_to_rad(target_pitch)))
 
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
-	
+
+	basis = Basis(Quaternion(Vector3.UP, deg_to_rad(twist_input)))
+
 	if locked:
 		return
 	
