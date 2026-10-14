@@ -7,24 +7,23 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_47on2"]
 render_priority = 0
 shader = ExtResource("1_qll3x")
-shader_parameter/outline_color = Color(0.0069999993, 0.1, 0.038000014, 1)
-shader_parameter/thickness = 0.04
-shader_parameter/outline_energy = 1.0
-shader_parameter/outline_transparency = 1.0
-shader_parameter/merge_group = false
-shader_parameter/merge_depth_range = 10.0
+shader_parameter/step_count = 9
+shader_parameter/thickness = 3.0
+shader_parameter/edge_color = Color(0.012100002, 0.11, 0.06105, 1)
+shader_parameter/fade_start = 100.0
+shader_parameter/fade_length = 200.0
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_47on2")
 shader = ExtResource("1_r42mu")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_color = Color(1, 0.905, 0.85, 1)
 shader_parameter/albedo_texture = ExtResource("2_qll3x")
 shader_parameter/use_stepped = true
 shader_parameter/steps = 3.0
-shader_parameter/step_smoothness = 0.3
-shader_parameter/shadow_tint = Color(0.0779, 0.41, 0.12218004, 1)
-shader_parameter/shadow_tint_amount = 0.4
+shader_parameter/step_smoothness = 0.10000000149012
+shader_parameter/shadow_tint = Color(0.58, 0.46226, 0.075399995, 1)
+shader_parameter/shadow_tint_amount = 0.40000000596048
 shader_parameter/specular = 0.0
 shader_parameter/normal_strength = 0.0
 shader_parameter/use_rim = true

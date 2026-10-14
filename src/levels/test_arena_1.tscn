@@ -18,6 +18,11 @@ sky_material = SubResource("PanoramaSkyMaterial_3asdc")
 [sub_resource type="Environment" id="Environment_crd4b"]
 background_mode = 2
 sky = SubResource("Sky_imnn4")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
 
 [node name="TestArena1" type="Node" unique_id=939228973]
 script = ExtResource("1_lj3lh")
