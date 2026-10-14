@@ -7,7 +7,7 @@
 [node name="Shotgun" unique_id=1617735160 instance=ExtResource("1_2gxwj")]
 script = ExtResource("2_u00g0")
 
-[node name="shotgun" parent="." index="0" unique_id=1475786176]
+[node name="shotgun" parent="." index="0" unique_id=1456095065]
 surface_material_override/0 = ExtResource("3_u00g0")
 surface_material_override/1 = ExtResource("3_u00g0")
 surface_material_override/2 = ExtResource("3_u00g0")
@@ -16,6 +16,6 @@ surface_material_override/4 = ExtResource("3_u00g0")
 surface_material_override/5 = ExtResource("3_u00g0")
 surface_material_override/6 = ExtResource("3_u00g0")
 
-[node name="grip" parent="shotgun" index="0" unique_id=766257995]
+[node name="grip" parent="shotgun" index="0" unique_id=1289030420]
 surface_material_override/0 = ExtResource("3_u00g0")
 surface_material_override/1 = ExtResource("3_u00g0")

@@ -15,6 +15,7 @@ var players_killed: Array[int]
 @onready var weapon_pickup_sync: WeaponPickupSync = %WeaponPickupSync
 @onready var dropped_spawner: DroppedSpawner = $DroppedSpawner
 @onready var slipper_spawner: SlipperSpanwner = %SlipperSpawner
+@onready var tracer_spawner: TracerSpawner = %TracerSpawner
 @onready var decal_spawner: DecalSpawner = %DecalSpawner
 @onready var player_spawner: PlayerSpawner = %PlayerSpawner
 @onready var score_handler: ScoreHandler = $ScoreHandler

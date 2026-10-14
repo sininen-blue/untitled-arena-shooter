@@ -7,13 +7,14 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="TestShotgun" type="Node3D" unique_id=159616926]
+[node name="TestShotgun" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle")]
 script = ExtResource("1_yicq4")
 damage = 7.0
 speed_spread_curve = SubResource("Curve_yicq4")
 fire_rate = 0.5
 ammo = 6
 recoil_impulse = 0.75
+muzzle = NodePath("Muzzle")
 
 [node name="Ammo" type="Label3D" parent="." unique_id=1586735007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31285423, 0.14827913, -0.4335494)

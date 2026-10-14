@@ -5,32 +5,32 @@
 
 [node name="bamboo_pistol" unique_id=17067631 instance=ExtResource("1_t7ej6")]
 
-[node name="Base_001" parent="." index="0" unique_id=1048704112]
+[node name="Base_001" parent="." index="0" unique_id=1479894171]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Base_002" parent="Base_001" index="0" unique_id=425680486]
+[node name="Base_002" parent="Base_001" index="0" unique_id=221129397]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Base_003" parent="Base_001" index="1" unique_id=714168348]
+[node name="Base_003" parent="Base_001" index="1" unique_id=847791803]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Base_004" parent="Base_001" index="2" unique_id=347498382]
+[node name="Base_004" parent="Base_001" index="2" unique_id=1156683644]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Nozzle_001" parent="Base_001" index="3" unique_id=763519914]
+[node name="Nozzle_001" parent="Base_001" index="3" unique_id=1044933959]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Cube" parent="." index="1" unique_id=88512318]
+[node name="Cube" parent="." index="1" unique_id=1960616555]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Cube_001" parent="." index="2" unique_id=1935729512]
+[node name="Cube_001" parent="." index="2" unique_id=999132415]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Cube_002" parent="." index="3" unique_id=708281516]
+[node name="Cube_002" parent="." index="3" unique_id=1872450612]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Handle_001" parent="." index="4" unique_id=1705759651]
+[node name="Handle_001" parent="." index="4" unique_id=1190450380]
 surface_material_override/0 = ExtResource("2_tm8qr")
 
-[node name="Trigger_001" parent="." index="5" unique_id=373727366]
+[node name="Trigger_001" parent="." index="5" unique_id=131204083]
 surface_material_override/0 = ExtResource("2_tm8qr")

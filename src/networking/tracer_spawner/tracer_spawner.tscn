@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://booj3sjbmxwf6"]
+
+[ext_resource type="Script" uid="uid://b6i8uux0torap" path="res://src/networking/tracer_spawner/tracer_spawner.gd" id="1_smcfo"]
+[ext_resource type="PackedScene" uid="uid://daukfe24ussga" path="res://src/entities/bullet_tracer/bullet_tracer.tscn" id="2_lfu1s"]
+
+[node name="TracerSpawner" type="MultiplayerSpawner" unique_id=373001542]
+script = ExtResource("1_smcfo")
+tracer_scene = ExtResource("2_lfu1s")

@@ -8,7 +8,7 @@ point_count = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2wjn"]
 
-[node name="TestWeapon" type="Node3D" unique_id=159616926]
+[node name="TestWeapon" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle")]
 script = ExtResource("1_2cfou")
 min_spread = 4.0
 speed_spread_curve = SubResource("Curve_kqngw")
@@ -17,6 +17,7 @@ fire_rate = 0.02
 ammo = 200
 recoil_impulse = 0.02
 max_back_distance = 0.1
+muzzle = NodePath("Muzzle")
 
 [node name="DebugModel" type="CSGBox3D" parent="." unique_id=204289909]
 size = Vector3(0.2, 0.2, 1)

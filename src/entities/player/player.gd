@@ -10,6 +10,7 @@ signal killed(by: int, player: Player)
 @export var slipper_spawner: SlipperSpanwner
 @export var weapon_pickup_sync: WeaponPickupSync
 @export var decal_spawner: DecalSpawner
+@export var tracer_spawner: TracerSpawner
 
 @export var mouse_sensitivity: float = 0.1
 @export var default_head_recoil_recovery: float = 3.0
@@ -47,7 +48,6 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var head_target: Marker3D = $HeadTarget
 @onready var camera: Camera3D = %Camera
 @onready var hand_marker: Marker3D = %HandMarker
-@onready var tracer_emitter: GPUParticles3D = $Head/TracerEmitter
 
 
 @onready var interact_cast: RayCast3D = %InteractCast
@@ -82,6 +82,7 @@ func _ready() -> void:
 		slipper_spawner = get_parent().slipper_spawner
 		weapon_pickup_sync = get_parent().weapon_pickup_sync
 		decal_spawner = get_parent().decal_spawner
+		tracer_spawner = get_parent().tracer_spawner
 	
 	
 	camera.current = true
@@ -158,10 +159,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():
-			
-			tracer_emitter.global_position = current_weapon.muzzle.global_position
-			tracer_emitter.emitting = true
-			
+
 			current_weapon.shoot()
 			current_weapon.apply_spread(gun_cast, self.get_speed())
 			gun_cast.force_raycast_update()
@@ -169,13 +167,18 @@ func _process(delta: float) -> void:
 			if recoil_offset < current_weapon.max_head_recoil:
 				recoil_offset += current_weapon.head_recoil
 			
+			var muzzle_position: Vector3 = current_weapon.muzzle.global_position
 			if gun_cast.is_colliding():
+				tracer_spawner.request_spawn(muzzle_position, gun_cast.get_collision_point())
+				
 				if gun_cast.get_collider() is HurtboxArea:
 					var hurtbox := gun_cast.get_collider() as HurtboxArea
 					if hurtbox.get_parent() != self:
 						hurtbox.take_hit(multiplayer.get_unique_id(), current_weapon.damage)
 				else:
 					decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
+			else:
+				tracer_spawner.request_spawn(muzzle_position, gun_cast.to_global(gun_cast.target_position))
 	
 	if current_weapon:
 		current_weapon.apply_spread_recovery(gun_cast, delta)

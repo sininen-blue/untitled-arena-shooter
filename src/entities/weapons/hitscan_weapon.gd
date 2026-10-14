@@ -25,6 +25,7 @@ signal shot()
 @export var max_back_distance: float = 0.5
 @export var max_angle: float = 15.0
 
+@export var muzzle: Marker3D
 
 var current_spread: float = 0.0
 var time: float = 0

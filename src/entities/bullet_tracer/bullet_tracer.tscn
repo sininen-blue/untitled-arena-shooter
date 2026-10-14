@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://daukfe24ussga"]
+
+[ext_resource type="Material" uid="uid://c774no785xo1w" path="res://src/materials/tracer_fade.tres" id="1_67v0e"]
+[ext_resource type="Script" uid="uid://bw5tbxg6rpv4c" path="res://src/entities/bullet_tracer/bullet_tracer.gd" id="1_oph4m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oph4m"]
+shading_mode = 0
+albedo_color = Color(0.69, 0.731, 0.75, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5gifx"]
+material = SubResource("StandardMaterial3D_oph4m")
+radius = 0.05
+height = 1.0
+
+[node name="BulletTracer" type="MeshInstance3D" unique_id=725955573]
+material_override = ExtResource("1_67v0e")
+mesh = SubResource("CapsuleMesh_5gifx")
+script = ExtResource("1_oph4m")
+tracer_fade = ExtResource("1_67v0e")

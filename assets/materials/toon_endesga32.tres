@@ -8,7 +8,7 @@
 render_priority = 0
 shader = ExtResource("1_qll3x")
 shader_parameter/step_count = 9
-shader_parameter/thickness = 3.0
+shader_parameter/thickness = 2.0000000149012003
 shader_parameter/edge_color = Color(0.012100002, 0.11, 0.06105, 1)
 shader_parameter/fade_start = 100.0
 shader_parameter/fade_length = 200.0

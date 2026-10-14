@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="untitled-arena-shooter"
-run/main_scene="uid://boeckno5yl7wq"
+run/main_scene="uid://bxd7p5s43abo3"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

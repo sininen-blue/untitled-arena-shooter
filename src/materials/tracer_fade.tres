@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c774no785xo1w"]
+
+[ext_resource type="Shader" uid="uid://b3qs4xtf4o802" path="res://src/shaders/tracer_fade.gdshader" id="1_n40i2"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_n40i2")
+shader_parameter/fade_progress = 1.0
+shader_parameter/tracer_color = Color(0.82, 0.88600004, 1, 1)
+shader_parameter/emission_strength = 3.0
+shader_parameter/tip_sharpness = 2.0
