@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://nr2hb2ini465"]
 
 [ext_resource type="PackedScene" uid="uid://bthhlq6linjof" path="res://assets/models/weapons/bamboo_pistol/bamboo_pistol.glb" id="1_t7ej6"]
-[ext_resource type="Material" uid="uid://lhtk50wkdw2c" path="res://assets/materials/endesga32.tres" id="2_tm8qr"]
+[ext_resource type="Material" uid="uid://br0ob666rtxtx" path="res://assets/materials/toon_endesga32.tres" id="2_tm8qr"]
 
 [node name="bamboo_pistol" unique_id=17067631 instance=ExtResource("1_t7ej6")]
 
