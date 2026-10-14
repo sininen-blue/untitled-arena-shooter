@@ -1,0 +1,41 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://br0ob666rtxtx"]
+
+[ext_resource type="Shader" uid="uid://ckdckdsmycwt4" path="res://src/shaders/outline.gdshader" id="1_qll3x"]
+[ext_resource type="Shader" uid="uid://17pn4tyia1x0" path="res://src/shaders/toon.gdshader" id="1_r42mu"]
+[ext_resource type="Texture2D" uid="uid://b7cl0iayl10mv" path="res://assets/models/weapons/textures/endesga32.png" id="2_qll3x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47on2"]
+render_priority = 0
+shader = ExtResource("1_qll3x")
+shader_parameter/outline_color = Color(0.0069999993, 0.1, 0.038000014, 1)
+shader_parameter/thickness = 0.04
+shader_parameter/outline_energy = 1.0
+shader_parameter/outline_transparency = 1.0
+shader_parameter/merge_group = false
+shader_parameter/merge_depth_range = 10.0
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_47on2")
+shader = ExtResource("1_r42mu")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("2_qll3x")
+shader_parameter/use_stepped = true
+shader_parameter/steps = 3.0
+shader_parameter/step_smoothness = 0.3
+shader_parameter/shadow_tint = Color(0.0779, 0.41, 0.12218004, 1)
+shader_parameter/shadow_tint_amount = 0.4
+shader_parameter/specular = 0.0
+shader_parameter/normal_strength = 0.0
+shader_parameter/use_rim = true
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/rim_amount = 2.0
+shader_parameter/rim_smoothness = 0.2
+shader_parameter/rim_mask_shadow = 1.0
+shader_parameter/rim_blend = 1.0
+shader_parameter/use_pattern = true
+shader_parameter/pattern_uv_mode = 2
+shader_parameter/pattern_tiling = 32.0
+shader_parameter/pattern_amount = 0.5
+shader_parameter/pattern_smoothness = 0.5
+shader_parameter/pattern_blend = 0.2

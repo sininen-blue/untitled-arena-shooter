@@ -23,6 +23,9 @@ sky = SubResource("Sky_imnn4")
 script = ExtResource("1_lj3lh")
 metadata/_custom_type_script = "uid://bs3ofjxxuwi0"
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1762912680]
+transform = Transform3D(0.69662577, -0.25681472, -0.6698945, 0.71743464, 0.24936591, 0.65046453, 0, -0.93373597, 0.35796252, 0, 1.6442282, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1104068719]
 environment = SubResource("Environment_crd4b")
 

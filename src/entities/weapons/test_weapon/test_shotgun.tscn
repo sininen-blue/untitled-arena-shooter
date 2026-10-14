@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://d0yy84hmn0ym0"]
 
 [ext_resource type="Script" uid="uid://doofwknswkn84" path="res://src/entities/weapons/test_weapon/test_weapon.gd" id="1_yicq4"]
+[ext_resource type="PackedScene" uid="uid://ccrornk8bnabj" path="res://models/weapons/shotgun/shotgun.tscn" id="2_547lm"]
 
 [sub_resource type="Curve" id="Curve_yicq4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2wjn"]
 
 [node name="TestShotgun" type="Node3D" unique_id=159616926]
 script = ExtResource("1_yicq4")
@@ -16,14 +15,14 @@ fire_rate = 0.5
 ammo = 6
 recoil_impulse = 0.75
 
-[node name="DebugModel" type="CSGBox3D" parent="." unique_id=204289909]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0.099999994)
-size = Vector3(0.2, 0.3, 0.8)
-material = SubResource("StandardMaterial3D_n2wjn")
-
 [node name="Ammo" type="Label3D" parent="." unique_id=1586735007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31285423, 0.14827913, -0.4335494)
 text = "30"
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=1546034075]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.30885524)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.039333344, -0.98010767)
+
+[node name="Shotgun" parent="." unique_id=1617735160 instance=ExtResource("2_547lm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0.098009706)
+
+[connection signal="shot" from="." to="Shotgun" method="_on_test_shotgun_shot"]

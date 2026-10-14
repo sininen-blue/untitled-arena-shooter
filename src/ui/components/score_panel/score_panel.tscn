@@ -19,6 +19,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_8mljb")
 script = ExtResource("2_i23iq")
+player_score_card_scene = ExtResource("2_ck5vr")
 
 [node name="Title" type="Label" parent="." unique_id=1584702138]
 layout_mode = 1
@@ -33,6 +34,7 @@ grow_horizontal = 2
 text = "Scores!"
 
 [node name="ScoreContainer" type="VBoxContainer" parent="." unique_id=721649862]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -46,9 +48,6 @@ offset_bottom = 171.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
-
-[node name="PlayerScore" parent="ScoreContainer" unique_id=1914259169 instance=ExtResource("2_ck5vr")]
-layout_mode = 2
 
 [node name="Goal" type="Label" parent="." unique_id=1000403980]
 layout_mode = 1

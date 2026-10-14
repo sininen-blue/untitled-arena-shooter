@@ -1,6 +1,7 @@
 class_name HitscanWeapon
 extends Node3D
 
+signal shot()
 
 @export var damage: float = 1
 
@@ -41,6 +42,7 @@ func shoot() -> void:
 	ammo -= 1
 	
 	recoil()
+	shot.emit()
 
 
 func apply_spread(ray: RayCast3D, player_speed: float) -> void:

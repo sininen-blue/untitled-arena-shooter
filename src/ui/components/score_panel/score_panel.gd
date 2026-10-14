@@ -4,6 +4,21 @@ extends Panel
 
 signal finished()
 
+
+@export var player_score_card_scene: PackedScene
+
+
+@onready var score_container: VBoxContainer = %ScoreContainer
+
+
+func _ready() -> void:
+	self.visible = false # NOTE: debug
+	if NetworkManager.players:
+		for player_id in NetworkManager.players:
+			var player_name: String = NetworkManager.players[player_id].get("name")
+			_spawn_player_score_card(player_name)
+
+
 @rpc("any_peer", "call_local", "reliable")
 func start() -> void:
 	self.offset_transform_enabled = true
@@ -22,3 +37,10 @@ func start() -> void:
 
 	await tween.finished
 	finished.emit()
+
+
+func _spawn_player_score_card(player_name: String) -> void:
+	var player_score_card_instance: PlayerScoreCard = player_score_card_scene.instantiate()
+	player_score_card_instance.player_name = player_name
+
+	score_container.add_child(player_score_card_instance)

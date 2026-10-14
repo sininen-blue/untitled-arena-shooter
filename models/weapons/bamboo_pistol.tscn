@@ -1,5 +1,36 @@
 [gd_scene format=3 uid="uid://nr2hb2ini465"]
 
 [ext_resource type="PackedScene" uid="uid://bthhlq6linjof" path="res://assets/models/weapons/bamboo_pistol/bamboo_pistol.glb" id="1_t7ej6"]
+[ext_resource type="Material" uid="uid://lhtk50wkdw2c" path="res://assets/materials/endesga32.tres" id="2_tm8qr"]
 
-[node name="BambooPistol" unique_id=697771002 instance=ExtResource("1_t7ej6")]
+[node name="bamboo_pistol" unique_id=17067631 instance=ExtResource("1_t7ej6")]
+
+[node name="Base_001" parent="." index="0" unique_id=1048704112]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Base_002" parent="Base_001" index="0" unique_id=425680486]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Base_003" parent="Base_001" index="1" unique_id=714168348]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Base_004" parent="Base_001" index="2" unique_id=347498382]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Nozzle_001" parent="Base_001" index="3" unique_id=763519914]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Cube" parent="." index="1" unique_id=88512318]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Cube_001" parent="." index="2" unique_id=1935729512]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Cube_002" parent="." index="3" unique_id=708281516]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Handle_001" parent="." index="4" unique_id=1705759651]
+surface_material_override/0 = ExtResource("2_tm8qr")
+
+[node name="Trigger_001" parent="." index="5" unique_id=373727366]
+surface_material_override/0 = ExtResource("2_tm8qr")

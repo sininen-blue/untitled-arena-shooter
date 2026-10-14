@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://ccrornk8bnabj"]
+
+[ext_resource type="PackedScene" uid="uid://c4c2xy7jg10t0" path="res://assets/models/weapons/shotgun/shotgun.glb" id="1_2gxwj"]
+[ext_resource type="Script" uid="uid://b0cb0e41cm2uy" path="res://models/weapons/shotgun/shotgun.gd" id="2_u00g0"]
+[ext_resource type="Material" uid="uid://br0ob666rtxtx" path="res://assets/materials/toon_endesga32.tres" id="3_u00g0"]
+
+[node name="Shotgun" unique_id=1617735160 instance=ExtResource("1_2gxwj")]
+script = ExtResource("2_u00g0")
+
+[node name="shotgun" parent="." index="0" unique_id=1475786176]
+surface_material_override/0 = ExtResource("3_u00g0")
+surface_material_override/1 = ExtResource("3_u00g0")
+surface_material_override/2 = ExtResource("3_u00g0")
+surface_material_override/3 = ExtResource("3_u00g0")
+surface_material_override/4 = ExtResource("3_u00g0")
+surface_material_override/5 = ExtResource("3_u00g0")
+surface_material_override/6 = ExtResource("3_u00g0")
+
+[node name="grip" parent="shotgun" index="0" unique_id=766257995]
+surface_material_override/0 = ExtResource("3_u00g0")
+surface_material_override/1 = ExtResource("3_u00g0")

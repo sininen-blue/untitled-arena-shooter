@@ -1,3 +1,4 @@
+class_name PlayerScoreCard
 extends HBoxContainer
 
 @export var player_name: String = "Player":
