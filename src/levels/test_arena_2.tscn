@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bs3ofjxxuwi0" path="res://src/resources/base_level/base_level.gd" id="1_q5tjq"]
 [ext_resource type="Material" uid="uid://bl1xnq748maf2" path="res://src/materials/prototype/prototype_outlined.tres" id="2_tfc23"]
+[ext_resource type="PackedScene" uid="uid://cywkiulllec6l" path="res://src/entities/weapon_pickup/weapon_pickup.tscn" id="3_yfjtn"]
 
 [node name="TestArena2" type="Node" unique_id=1285955236]
 script = ExtResource("1_q5tjq")
@@ -176,3 +177,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.938595, 1.4732822, 1.9442
 
 [node name="SpawnLocation4" type="Marker3D" parent="." unique_id=38391757]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8176537, 1.4732822, -17.560814)
+
+[node name="WeaponPickup" parent="." unique_id=17605865 instance=ExtResource("3_yfjtn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85736966, 8.182995, -6.6885443)
