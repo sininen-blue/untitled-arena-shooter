@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ckhcrar3susvm"]
+
+[ext_resource type="Texture2D" uid="uid://bdonf0e8gfk3i" path="res://assets/textures/skyboxes/day.png" id="1_dlyco"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3asdc"]
+panorama = ExtResource("1_dlyco")
+
+[sub_resource type="Sky" id="Sky_imnn4"]
+sky_material = SubResource("PanoramaSkyMaterial_3asdc")
+
+[sub_resource type="Environment" id="Environment_crd4b"]
+background_mode = 2
+sky = SubResource("Sky_imnn4")
+ssao_enabled = true
+glow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" unique_id=894388480]
+environment = SubResource("Environment_crd4b")

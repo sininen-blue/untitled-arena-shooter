@@ -1,52 +1,18 @@
 [gd_scene format=3 uid="uid://dw38h0l5lhiw4"]
 
-[ext_resource type="Texture2D" uid="uid://bdonf0e8gfk3i" path="res://assets/textures/skyboxes/day.png" id="1_i3auu"]
 [ext_resource type="Script" uid="uid://bs3ofjxxuwi0" path="res://src/resources/base_level/base_level.gd" id="1_lj3lh"]
-[ext_resource type="Texture2D" uid="uid://o5scldoork7o" path="res://assets/prototype_textures/green.png" id="3_f11ya"]
+[ext_resource type="Material" uid="uid://bl1xnq748maf2" path="res://src/materials/prototype/prototype_outlined.tres" id="2_3la58"]
 [ext_resource type="PackedScene" uid="uid://cywkiulllec6l" path="res://src/entities/weapon_pickup/weapon_pickup.tscn" id="4_l6wl7"]
-[ext_resource type="Shader" uid="uid://tqw2j7468piy" path="res://src/shaders/depth_outline.gdshader" id="4_lj3lh"]
 [ext_resource type="PackedScene" uid="uid://bo1wi0v5j007m" path="res://src/entities/weapons/test_weapon/test_pistol.tscn" id="5_lj3lh"]
 [ext_resource type="PackedScene" uid="uid://47y5cm83203t" path="res://src/entities/weapons/test_weapon/test_rifle.tscn" id="6_wel4q"]
 [ext_resource type="PackedScene" uid="uid://d0yy84hmn0ym0" path="res://src/entities/weapons/test_weapon/test_shotgun.tscn" id="7_f11ya"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3asdc"]
-panorama = ExtResource("1_i3auu")
-
-[sub_resource type="Sky" id="Sky_imnn4"]
-sky_material = SubResource("PanoramaSkyMaterial_3asdc")
-
-[sub_resource type="Environment" id="Environment_crd4b"]
-background_mode = 2
-sky = SubResource("Sky_imnn4")
-ssao_enabled = true
-glow_enabled = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f11ya"]
-render_priority = 0
-shader = ExtResource("4_lj3lh")
-shader_parameter/depth_sensitivity = 10.0
-shader_parameter/outline_thickness = 1.0
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_threshold = 0.2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0nuxv"]
-next_pass = SubResource("ShaderMaterial_f11ya")
-albedo_texture = ExtResource("3_f11ya")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
 
 [node name="TestArena1" type="Node" unique_id=939228973]
 script = ExtResource("1_lj3lh")
 metadata/_custom_type_script = "uid://bs3ofjxxuwi0"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1762912680]
-transform = Transform3D(0.69662577, -0.25681472, -0.6698945, 0.71743464, 0.24936591, 0.65046453, 0, -0.93373597, 0.35796252, 0, 1.6442282, 0)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1104068719]
-environment = SubResource("Environment_crd4b")
-
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1311334499]
-material_override = SubResource("StandardMaterial3D_0nuxv")
+material_override = ExtResource("2_3la58")
 autosmooth = true
 smoothing_angle = 60.0
 use_collision = true
