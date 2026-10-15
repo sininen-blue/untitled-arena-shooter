@@ -10,13 +10,19 @@ signal finished()
 
 @onready var score_container: VBoxContainer = %ScoreContainer
 
+var cards: Dictionary[int, PlayerScoreCard] = {}
+
 
 func _ready() -> void:
 	self.visible = false # NOTE: debug
 	if NetworkManager.players:
-		for player_id in NetworkManager.players:
+		for player_id: int in NetworkManager.players:
 			var player_name: String = NetworkManager.players[player_id].get("name")
-			_spawn_player_score_card(player_name)
+			_spawn_player_score_card(player_id, player_name)
+
+
+func set_player_score(player_id: int, score: int) -> void:
+	cards[player_id].player_score = score
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -39,8 +45,10 @@ func start() -> void:
 	finished.emit()
 
 
-func _spawn_player_score_card(player_name: String) -> void:
+func _spawn_player_score_card(player_id: int, player_name: String) -> PlayerScoreCard:
 	var player_score_card_instance: PlayerScoreCard = player_score_card_scene.instantiate()
 	player_score_card_instance.player_name = player_name
-
 	score_container.add_child(player_score_card_instance)
+
+	cards[player_id] = player_score_card_instance
+	return player_score_card_instance
