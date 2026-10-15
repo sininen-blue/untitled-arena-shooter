@@ -130,6 +130,7 @@ func _input(event: InputEvent) -> void:
 				)
 			
 			var closest: Slipper = slippers.pop_front()
+			closest.set_sender(int(name))
 			closest.reset_bounce()
 			closest.global_position = hand_marker.global_position
 			closest.apply_central_impulse(-head.global_basis.z * slipper_throw_force*2)
@@ -137,6 +138,7 @@ func _input(event: InputEvent) -> void:
 			self.velocity += head.global_basis.z * parry_force
 			
 			for slipper: Slipper in slippers:
+				slipper.set_sender(int(name))
 				slipper.reset_bounce()
 				var dir: Vector3 = head.global_position.direction_to(slipper.global_position)
 				slipper.apply_central_impulse(dir * slipper_throw_force/2)
@@ -248,9 +250,25 @@ func remove_weapon() -> void:
 	current_weapon = null
 
 
-func _on_head_hurtbox_hit(hitter_id: int, damage: float) -> void:
+func _on_head_hurtbox_hit(hitter_id: int, damage: float, source: Area3D = null) -> void:
+	if _sender_grace_blocks(source):
+		return
 	take_damage.rpc(hitter_id, damage * headshot_mult)
 
 
-func _on_body_hurtbox_hit(hitter_id: int, damage: float) -> void:
+func _on_body_hurtbox_hit(hitter_id: int, damage: float, source: Area3D = null) -> void:
+	if _sender_grace_blocks(source):
+		return
 	take_damage.rpc(hitter_id, damage)
+
+
+func _sender_grace_blocks(source: Area3D) -> bool:
+	if source == null:
+		return false
+	var slipper := source.get_parent() as Slipper
+
+	if slipper != null:
+		if slipper.has_sender_immune and slipper.sender == int(name):
+			return true
+	
+	return false

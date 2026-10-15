@@ -26,8 +26,6 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_2ukko")
-sender_immunity_duration = null
-bounce_despawn_duration = null
 
 [node name="DespawnTimer" type="Timer" parent="." unique_id=1682245327]
 wait_time = 5.0
@@ -51,6 +49,7 @@ collision_mask = 64
 shape = SubResource("SphereShape3D_crd4b")
 
 [node name="DamageHitbox" parent="." unique_id=1142347245 instance=ExtResource("2_74trw")]
+monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageHitbox" unique_id=2028849038]
 shape = SubResource("SphereShape3D_vehwe")
