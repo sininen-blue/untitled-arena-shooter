@@ -143,4 +143,10 @@ func _update_ready(is_ready: bool) -> void:
 
 	players[id].set("is_ready", is_ready)
 	_sync_players.rpc(players)
-	
+
+
+func start_game(target: StringName) -> void:
+	if not multiplayer.is_server():
+		return
+	_sync_players.rpc(players)
+	SceneLoader.load_scene.rpc(target)

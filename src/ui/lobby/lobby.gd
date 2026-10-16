@@ -106,4 +106,4 @@ func _on_server_disconnect() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	SceneLoader.load_scene.rpc(start_target)
+	NetworkManager.start_game(start_target)

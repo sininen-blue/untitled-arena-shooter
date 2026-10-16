@@ -25,8 +25,6 @@ var players_killed: Array[int]
 
 
 func _ready() -> void:
-	await get_tree().create_timer(2).timeout
-	
 	if multiplayer.is_server():
 		self.clients_ready.connect(_on_clients_ready)
 		_notify_ready()
