@@ -9,6 +9,8 @@ extends State
 @export var wall_climb_duration: float = 0.75
 @export var wall_climb_curve: Curve
 
+@export var mantle_strength: float = 6.0
+
 @export var player: Player
 @export var air_state: State
 @export var wall_slide_state: State
@@ -68,6 +70,8 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		state_machine.change_state(wall_jump_state)
 	
+	if wall_raycasts.only_front_bottom_is_colliding():
+		player.velocity.y = mantle_strength
 	
 	current_wall_climb_strength = wall_climb_curve.sample(time/wall_climb_duration) * wall_climb_strength
 	if Input.is_action_pressed("move_forward"):

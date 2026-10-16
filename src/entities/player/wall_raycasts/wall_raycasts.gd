@@ -40,6 +40,16 @@ func front_is_colliding() -> bool:
 	return false
 
 
+func only_front_bottom_is_colliding() -> bool:
+	if front_top.is_colliding():
+		return false
+	if front.is_colliding():
+		return false
+	if front_bottom.is_colliding():
+		return true
+	return false
+
+
 func left_is_colliding() -> bool:
 	if _has_active_collision(left_raycasts):
 		return true

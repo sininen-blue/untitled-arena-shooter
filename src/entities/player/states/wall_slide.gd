@@ -4,6 +4,7 @@ extends State
 @export var speed: float = 7.0
 @export var accel: float = 2.0
 @export var drag: float = 1.0
+@export var wall_stick: float = 20.0
 
 @export var gravity_strength_curve: Curve
 @export var wall_slide_duration: float = 1.25
@@ -61,8 +62,11 @@ func physics_update(delta: float) -> void:
 		state_machine.change_state(air_state)
 	
 	if Input.is_action_just_pressed("jump"):
-		state_machine.change_state(wall_jump_state)	
+		state_machine.change_state(wall_jump_state)
 
+	var wall_normal := wall_raycasts.get_wall_normal()
+	player.velocity.x -= wall_normal.x * wall_stick * delta
+	player.velocity.z -= wall_normal.z * wall_stick * delta
 	
 	current_gravity_strength = gravity_strength_curve.sample(time/wall_slide_duration)
 
