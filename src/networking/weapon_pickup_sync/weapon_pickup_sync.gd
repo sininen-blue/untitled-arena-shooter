@@ -17,6 +17,8 @@ func give_weapon(target_name: String, weapon_path: String, ammo: int) -> void:
 	
 	var target: Player = Utils.find_player(target_name, get_parent())
 	
+	weapon_instance.player = target
+	
 	target.hand_marker.add_child(weapon_instance)
 	target.current_weapon = weapon_instance
 

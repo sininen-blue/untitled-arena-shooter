@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 		can_bounce = false
 		self.physics_material_override.bounce = 0.4
 		self.physics_material_override.absorbent = true
+		self.gravity_scale = 1.0
 		immunity_left = sender_immunity_duration
 
 	if not can_bounce and has_sender_immune:

@@ -3,29 +3,39 @@ extends Node3D
 
 signal shot()
 
+@export_group("Main Stats")
 @export var damage: float = 1
+@export var fire_rate: float = 0.2
+@export var ammo = 20
 
+@export_group("Spread")
 @export var min_spread: float = 0.5
 @export var max_spread: float = 10.0
 @export var max_speed: float = 7
 @export var min_speed: float = 2
 @export var speed_spread_curve: Curve
-
-
 @export var spread_recovery: float = 3.0
 
+@export_group("Recoil")
 @export var head_recoil: float = 5.0
 @export var max_head_recoil: float = 80.0
 @export var head_recoil_recovery: float = 3.0
 
-@export var fire_rate: float = 0.2
-@export var ammo = 20
 
+
+@export_group("Blowback")
 @export var recoil_impulse: float = 0.25
 @export var max_back_distance: float = 0.5
 @export var max_angle: float = 15.0
 
+@export_group("TIlts")
+@export var x_tilt_strength: float = 20.0
+@export var y_tilt_strength: float = 2.0
+
+@export_group("References")
 @export var muzzle: Marker3D
+@export var player: Player
+
 
 var current_spread: float = 0.0
 var time: float = 0
@@ -90,3 +100,13 @@ func _process(delta: float) -> void:
 			self.position.z = Utils.exp_decay(self.position.z, 0, 3, delta)
 		if rotation.x > 0:
 			self.rotation.x = Utils.exp_decay(self.rotation.x, 0, 7, delta)
+
+
+func _physics_process(delta: float) -> void:
+	if player:
+		var local_dir: Vector3 = player.basis.inverse() * player.direction
+		
+		var hori_target: float = local_dir.x * x_tilt_strength
+		var vert_target: float = -player.velocity.y * y_tilt_strength
+		self.rotation_degrees.y = Utils.exp_decay(self.rotation_degrees.y, hori_target, 2, delta)
+		self.rotation_degrees.x = Utils.exp_decay(self.rotation_degrees.x, vert_target, 2, delta)

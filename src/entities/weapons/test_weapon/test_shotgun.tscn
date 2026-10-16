@@ -10,9 +10,9 @@ point_count = 2
 [node name="TestShotgun" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle")]
 script = ExtResource("1_yicq4")
 damage = 7.0
-speed_spread_curve = SubResource("Curve_yicq4")
 fire_rate = 0.5
 ammo = 6
+speed_spread_curve = SubResource("Curve_yicq4")
 recoil_impulse = 0.75
 muzzle = NodePath("Muzzle")
 
@@ -21,9 +21,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31285423, 0.14827913, -0.43
 text = "30"
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=1546034075]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.039333344, -0.98010767)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.039333344, -1.1494774)
 
 [node name="Shotgun" parent="." unique_id=1617735160 instance=ExtResource("2_547lm")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0.098009706)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -0.107118964)
 
 [connection signal="shot" from="." to="Shotgun" method="_on_test_shotgun_shot"]

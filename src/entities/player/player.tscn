@@ -51,7 +51,7 @@ radius = 0.3
 height = 1.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2in8s"]
-radius = 0.7
+radius = 1.125
 height = 2.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ogtao"]
@@ -81,11 +81,11 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_a31ob"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5099602, 0.6692307), -2.0050313, -2.0050313, 0, 0, Vector2(1, 0), -0.24201132, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6325581, 0.8539326), -0.949037, -0.949037, 0, 0, Vector2(1, 0), -0.24201132, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_5qgjf"]
-_data = [Vector2(0, 0.19008267), 0.0, 0.0, 0, 0, Vector2(0.7091633, 0.38842976), 1.6819308, 1.6819308, 0, 0, Vector2(1, 1), 2.8211563, 0.0, 0, 0]
+_data = [Vector2(0, 0.34831464), 0.0, 0.0, 0, 0, Vector2(0.8372093, 0.3820225), 0.5435391, 0.5435391, 0, 0, Vector2(1, 1), 8.455051, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_dao75"]
@@ -114,6 +114,7 @@ shader_parameter/transparency = 1.0
 collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
+mass = 2.5
 wall_climb_state = NodePath("StateMachine/WallClimb")
 wall_slide_state = NodePath("StateMachine/WallSlide")
 
@@ -284,6 +285,7 @@ one_shot = true
 
 [node name="Jump" type="Node" parent="StateMachine" unique_id=725918553 node_paths=PackedStringArray("player", "air_state")]
 script = ExtResource("10_ogtao")
+jump_force = 8.0
 player = NodePath("../..")
 air_state = NodePath("../Air")
 metadata/_custom_type_script = "uid://dsetpse5sstyw"
@@ -314,6 +316,7 @@ metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallSlide" type="Node" parent="StateMachine" unique_id=1662731114 node_paths=PackedStringArray("player", "air_state", "wall_jump_state", "wall_climb_state", "idle_state", "walk_state", "run_state") groups=["wall"]]
 script = ExtResource("14_3d0mj")
+speed = 9.0
 gravity_strength_curve = SubResource("Curve_5qgjf")
 player = NodePath("../..")
 air_state = NodePath("../Air")
@@ -326,6 +329,7 @@ metadata/_custom_type_script = "uid://dsetpse5sstyw"
 
 [node name="WallJump" type="Node" parent="StateMachine" unique_id=1385737816 node_paths=PackedStringArray("player", "air_state", "wall_slide_state") groups=["wall"]]
 script = ExtResource("13_fjj3i")
+jump = 10.0
 player = NodePath("../..")
 air_state = NodePath("../Air")
 wall_slide_state = NodePath("../WallSlide")
@@ -490,27 +494,27 @@ target_position = Vector3(0, 0, -0.35)
 
 [node name="Left" type="RayCast3D" parent="WallRaycasts" unique_id=1326354013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-target_position = Vector3(-0.35, 0, 0)
+target_position = Vector3(-0.5, 0, 0)
 
 [node name="LeftBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1784784021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-target_position = Vector3(-0.35, 0, 0)
+target_position = Vector3(-0.5, 0, 0)
 
 [node name="LeftTop" type="RayCast3D" parent="WallRaycasts" unique_id=441992871]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-target_position = Vector3(-0.35, 0, 0)
+target_position = Vector3(-0.5, 0, 0)
 
 [node name="Right" type="RayCast3D" parent="WallRaycasts" unique_id=1633505155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-target_position = Vector3(0.35, 0, 0)
+target_position = Vector3(0.5, 0, 0)
 
 [node name="RightBottom" type="RayCast3D" parent="WallRaycasts" unique_id=1435640405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-target_position = Vector3(0.35, 0, 0)
+target_position = Vector3(0.5, 0, 0)
 
 [node name="RightTop" type="RayCast3D" parent="WallRaycasts" unique_id=1182210959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-target_position = Vector3(0.35, 0, 0)
+target_position = Vector3(0.5, 0, 0)
 
 [connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
 [connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
