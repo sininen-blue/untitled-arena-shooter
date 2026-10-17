@@ -7,6 +7,8 @@ signal shot()
 @export var damage: float = 1
 @export var fire_rate: float = 0.2
 @export var ammo = 20
+@export var projectiles = 10
+
 
 @export_group("Spread")
 @export var min_spread: float = 0.5

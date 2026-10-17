@@ -159,28 +159,30 @@ func _process(delta: float) -> void:
 		return
 	
 	
-	var tracer_end := Vector3.INF
+	var tracer_ends: Array[Vector3] = []
 	if Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():
 			current_weapon.shoot()
-			current_weapon.apply_spread(gun_cast, self.get_speed())
-			gun_cast.force_raycast_update()
-			
+
+			for i in current_weapon.projectiles:
+				current_weapon.apply_spread(gun_cast, self.get_speed())
+				gun_cast.force_raycast_update()
+				
+				if gun_cast.is_colliding():
+					tracer_ends.append(gun_cast.get_collision_point())
+
+					if gun_cast.get_collider() is HurtboxArea:
+						var hurtbox := gun_cast.get_collider() as HurtboxArea
+						if hurtbox.get_parent() != self:
+							hurtbox.take_hit(multiplayer.get_unique_id(), current_weapon.damage)
+					else:
+						decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
+				else:
+					tracer_ends.append(gun_cast.to_global(gun_cast.target_position))
+
 			if recoil_offset < current_weapon.max_head_recoil:
 				recoil_offset += current_weapon.head_recoil
 			
-			if gun_cast.is_colliding():
-				tracer_end = gun_cast.get_collision_point()
-				
-				if gun_cast.get_collider() is HurtboxArea:
-					var hurtbox := gun_cast.get_collider() as HurtboxArea
-					if hurtbox.get_parent() != self:
-						hurtbox.take_hit(multiplayer.get_unique_id(), current_weapon.damage)
-				else:
-					decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
-			else:
-				tracer_end = gun_cast.to_global(gun_cast.target_position)
-	
 	if current_weapon:
 		current_weapon.apply_spread_recovery(gun_cast, delta)
 		recoil_offset = Utils.exp_decay(recoil_offset, 0, current_weapon.head_recoil_recovery, delta)
@@ -196,9 +198,10 @@ func _process(delta: float) -> void:
 	var target_pitch := clampf(pitch_input + recoil_offset, -85.0, 85.0)
 	head.basis = Basis(Quaternion(Vector3.RIGHT, deg_to_rad(target_pitch)))
 
-	if tracer_end != Vector3.INF and current_weapon and current_weapon.muzzle:
+	if not tracer_ends.is_empty() and current_weapon and current_weapon.muzzle:
 		var muzzle_position := current_weapon.muzzle.get_global_transform_interpolated().origin
-		tracer_spawner.request_spawn(muzzle_position, tracer_end)
+		for tracer_end in tracer_ends:
+			tracer_spawner.request_spawn(muzzle_position, tracer_end)
 
 
 func _physics_process(_delta: float) -> void:
