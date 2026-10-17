@@ -40,6 +40,7 @@ signal shot()
 var current_spread: float = 0.0
 var time: float = 0
 var held: bool = false
+var recoil_pending: bool = false
 
 
 func can_shoot() -> bool:
@@ -51,8 +52,7 @@ func can_shoot() -> bool:
 func shoot() -> void:
 	time = fire_rate
 	ammo -= 1
-	
-	recoil()
+	recoil_pending = true
 	shot.emit()
 
 
@@ -84,10 +84,11 @@ func apply_spread_recovery(ray: RayCast3D, delta: float) -> void:
 # the slowly go back to center
 func recoil() -> void:
 	if self.position.z < max_back_distance:
-		self.position.z += recoil_impulse
-	
-	if self.rotation.x < max_angle:
-		self.rotation.x += recoil_impulse/2
+		self.position.z = minf(self.position.z + recoil_impulse, max_back_distance)
+
+	var kick := rad_to_deg(recoil_impulse * 0.5)
+	if self.rotation_degrees.x < max_angle:
+		self.rotation_degrees.x = minf(self.rotation_degrees.x + kick, max_angle)
 
 
 
@@ -110,3 +111,7 @@ func _physics_process(delta: float) -> void:
 		var vert_target: float = -player.velocity.y * y_tilt_strength
 		self.rotation_degrees.y = Utils.exp_decay(self.rotation_degrees.y, hori_target, 2, delta)
 		self.rotation_degrees.x = Utils.exp_decay(self.rotation_degrees.x, vert_target, 2, delta)
+
+	if recoil_pending:
+		recoil()
+		recoil_pending = false

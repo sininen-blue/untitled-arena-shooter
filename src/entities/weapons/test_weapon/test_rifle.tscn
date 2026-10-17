@@ -10,11 +10,11 @@ point_count = 2
 
 [node name="TestWeapon" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle")]
 script = ExtResource("1_2cfou")
-min_spread = 4.0
-speed_spread_curve = SubResource("Curve_kqngw")
-head_recoil = 0.5
 fire_rate = 0.02
 ammo = 200
+min_spread = 4.0
+speed_spread_curve = SubResource("Curve_kqngw")
+head_recoil = 1.0
 recoil_impulse = 0.02
 max_back_distance = 0.1
 muzzle = NodePath("Muzzle")
