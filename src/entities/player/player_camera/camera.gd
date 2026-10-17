@@ -11,7 +11,7 @@ extends Camera3D
 @export_group("fov")
 @export var max_speed: float = 15
 @export var min_speed: float = 0.0
-@export var max_fov: float = 90.0
+@export var max_fov: float = 90.0 # TODO: make this be relative to the base fov, also make muzzle effects per gun
 @export var min_fov: float = 75.0
 @export var fov_curve: Curve
 @export var fov_weight: float = 4.0

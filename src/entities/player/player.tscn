@@ -546,6 +546,13 @@ target_position = Vector3(0.5, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6806948, 0)
 mesh = SubResource("SphereMesh_crd4b")
 script = ExtResource("25_45xpv")
+[node name="PlayerEffects" type="Node" parent="." unique_id=1685132645]
+
+[node name="Jump" type="GPUParticles3D" parent="PlayerEffects" unique_id=1686525871]
+
+[node name="Trail" type="GPUParticles3D" parent="PlayerEffects" unique_id=1641466462]
+
+[node name="Damage" type="GPUParticles3D" parent="PlayerEffects" unique_id=1903144406]
 
 [connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
 [connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
