@@ -77,7 +77,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 theme = ExtResource("10_7o0du")
 
 [node name="WinnerScreen" parent="GlobalHud/Control" unique_id=1831784229 instance=ExtResource("8_2uitn")]
@@ -87,16 +87,18 @@ offset_left = -159.5
 offset_top = -37.0
 offset_right = 159.5
 offset_bottom = 37.0
+mouse_filter = 2
 
 [node name="Countdown" parent="GlobalHud/Control" unique_id=1578566330 instance=ExtResource("12_7561f")]
 unique_name_in_owner = true
 layout_mode = 1
+mouse_filter = 2
 
 [node name="ScorePanel" parent="GlobalHud/Control" unique_id=806119554 instance=ExtResource("13_0g4b3")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 offset_top = -205.5
 offset_bottom = 205.5
+mouse_filter = 2
 
 [connection signal="finished" from="GlobalHud/Control/WinnerScreen" to="." method="_on_winner_screen_finished"]

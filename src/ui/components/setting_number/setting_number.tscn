@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bceyghtfcbye0"]
+
+[ext_resource type="Script" uid="uid://vou48nt8mt1q" path="res://src/ui/components/setting_number/setting_number.gd" id="1_8r20x"]
+[ext_resource type="Script" uid="uid://bbf2o3isff6l" path="res://src/ui/components/animated_line_edit/animated_line_edit.gd" id="1_hmq3n"]
+
+[node name="SettingNumber" type="HBoxContainer" unique_id=1995115520]
+script = ExtResource("1_8r20x")
+
+[node name="SettingTitle" type="Label" parent="." unique_id=2124554211]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="Control" type="Control" parent="." unique_id=1702210633]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingValue" type="LineEdit" parent="." unique_id=1542037524]
+layout_mode = 2
+text = "5.0"
+alignment = 1
+script = ExtResource("1_hmq3n")
+metadata/_custom_type_script = "uid://bbf2o3isff6l"
+
+[connection signal="text_changed" from="SettingValue" to="." method="_on_setting_value_text_changed"]

@@ -23,8 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bi0vym24xav1s" path="res://src/ui/components/health_bar/health_bar.tscn" id="20_3d0mj"]
 [ext_resource type="Shader" uid="uid://1vsbcu7e417i" path="res://src/shaders/speedlines.gdshader" id="20_5qgjf"]
 [ext_resource type="Script" uid="uid://dqym1pawtheqn" path="res://src/entities/player/shaders.gd" id="20_fjj3i"]
-[ext_resource type="Shader" uid="uid://wie7nn62sivx" path="res://src/shaders/ripple.gdshader" id="24_dao75"]
-[ext_resource type="Script" uid="uid://4bw7j2qkplt5" path="res://src/entities/player/parry_effect.gd" id="25_45xpv"]
+[ext_resource type="PackedScene" uid="uid://ckqf4fygfjead" path="res://src/ui/settings_panel/settings_panel.tscn" id="21_dao75"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4m8ck"]
 properties/0/path = NodePath(".:position")
@@ -442,7 +441,6 @@ property = "locked"
 metadata/_custom_type_script = "uid://cud2jpqwvuegw"
 
 [node name="Hud" type="CanvasLayer" parent="." unique_id=982865618]
-visible = false
 
 [node name="Control" type="Control" parent="Hud" unique_id=198523636]
 layout_mode = 3
@@ -451,6 +449,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Crosshair" type="ColorRect" parent="Hud/Control" unique_id=2143143827]
 custom_minimum_size = Vector2(8, 8)
@@ -462,6 +461,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.4509804)
 
 [node name="HealthBar" parent="Hud/Control" unique_id=2021831688 instance=ExtResource("20_3d0mj")]
@@ -471,6 +471,11 @@ offset_left = 43.0
 offset_top = -61.0
 offset_right = 379.0
 offset_bottom = -21.0
+
+[node name="SettingsPanel" parent="Hud/Control" unique_id=540724994 instance=ExtResource("21_dao75")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=1863526419 node_paths=PackedStringArray("player")]
 visible = false
@@ -495,6 +500,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="WallRaycasts" type="Node3D" parent="." unique_id=509607327]
 unique_name_in_owner = true
@@ -544,3 +550,4 @@ script = ExtResource("25_45xpv")
 [connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
 [connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
 [connection signal="air_to_ground" from="StateMachine/Air" to="Head" method="_on_air_air_to_ground"]
+[connection signal="resumed" from="Hud/Control/SettingsPanel" to="." method="_on_settings_panel_resumed"]

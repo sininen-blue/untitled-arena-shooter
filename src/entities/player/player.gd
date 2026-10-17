@@ -55,6 +55,7 @@ var wish_velocity: Vector3 = Vector3.ZERO
 
 @onready var hud: CanvasLayer = $Hud
 @onready var shaders: CanvasLayer = $Shaders
+@onready var settings_panel: SettingsPanel = %SettingsPanel
 
 @onready var parry_cololdown_timer: Timer = %ParryCololdownTimer
 @onready var parry_hurtbox: Area3D = %ParryHurtbox
@@ -88,6 +89,10 @@ func _ready() -> void:
 	
 	
 	camera.current = true
+	mouse_sensitivity = Config.get_setting("sensitivity", mouse_sensitivity)
+
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 
 
 func _input(event: InputEvent) -> void:
@@ -99,7 +104,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	if event.is_action_pressed("left_click"):
+		settings_panel.visible = true
+
+	if event.is_action_pressed("left_click") and settings_panel.visible == false:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	if event.is_action_pressed("interact"):
@@ -163,17 +170,19 @@ func _process(delta: float) -> void:
 		return
 	
 	
-	var tracer_ends: Array[Vector3] = []
+	var tracer_end := Vector3.INF
 	if Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():
 			current_weapon.shoot()
 
+			var ends: Array[Vector3] = []
 			for i in current_weapon.projectiles:
 				current_weapon.apply_spread(gun_cast, self.get_speed())
 				gun_cast.force_raycast_update()
 				
 				if gun_cast.is_colliding():
-					tracer_ends.append(gun_cast.get_collision_point())
+					var hit := gun_cast.get_collision_point()
+					ends.append(hit)
 
 					if gun_cast.get_collider() is HurtboxArea:
 						var hurtbox := gun_cast.get_collider() as HurtboxArea
@@ -182,7 +191,7 @@ func _process(delta: float) -> void:
 					else:
 						decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
 				else:
-					tracer_ends.append(gun_cast.to_global(gun_cast.target_position))
+					ends.append(gun_cast.to_global(gun_cast.target_position))
 
 			if recoil_offset < current_weapon.max_head_recoil:
 				recoil_offset += current_weapon.head_recoil
@@ -202,10 +211,9 @@ func _process(delta: float) -> void:
 	var target_pitch := clampf(pitch_input + recoil_offset, -85.0, 85.0)
 	head.basis = Basis(Quaternion(Vector3.RIGHT, deg_to_rad(target_pitch)))
 
-	if not tracer_ends.is_empty() and current_weapon and current_weapon.muzzle:
+	if tracer_end != Vector3.INF and current_weapon and current_weapon.muzzle:
 		var muzzle_position := current_weapon.muzzle.get_global_transform_interpolated().origin
-		for tracer_end in tracer_ends:
-			tracer_spawner.request_spawn(muzzle_position, tracer_end)
+		tracer_spawner.request_spawn(muzzle_position, tracer_end)
 
 
 func _physics_process(_delta: float) -> void:
@@ -282,3 +290,10 @@ func _sender_grace_blocks(source: Area3D) -> bool:
 			return true
 	
 	return false
+
+
+func _on_settings_panel_resumed() -> void:
+	settings_panel.visible = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	mouse_sensitivity = Config.get_setting("sensitivity", mouse_sensitivity)
