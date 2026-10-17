@@ -84,7 +84,7 @@ grow_vertical = 2
 [node name="Sens" parent="Settings" unique_id=1995115520 instance=ExtResource("3_iawp7")]
 layout_mode = 2
 title = "Mouse Sensitivity"
-value = 5.0
+value = 0.1
 
 [node name="Fov" parent="Settings" unique_id=982499008 instance=ExtResource("3_iawp7")]
 layout_mode = 2
