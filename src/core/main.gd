@@ -167,10 +167,13 @@ func _on_winner_screen_finished() -> void:
 	reset_player_healths()
 	reset_player_visibilities()
 	reset_player_weapons()
-	reset_scores()
 	players_killed.clear()
 	dropped_spawner.clear_dropped_weapons()
 	
 	countdown.start.rpc(3)
 	await countdown.finished
 	release_players.rpc()
+
+
+# TODO: player scores don't update parst 1
+# unauthorized despawn?

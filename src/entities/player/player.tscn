@@ -337,6 +337,7 @@ metadata/_custom_type_script = "uid://dsetpse5sstyw"
 script = ExtResource("14_3d0mj")
 speed = 9.0
 gravity_strength_curve = SubResource("Curve_5qgjf")
+wall_slide_duration = 2.0
 player = NodePath("../..")
 air_state = NodePath("../Air")
 wall_jump_state = NodePath("../WallJump")

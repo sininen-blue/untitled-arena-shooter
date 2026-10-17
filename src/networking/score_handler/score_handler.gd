@@ -12,7 +12,7 @@ func add_score(player_id: int, amount: int) -> void:
 	if multiplayer.is_server() == false:
 		return
 	
-	if scores.get(player_id) == null:
+	if scores.get(player_id, null) == null:
 		scores[player_id] = 0
 	
 	scores[player_id] += amount
