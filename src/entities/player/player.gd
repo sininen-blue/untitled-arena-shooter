@@ -64,6 +64,8 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var head_hurtbox: HurtboxArea = $HeadHurtbox
 @onready var body_hurtbox: HurtboxArea = $BodyHurtbox
 
+@onready var parry_effect: ParryEffect = $ParryEffect
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -115,6 +117,8 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("parry") and parry_cololdown_timer.is_stopped():
 		parry_cololdown_timer.start()
+		
+		parry_effect.start()
 		
 		if parry_hurtbox.has_overlapping_areas():
 			var slipper_hitboxes: Array[Area3D] = parry_hurtbox.get_overlapping_areas()
