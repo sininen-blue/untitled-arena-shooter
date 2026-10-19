@@ -13,7 +13,6 @@ var pending_position: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
-	print(weapon_file_path)
 	weapon_instance = load(weapon_file_path).instantiate()
 	weapon_instance.ammo = weapon_ammo
 	add_child(weapon_instance)

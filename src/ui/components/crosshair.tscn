@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cgbattqv6eru8"]
+
+[ext_resource type="Texture2D" uid="uid://d0m4i4dgvfqqy" path="res://assets/textures/ui/pointer.png" id="1_22ccv"]
+[ext_resource type="Script" uid="uid://c7gk3y1v8b0sg" path="res://src/ui/components/crosshair.gd" id="1_andm1"]
+
+[node name="Crosshair" type="Node2D" unique_id=832864036]
+script = ExtResource("1_andm1")
+
+[node name="TopLeft" type="Sprite2D" parent="." unique_id=245153531]
+modulate = Color(1, 1, 1, 0.62352943)
+position = Vector2(-8, -8)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_22ccv")
+
+[node name="BottomLeft" type="Sprite2D" parent="." unique_id=1832420174]
+modulate = Color(1, 1, 1, 0.62352943)
+position = Vector2(-8, 8)
+rotation = -1.5707964
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_22ccv")
+
+[node name="BottomRight" type="Sprite2D" parent="." unique_id=931606855]
+modulate = Color(1, 1, 1, 0.62352943)
+position = Vector2(8, 8.000002)
+rotation = 3.1415927
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_22ccv")
+
+[node name="TopRight" type="Sprite2D" parent="." unique_id=1633994710]
+modulate = Color(1, 1, 1, 0.62352943)
+position = Vector2(8, -8.000002)
+rotation = 1.5707964
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_22ccv")

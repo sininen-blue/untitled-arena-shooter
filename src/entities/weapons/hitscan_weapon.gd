@@ -58,17 +58,24 @@ func shoot() -> void:
 	shot.emit()
 
 
-func apply_spread(ray: RayCast3D, player_speed: float) -> void:
-	var clamped_player_speed: float = 0
-	if player_speed < min_speed:
-		clamped_player_speed = 0
-	else:
+func update_spread(player_speed: float) -> void:
+	var clamped_player_speed: float = 0.0
+	if player_speed >= min_speed:
 		clamped_player_speed = clampf(player_speed, min_speed, max_speed)
 
-	var sample_point: float = (clamped_player_speed - min_speed)/(max_speed - min_speed)
-	var spread_weight: float = speed_spread_curve.sample(sample_point)
+	var sample_point: float = 0.0
+	if max_speed != min_speed:
+		sample_point = (clamped_player_speed - min_speed) / (max_speed - min_speed)
 
-	current_spread = min_spread + ((max_spread - min_spread) * spread_weight)
+	var speed_weight: float = 0.0
+	if speed_spread_curve:
+		speed_weight = speed_spread_curve.sample(sample_point)
+
+	current_spread = min_spread + ((max_spread - min_spread) * speed_weight)
+
+
+func apply_spread(ray: RayCast3D, player_speed: float) -> void:
+	update_spread(player_speed)
 
 	var horizontal_spread: float = randf_range(-current_spread, current_spread)
 	var vertical_spread: float = randf_range(-current_spread, current_spread)
@@ -95,6 +102,9 @@ func recoil() -> void:
 
 
 func _process(delta: float) -> void:
+	if player:
+		update_spread(player.get_speed())
+
 	if time >= 0:
 		time -= 1 * delta
 	
