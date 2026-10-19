@@ -2,6 +2,11 @@ class_name HitDecal
 extends Decal
 
 
+@export var lifetime: float = 5.0
+@export var fade_duration: float = 1.0
+
+
+var spawner: DecalSpawner
 var pending_position: Vector3
 var pending_normal: Vector3
 
@@ -25,3 +30,12 @@ func _ready() -> void:
 
 		global_transform.basis = Basis.looking_at(-pending_normal, up)
 		rotation_degrees.x += 90
+
+	get_tree().create_timer(lifetime).timeout.connect(_on_lifetime_timeout)
+
+
+func _on_lifetime_timeout() -> void:
+	var tween := create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, fade_duration)
+	if multiplayer.is_server():
+		tween.finished.connect(func() -> void: spawner.request_despawn(self))
