@@ -8,10 +8,12 @@ signal peer_left(id: int)
 
 const IP_ADDR: String = "localhost"
 const PORT: int = 8500
+const DEFAULT_NAMES: Array[String] = ["Host", "Player 2", "Player 3", "Player 4"]
 
 
 var peer: ENetMultiplayerPeer
 var players: Dictionary[int, Dictionary] = {}
+var next_name_index: int = 0
 
 
 func _ready() -> void:
@@ -26,7 +28,8 @@ func start_server() -> Error:
 		return error
 	
 	multiplayer.multiplayer_peer = peer
-	self._add_player(multiplayer.get_unique_id(), "Host")
+	next_name_index = 0
+	self._add_player(multiplayer.get_unique_id(), _default_name())
 	return OK
 
 
@@ -70,6 +73,7 @@ func disconnect_server() -> void:
 	multiplayer.multiplayer_peer = null
 	peer = null
 	players.clear()
+	next_name_index = 0
 
 
 func request_ready_update(is_ready: bool) -> void:
@@ -92,6 +96,14 @@ func get_local_ip() -> String:
 	return candidates[0] if candidates.size() > 0 else "127.0.0.1"
 
 
+func _default_name() -> String:
+	var index := next_name_index
+	next_name_index += 1
+	if index < DEFAULT_NAMES.size():
+		return DEFAULT_NAMES[index]
+	return "Player %d" % (index + 1)
+
+
 func _add_player(id: int, player_name: String) -> void:
 	players[id] = {
 		"name": player_name,
@@ -104,7 +116,7 @@ func _add_player(id: int, player_name: String) -> void:
 func _on_peer_connected(id: int) -> void:
 	if not multiplayer.is_server():
 		return
-	_add_player(id, "Player " + str(id))
+	_add_player(id, _default_name())
 
 
 func _on_peer_disconnected(id: int) -> void:
