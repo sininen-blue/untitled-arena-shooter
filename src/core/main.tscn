@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b4ifippudd7pg" path="res://src/networking/winner_screen/winner_screen.tscn" id="8_2uitn"]
 [ext_resource type="PackedScene" uid="uid://booj3sjbmxwf6" path="res://src/networking/tracer_spawner/tracer_spawner.tscn" id="9_x6e73"]
 [ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="10_7o0du"]
+[ext_resource type="PackedScene" uid="uid://q70esfxekonq" path="res://src/networking/jump_particle_spawner/jump_particle_spawner.tscn" id="10_i5nkp"]
 [ext_resource type="PackedScene" uid="uid://c5ef2xdjstn8e" path="res://src/levels/test_arena_2.tscn" id="11_m33k1"]
 [ext_resource type="PackedScene" uid="uid://bc8i1ne2uwrpt" path="res://src/ui/components/countdown/countdown.tscn" id="12_7561f"]
 [ext_resource type="PackedScene" uid="uid://65k3trxjhft5" path="res://src/ui/components/score_panel/score_panel.tscn" id="13_0g4b3"]
@@ -47,6 +48,9 @@ unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://daukfe24ussga")
 spawn_path = NodePath("../Tracers")
 
+[node name="JumpParticleSpawner" parent="." unique_id=357246969 instance=ExtResource("10_i5nkp")]
+spawn_path = NodePath("../JumpParticles")
+
 [node name="WorldEnvironment" parent="." unique_id=894388480 instance=ExtResource("2_m33k1")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1350586909]
@@ -63,6 +67,9 @@ shadow_enabled = true
 unique_name_in_owner = true
 
 [node name="Tracers" type="Node3D" parent="." unique_id=380304518]
+
+[node name="JumpParticles" type="Node3D" parent="." unique_id=151781421]
+unique_name_in_owner = true
 
 [node name="Countdown" type="Timer" parent="." unique_id=1780602067]
 one_shot = true

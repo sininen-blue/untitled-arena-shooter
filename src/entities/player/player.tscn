@@ -53,6 +53,23 @@ material = ExtResource("2_vt6n5")
 radius = 0.3
 height = 1.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_coeo4"]
+render_priority = 0
+shader = ExtResource("25_45xpv")
+shader_parameter/wave_color = Color(0.4, 0.8, 1, 1)
+shader_parameter/base_color = Color(0.1, 0.1, 0.3, 0)
+shader_parameter/wave_frequency = 1.0
+shader_parameter/wave_sharpness = 10.0
+shader_parameter/noise_scale = 2.0
+shader_parameter/distortion_strength = 0.3
+shader_parameter/breakup_strength = 0.6
+shader_parameter/wave_age = 0.82000003895
+
+[sub_resource type="SphereMesh" id="SphereMesh_vehwe"]
+material = SubResource("ShaderMaterial_coeo4")
+radius = 1.5
+height = 3.0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2in8s"]
 radius = 1.125
 height = 2.75
@@ -113,23 +130,6 @@ shader_parameter/hole_smoothness = 0.4
 shader_parameter/hole_radius = 0.50000002375
 shader_parameter/transparency = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_coeo4"]
-render_priority = 0
-shader = ExtResource("25_45xpv")
-shader_parameter/wave_color = Color(0.4, 0.8, 1, 1)
-shader_parameter/base_color = Color(0.1, 0.1, 0.3, 0)
-shader_parameter/wave_frequency = 1.0
-shader_parameter/wave_sharpness = 10.0
-shader_parameter/noise_scale = 2.0
-shader_parameter/distortion_strength = 0.3
-shader_parameter/breakup_strength = 0.6
-shader_parameter/wave_age = 0.82000003895
-
-[sub_resource type="SphereMesh" id="SphereMesh_vehwe"]
-material = SubResource("ShaderMaterial_coeo4")
-radius = 1.5
-height = 3.0
-
 [node name="Player" type="CharacterBody3D" unique_id=1405837965 node_paths=PackedStringArray("wall_climb_state", "wall_slide_state")]
 collision_layer = 2
 floor_snap_length = 0.4
@@ -153,6 +153,10 @@ mesh = SubResource("CapsuleMesh_crd4b")
 unique_name_in_owner = true
 wait_time = 1.2
 one_shot = true
+
+[node name="ParryEffect" type="MeshInstance3D" parent="." unique_id=1307298633]
+mesh = SubResource("SphereMesh_vehwe")
+script = ExtResource("26_ngh1c")
 
 [node name="ParryHurtbox" type="Area3D" parent="." unique_id=82098675]
 unique_name_in_owner = true
@@ -543,10 +547,6 @@ target_position = Vector3(0.5, 0, 0)
 [node name="RightTop" type="RayCast3D" parent="WallRaycasts" unique_id=1182210959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 target_position = Vector3(0.5, 0, 0)
-
-[node name="ParryEffect" type="MeshInstance3D" parent="." unique_id=1307298633]
-mesh = SubResource("SphereMesh_vehwe")
-script = ExtResource("26_ngh1c")
 
 [connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
 [connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]

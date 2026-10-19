@@ -9,6 +9,7 @@ extends State
 
 func enter() -> void:
 	player.velocity += (player.get_floor_normal() + Vector3.UP).normalized() * jump_force
+	player.jump_particle_spawner.request_spawn(player.global_position)
 	state_machine.change_state(air_state)
 
 

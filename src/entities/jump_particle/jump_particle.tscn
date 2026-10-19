@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b435l15apccx7"]
+
+[ext_resource type="Script" uid="uid://drq4vnw1s5y3m" path="res://src/entities/jump_particle/jump_particle.gd" id="1_rd52f"]
+
+[sub_resource type="Curve" id="Curve_uo07e"]
+_data = [Vector2(0, 1), 0.0, 1.0245403, 0, 0, Vector2(1, 0), -4.05159, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bmepc"]
+curve = SubResource("Curve_uo07e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uo07e"]
+spread = 180.0
+flatness = 0.8
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, -0.1, 0)
+tangential_accel_min = 0.19999775
+tangential_accel_max = 0.49999776
+damping_min = 0.6
+damping_max = 1.0
+scale_curve = SubResource("CurveTexture_bmepc")
+
+[sub_resource type="SphereMesh" id="SphereMesh_rd52f"]
+radius = 0.125
+height = 0.25
+
+[node name="JumpParticle" type="GPUParticles3D" unique_id=2017991269]
+emitting = false
+amount = 12
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_uo07e")
+draw_pass_1 = SubResource("SphereMesh_rd52f")
+script = ExtResource("1_rd52f")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

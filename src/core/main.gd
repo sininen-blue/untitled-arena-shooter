@@ -17,6 +17,7 @@ var players_killed: Array[int]
 @onready var slipper_spawner: SlipperSpanwner = %SlipperSpawner
 @onready var tracer_spawner: TracerSpawner = %TracerSpawner
 @onready var decal_spawner: DecalSpawner = %DecalSpawner
+@onready var jump_particle_spawner: JumpParticleSpawner = $JumpParticleSpawner
 @onready var player_spawner: PlayerSpawner = %PlayerSpawner
 @onready var score_handler: ScoreHandler = $ScoreHandler
 @onready var winner_screen: WinnerScreen = %WinnerScreen

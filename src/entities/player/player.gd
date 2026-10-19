@@ -11,6 +11,7 @@ signal killed(by: int, player: Player)
 @export var weapon_pickup_sync: WeaponPickupSync
 @export var decal_spawner: DecalSpawner
 @export var tracer_spawner: TracerSpawner
+@export var jump_particle_spawner: JumpParticleSpawner
 
 @export var mouse_sensitivity: float = 0.1
 @export var default_head_recoil_recovery: float = 3.0
@@ -86,6 +87,7 @@ func _ready() -> void:
 		weapon_pickup_sync = get_parent().weapon_pickup_sync
 		decal_spawner = get_parent().decal_spawner
 		tracer_spawner = get_parent().tracer_spawner
+		jump_particle_spawner = get_parent().jump_particle_spawner
 	
 	
 	camera.current = true
