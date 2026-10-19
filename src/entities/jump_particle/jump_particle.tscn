@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b435l15apccx7"]
 
+[ext_resource type="SphereMesh" uid="uid://cpooijl6s7mqv" path="res://src/materials/particle_sphere.tres" id="1_bmepc"]
 [ext_resource type="Script" uid="uid://drq4vnw1s5y3m" path="res://src/entities/jump_particle/jump_particle.gd" id="1_rd52f"]
 
 [sub_resource type="Curve" id="Curve_uo07e"]
@@ -21,10 +22,6 @@ damping_min = 0.6
 damping_max = 1.0
 scale_curve = SubResource("CurveTexture_bmepc")
 
-[sub_resource type="SphereMesh" id="SphereMesh_rd52f"]
-radius = 0.125
-height = 0.25
-
 [node name="JumpParticle" type="GPUParticles3D" unique_id=2017991269]
 emitting = false
 amount = 12
@@ -32,7 +29,7 @@ lifetime = 2.0
 one_shot = true
 explosiveness = 0.95
 process_material = SubResource("ParticleProcessMaterial_uo07e")
-draw_pass_1 = SubResource("SphereMesh_rd52f")
+draw_pass_1 = ExtResource("1_bmepc")
 script = ExtResource("1_rd52f")
 
 [connection signal="finished" from="." to="." method="_on_finished"]

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bb6akkjooqc4c"]
+
+[ext_resource type="SphereMesh" uid="uid://cpooijl6s7mqv" path="res://src/materials/particle_sphere.tres" id="1_rny0g"]
+[ext_resource type="Script" uid="uid://ccot873gysfcs" path="res://src/entities/land_particle/land_particle.gd" id="1_wrevv"]
+
+[sub_resource type="Curve" id="Curve_rny0g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5601659, 1), -0.6985511, -0.6985511, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_26qj2"]
+curve = SubResource("Curve_rny0g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rny0g"]
+spread = 180.0
+flatness = 0.95
+initial_velocity_min = 2.3999999
+initial_velocity_max = 2.6
+gravity = Vector3(0, -0.02, 0)
+damping_min = 2.7500002
+damping_max = 3.0000002
+scale_curve = SubResource("CurveTexture_26qj2")
+
+[node name="LandParticle" type="GPUParticles3D" unique_id=386053599]
+emitting = false
+amount = 14
+lifetime = 1.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rny0g")
+draw_pass_1 = ExtResource("1_rny0g")
+script = ExtResource("1_wrevv")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

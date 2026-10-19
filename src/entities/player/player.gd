@@ -12,6 +12,7 @@ signal killed(by: int, player: Player)
 @export var decal_spawner: DecalSpawner
 @export var tracer_spawner: TracerSpawner
 @export var jump_particle_spawner: JumpParticleSpawner
+@export var land_particle_spawner: LandParticleSpawner
 
 @export var mouse_sensitivity: float = 0.1
 @export var default_head_recoil_recovery: float = 3.0
@@ -67,6 +68,7 @@ var wish_velocity: Vector3 = Vector3.ZERO
 @onready var body_hurtbox: HurtboxArea = $BodyHurtbox
 
 @onready var parry_effect: ParryEffect = $ParryEffect
+@onready var run_particle: RunParticle = $RunParticle
 
 
 func _enter_tree() -> void:
@@ -88,6 +90,7 @@ func _ready() -> void:
 		decal_spawner = get_parent().decal_spawner
 		tracer_spawner = get_parent().tracer_spawner
 		jump_particle_spawner = get_parent().jump_particle_spawner
+		land_particle_spawner = get_parent().land_particle_spawner
 	
 	
 	camera.current = true

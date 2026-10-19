@@ -17,11 +17,12 @@ extends State
 
 
 func enter() -> void:
-	pass
+	player.run_particle.start()
 
 
-func exit(_new_state: State) -> void:
-	pass
+func exit(new_state: State) -> void:
+	if new_state != slide_state:
+		player.run_particle.stop()
 
 
 func update(_delta: float) -> void:

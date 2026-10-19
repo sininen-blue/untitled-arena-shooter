@@ -50,6 +50,7 @@ func _ready() -> void:
 
 
 func enter() -> void:
+	player.run_particle.start()
 	player.head_target.position.y = 0.25
 
 	if boost_cooldown_timer.is_stopped():
@@ -57,8 +58,10 @@ func enter() -> void:
 		boost_cooldown_timer.start()
 
 
-func exit(_new_state: State) -> void:
+func exit(new_state: State) -> void:
 	player.head_target.position.y = 1.0
+	if new_state != run_state:
+		player.run_particle.stop()
 
 
 func update(delta: float) -> void:

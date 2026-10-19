@@ -31,6 +31,7 @@ func enter() -> void:
 func exit(new_state: State) -> void:
 	if new_state.is_in_group("ground"):
 		air_to_ground.emit(previous_y_velocity)
+		player.land_particle_spawner.request_spawn(player.global_position)
 
 
 func update(_delta: float) -> void:
