@@ -12,8 +12,8 @@ func _ready() -> void:
 	self.spawn_function = _spawn_function
 
 
-func request_spawn(location: Vector3) -> void:
-	_spawn_particle.rpc_id(1, location)
+func request_spawn(location: Vector3, normal: Vector3) -> void:
+	_spawn_particle.rpc_id(1, location, normal)
 
 
 func request_despawn(particle: JumpParticle) -> void:
@@ -21,12 +21,13 @@ func request_despawn(particle: JumpParticle) -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func _spawn_particle(location: Vector3) -> void:
+func _spawn_particle(location: Vector3, normal: Vector3) -> void:
 	if not multiplayer.is_server():
 		return
 
 	var data: Dictionary[String, Vector3] = {
 		"location": location,
+		"normal": normal,
 	}
 	spawn(data)
 
@@ -46,5 +47,6 @@ func _spawn_function(data: Dictionary) -> JumpParticle:
 
 	jump_particle_instance.spawner = self
 	jump_particle_instance.pending_position = data.get("location")
+	jump_particle_instance.pending_normal = data.get("normal")
 
 	return jump_particle_instance

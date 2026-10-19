@@ -14,9 +14,11 @@ extends State
 
 
 func enter() -> void:
+	var wall_normal := wall_raycasts.get_wall_normal()
 	var vertical := Vector3.UP * vertical_component
-	var horizontal := wall_raycasts.get_wall_normal() * horizontal_component
+	var horizontal := wall_normal * horizontal_component
 	player.velocity += (vertical + horizontal).normalized() * jump
+	player.jump_particle_spawner.request_spawn(player.global_position, wall_normal)
 
 
 func exit(_new_state: State) -> void:
