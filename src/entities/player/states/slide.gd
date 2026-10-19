@@ -50,6 +50,7 @@ func _ready() -> void:
 
 
 func enter() -> void:
+	player.is_sliding = true
 	player.run_particle.start()
 	player.head_target.position.y = 0.25
 
@@ -59,6 +60,7 @@ func enter() -> void:
 
 
 func exit(new_state: State) -> void:
+	player.is_sliding = false
 	player.head_target.position.y = 1.0
 	if new_state != run_state:
 		player.run_particle.stop()

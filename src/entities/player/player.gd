@@ -44,6 +44,7 @@ var recoil_offset: float = 0.0
 var input_direction: Vector2 = Vector2.ZERO
 var direction: Vector3 = Vector3.ZERO
 var wish_velocity: Vector3 = Vector3.ZERO
+var is_sliding: bool = false
 
 
 @onready var head: Node3D = %Head

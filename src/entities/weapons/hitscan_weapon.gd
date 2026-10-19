@@ -59,6 +59,10 @@ func shoot() -> void:
 
 
 func update_spread(player_speed: float) -> void:
+	if player and player.is_sliding:
+		current_spread = min_spread
+		return
+
 	var clamped_player_speed: float = 0.0
 	if player_speed >= min_speed:
 		clamped_player_speed = clampf(player_speed, min_speed, max_speed)
