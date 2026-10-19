@@ -62,6 +62,23 @@ func right_is_colliding() -> bool:
 	return false
 
 
+func get_center_collision_point() -> Vector3:
+	var ray := _center_ray()
+	if ray == null:
+		return Vector3.ZERO
+	return ray.get_collision_point()
+
+
+func _center_ray() -> RayCast3D:
+	if right.is_colliding():
+		return right
+	if left.is_colliding():
+		return left
+	if front.is_colliding():
+		return front
+	return null
+
+
 func get_wall_normal() -> Vector3:
 	var normal: Vector3 = Vector3.ZERO
 

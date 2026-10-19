@@ -32,10 +32,17 @@ func enter() -> void:
 	else:
 		player.velocity.y = player.velocity.y / 1.5
 
+	player.run_particle.start()
+	_place_run_particle()
+
 
 func exit(new_state: State) -> void:
 	if new_state.is_in_group("ground"):
 		time = 0
+
+	player.run_particle.reset_position()
+	if new_state != run_state:
+		player.run_particle.stop()
 
 
 func update(delta: float) -> void:
@@ -43,6 +50,8 @@ func update(delta: float) -> void:
 
 
 func physics_update(delta: float) -> void:
+	_place_run_particle()
+
 	if wall_raycasts.is_colliding() == false:
 		state_machine.change_state(air_state)
 	else:
@@ -84,6 +93,13 @@ func physics_update(delta: float) -> void:
 
 func handle_input(_event: InputEvent) -> void:
 	pass
+
+
+func _place_run_particle() -> void:
+	var point: Vector3 = wall_raycasts.get_center_collision_point()
+	if point == Vector3.ZERO:
+		return
+	player.run_particle.move_to(point)
 
 
 func can_enter() -> bool:
