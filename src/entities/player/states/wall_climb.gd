@@ -41,6 +41,7 @@ func enter() -> void:
 func exit(new_state: State) -> void:
 	if new_state.is_in_group("ground"):
 		time = 0
+		player.play_land_sound()
 
 
 func update(_delta: float) -> void:

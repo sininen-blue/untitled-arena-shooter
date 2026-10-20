@@ -14,6 +14,7 @@ func enter() -> void:
 
 	player.velocity += (floor_normal + Vector3.UP).normalized() * jump_force
 	player.jump_particle_spawner.request_spawn(player.global_position, floor_normal)
+	player.play_jump_sound()
 	state_machine.change_state(air_state)
 
 

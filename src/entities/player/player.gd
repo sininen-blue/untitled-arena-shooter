@@ -250,9 +250,35 @@ func get_speed() -> float:
 
 
 @rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
+func play_jump_sound() -> void:
+	_play_movement_sound(jump_sound, _play_jump_sound)
+
+
+func play_land_sound() -> void:
+	_play_movement_sound(land_sound, _play_land_sound)
+
+
+func _play_movement_sound(sound: AudioStreamPlayer3D, remote: Callable) -> void:
+	if multiplayer.multiplayer_peer == null:
+		sound.play()
+		return
+	remote.rpc()
+
+
+@rpc("authority", "call_local", "unreliable")
+func _play_jump_sound() -> void:
+	jump_sound.play()
+
+
+@rpc("authority", "call_local", "unreliable")
+func _play_land_sound() -> void:
+	land_sound.play()
+
+
 func take_damage(hitter_id: int, damage: float) -> void:
 	health -= damage
 	health_bar.current_health = health
+	hurt_sound.play()
 	if health <= 0:
 		killed.emit(hitter_id, self)
 		self.visible = false

@@ -39,6 +39,7 @@ func enter() -> void:
 func exit(new_state: State) -> void:
 	if new_state.is_in_group("ground"):
 		time = 0
+		player.play_land_sound()
 
 	player.run_particle.reset_position()
 	if new_state != run_state:

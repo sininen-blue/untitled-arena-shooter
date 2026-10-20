@@ -19,6 +19,7 @@ func enter() -> void:
 	var horizontal := wall_normal * horizontal_component
 	player.velocity += (vertical + horizontal).normalized() * jump
 	player.jump_particle_spawner.request_spawn(player.global_position, wall_normal)
+	player.play_jump_sound()
 
 
 func exit(_new_state: State) -> void:
