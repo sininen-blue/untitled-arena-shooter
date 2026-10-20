@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c42u1blkeexpw"]
+
+[ext_resource type="Script" uid="uid://deohkycyu8o61" path="res://src/networking/damage_number_spawner/damage_number_spawner.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://brnqmme6dx6n1" path="res://src/entities/damage_number_particle/damage_number_particle.tscn" id="2_particle"]
+
+[node name="DamageNumberSpawner" type="MultiplayerSpawner" unique_id=1210642102]
+script = ExtResource("1_script")
+damage_number_particle = ExtResource("2_particle")

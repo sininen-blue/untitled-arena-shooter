@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://brnqmme6dx6n1"]
+
+[ext_resource type="FontFile" uid="uid://bmsjqlydsv8gt" path="res://assets/fonts/Kaph-Regular.otf" id="1_bug7o"]
+[ext_resource type="Script" uid="uid://cteu7ctiq0yfl" path="res://src/entities/damage_number_particle/damage_number_particle.gd" id="2_3asti"]
+
+[node name="DamageNumberParticle" type="Label3D" unique_id=331028124]
+billboard = 2
+text = "-1"
+font = ExtResource("1_bug7o")
+script = ExtResource("2_3asti")

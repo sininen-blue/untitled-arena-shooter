@@ -13,6 +13,7 @@ signal killed(by: int, player: Player)
 @export var tracer_spawner: TracerSpawner
 @export var jump_particle_spawner: JumpParticleSpawner
 @export var land_particle_spawner: LandParticleSpawner
+@export var damage_number_spawner: DamageNumberSpawner
 
 @export var mouse_sensitivity: float = 0.1
 @export var default_head_recoil_recovery: float = 3.0
@@ -29,6 +30,7 @@ signal killed(by: int, player: Player)
 @export var wall_climb_state: State
 @export var wall_slide_state: State
 
+@export var damage_number_offset: Vector3 = Vector3(0.2, 0.45, 0)
 @export var headshot_mult: float = 1.5
 @export var max_health: float = 20
 @export var health: float = max_health
@@ -77,13 +79,6 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
-		return
-	
-	hud.visible = true
-	shaders.visible = true
-	health_bar.max_health = max_health
-
 	if get_parent() != null: # NOTE: should replace these
 		dropped_spawner = get_parent().dropped_spawner
 		slipper_spawner = get_parent().slipper_spawner
@@ -92,8 +87,17 @@ func _ready() -> void:
 		tracer_spawner = get_parent().tracer_spawner
 		jump_particle_spawner = get_parent().jump_particle_spawner
 		land_particle_spawner = get_parent().land_particle_spawner
+		damage_number_spawner = get_parent().damage_number_spawner
+
+	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+		hud.visible = false
+		shaders.visible = false
+		return
 	
-	
+	hud.visible = true
+	shaders.visible = true
+	health_bar.max_health = max_health
+
 	camera.current = true
 	mouse_sensitivity = Config.get_setting("sensitivity", mouse_sensitivity)
 
@@ -277,13 +281,16 @@ func remove_weapon() -> void:
 func _on_head_hurtbox_hit(hitter_id: int, damage: float, source: Area3D = null) -> void:
 	if _sender_grace_blocks(source):
 		return
-	take_damage.rpc(hitter_id, damage * headshot_mult)
+	var dealt := damage * headshot_mult
+	take_damage.rpc(hitter_id, dealt)
+	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
 
 
 func _on_body_hurtbox_hit(hitter_id: int, damage: float, source: Area3D = null) -> void:
 	if _sender_grace_blocks(source):
 		return
 	take_damage.rpc(hitter_id, damage)
+	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
 
 
 func _sender_grace_blocks(source: Area3D) -> bool:
