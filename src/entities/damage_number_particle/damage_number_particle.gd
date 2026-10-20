@@ -27,7 +27,7 @@ func _ready() -> void:
 	if pending_damage:
 		damage = pending_damage
 
-	self.text = str(roundi(damage))
+	self.text = "-" + str(roundi(damage))
 
 
 func _process(delta: float) -> void:

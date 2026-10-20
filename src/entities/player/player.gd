@@ -30,7 +30,7 @@ signal killed(by: int, player: Player)
 @export var wall_climb_state: State
 @export var wall_slide_state: State
 
-@export var damage_number_offset: Vector3 = Vector3(0.2, 0.45, 0)
+@export var damage_number_offset: Vector3 = Vector3(0.2, 0.6, 0)
 @export var headshot_mult: float = 1.5
 @export var max_health: float = 20
 @export var health: float = max_health
