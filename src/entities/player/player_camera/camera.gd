@@ -36,6 +36,7 @@ const TEST_RIFLE := preload("res://src/entities/weapons/test_weapon/test_rifle.g
 var target_fov: float = 0.0
 var is_zoomed: bool = false
 var zoom_tween: Tween
+var shot_weapon: HitscanWeapon
 
 
 @onready var sniper_scope: ColorRect = %SniperScope
@@ -43,6 +44,7 @@ var zoom_tween: Tween
 
 func _ready() -> void:
 	sniper_scope.visible = false
+	_bind_weapon_shot()
 
 
 func _input(event: InputEvent) -> void:
@@ -59,6 +61,10 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	_bind_weapon_shot()
+	if is_zoomed and is_instance_valid(player.current_weapon) and player.current_weapon.recoil_pending:
+		_exit_zoom()
+
 	if is_zoomed:
 		sniper_scope.visible = _has_test_rifle()
 
@@ -103,6 +109,24 @@ func _tween_zoom(fov_value: float) -> void:
 func _has_test_rifle() -> bool:
 	var weapon := player.current_weapon
 	return is_instance_valid(weapon) and weapon.get_script() == TEST_RIFLE
+
+
+func _bind_weapon_shot() -> void:
+	var weapon: HitscanWeapon = player.current_weapon if is_instance_valid(player.current_weapon) else null
+	if weapon == shot_weapon:
+		return
+
+	if is_instance_valid(shot_weapon) and shot_weapon.shot.is_connected(_on_weapon_shot):
+		shot_weapon.shot.disconnect(_on_weapon_shot)
+
+	shot_weapon = weapon
+	if shot_weapon:
+		shot_weapon.shot.connect(_on_weapon_shot)
+
+
+func _on_weapon_shot() -> void:
+	if is_zoomed or (sniper_scope and sniper_scope.visible):
+		_exit_zoom()
 
 
 func _exit_zoom() -> void:
