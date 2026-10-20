@@ -73,6 +73,10 @@ var is_sliding: bool = false
 @onready var parry_effect: ParryEffect = $ParryEffect
 @onready var run_particle: RunParticle = $RunParticle
 
+@onready var jump_sound: AudioStreamPlayer3D = $Sounds/JumpSound
+@onready var land_sound: AudioStreamPlayer3D = $Sounds/LandSound
+@onready var hurt_sound: AudioStreamPlayer3D = $Sounds/HurtSound
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
