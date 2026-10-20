@@ -67,6 +67,7 @@ var is_zoomed: bool = false
 @onready var parry_hurtbox: Area3D = %ParryHurtbox
 
 @onready var health_bar: HealthBar = %HealthBar
+@onready var crosshair: Crosshair = $Hud/Control/Crosshair
 @onready var sniper_scope: ColorRect = %SniperScope
 
 @onready var head_hurtbox: HurtboxArea = $HeadHurtbox
@@ -203,6 +204,7 @@ func _process(delta: float) -> void:
 						var hurtbox := gun_cast.get_collider() as HurtboxArea
 						if hurtbox.get_parent() != self:
 							hurtbox.take_hit(multiplayer.get_unique_id(), current_weapon.damage)
+							crosshair.show_hitmarker()
 					else:
 						decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
 				else:
