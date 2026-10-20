@@ -249,7 +249,6 @@ func get_speed() -> float:
 	return self.velocity.length()
 
 
-@rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
 func play_jump_sound() -> void:
 	_play_movement_sound(jump_sound, _play_jump_sound)
 
@@ -275,6 +274,20 @@ func _play_land_sound() -> void:
 	land_sound.play()
 
 
+func play_weapon_sound() -> void:
+	if multiplayer.multiplayer_peer == null:
+		_play_weapon_sound()
+		return
+	_play_weapon_sound.rpc()
+
+
+@rpc("authority", "call_local", "unreliable")
+func _play_weapon_sound() -> void:
+	if is_instance_valid(current_weapon) and current_weapon.sound_player:
+		current_weapon.sound_player.play()
+
+
+@rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
 func take_damage(hitter_id: int, damage: float) -> void:
 	health -= damage
 	health_bar.current_health = health

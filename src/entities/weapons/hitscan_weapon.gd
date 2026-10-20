@@ -23,8 +23,6 @@ signal shot()
 @export var max_head_recoil: float = 80.0
 @export var head_recoil_recovery: float = 3.0
 
-
-
 @export_group("Blowback")
 @export var recoil_impulse: float = 0.25
 @export var max_back_distance: float = 0.5
@@ -37,6 +35,9 @@ signal shot()
 @export_group("References")
 @export var muzzle: Marker3D
 @export var player: Player
+
+@export_group("Sounds")
+@export var sound_player: AudioStreamPlayer3D
 
 
 var current_spread: float = 0.0
@@ -56,6 +57,11 @@ func shoot() -> void:
 	ammo -= 1
 	recoil_pending = true
 	shot.emit()
+
+	if player:
+		player.play_weapon_sound()
+	elif sound_player:
+		sound_player.play()
 
 
 func update_spread(player_speed: float) -> void:
