@@ -65,7 +65,7 @@ func shoot() -> void:
 
 
 func update_spread(player_speed: float) -> void:
-	if player and player.is_sliding:
+	if player and (player.is_sliding or player.is_zoomed):
 		current_spread = min_spread
 		return
 

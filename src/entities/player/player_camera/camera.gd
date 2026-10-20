@@ -1,12 +1,16 @@
 extends Camera3D
 
 
+const TEST_RIFLE := preload("res://src/entities/weapons/test_weapon/test_rifle.gd")
+
+
 @export var player: Player
 @export var state_machine: StateMachine
 @export var wall_raycasts: WallRaycasts
 
 @export var max_camera_tilt: float = 1.0
 @export var camera_tilt_weight: float = 8.0
+
 
 @export_group("fov")
 @export var max_speed: float = 15
@@ -34,19 +38,30 @@ var is_zoomed: bool = false
 var zoom_tween: Tween
 
 
+@onready var sniper_scope: ColorRect = %SniperScope
+
+
+func _ready() -> void:
+	sniper_scope.visible = false
+
+
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 
 	if event.is_action_pressed("zoom_in"):
 		is_zoomed = true
+		player.is_zoomed = true
+		sniper_scope.visible = _has_test_rifle()
 		_tween_zoom(zoom_fov)
-	if event.is_action_released("zoom_in"):
-		is_zoomed = false
-		_tween_zoom(target_fov)
+	if event.is_action_released("zoom_in") and is_zoomed:
+		_exit_zoom()
 
 
 func _process(delta: float) -> void:
+	if is_zoomed:
+		sniper_scope.visible = _has_test_rifle()
+
 	var speed: float = clampf(player.velocity.length(), 0, max_speed)
 	var sample_point: float = speed / max_speed
 	var speed_weight: float = fov_curve.sample_baked(sample_point)
@@ -83,3 +98,15 @@ func _tween_zoom(fov_value: float) -> void:
 		zoom_tween.kill()
 	zoom_tween = create_tween()
 	zoom_tween.tween_property(self, "fov", fov_value, zoom_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+func _has_test_rifle() -> bool:
+	var weapon := player.current_weapon
+	return is_instance_valid(weapon) and weapon.get_script() == TEST_RIFLE
+
+
+func _exit_zoom() -> void:
+	is_zoomed = false
+	player.is_zoomed = false
+	sniper_scope.visible = false
+	_tween_zoom(target_fov)

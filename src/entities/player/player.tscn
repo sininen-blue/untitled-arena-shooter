@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://dqym1pawtheqn" path="res://src/entities/player/shaders.gd" id="20_fjj3i"]
 [ext_resource type="PackedScene" uid="uid://ckqf4fygfjead" path="res://src/ui/settings_panel/settings_panel.tscn" id="21_dao75"]
 [ext_resource type="PackedScene" uid="uid://cgbattqv6eru8" path="res://src/ui/components/crosshair.tscn" id="24_33dyk"]
+[ext_resource type="Shader" uid="uid://dlsixrkbjchgi" path="res://src/shaders/scope.gdshader" id="25_2cmg6"]
 [ext_resource type="Shader" uid="uid://wie7nn62sivx" path="res://src/shaders/ripple.gdshader" id="25_45xpv"]
 [ext_resource type="Script" uid="uid://4bw7j2qkplt5" path="res://src/entities/player/parry_effect.gd" id="26_ngh1c"]
 [ext_resource type="PackedScene" uid="uid://cj5yy0cxrtixr" path="res://src/entities/run_particle/run_particle.tscn" id="27_amj0e"]
@@ -118,6 +119,14 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_5qgjf"]
 _data = [Vector2(0, 0.34831464), 0.0, 0.0, 0, 0, Vector2(0.8372093, 0.3820225), 0.5435391, 0.5435391, 0, 0, Vector2(1, 1), 8.455051, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvulh"]
+shader = ExtResource("25_2cmg6")
+shader_parameter/scope_color = Color(0, 0, 0, 1)
+shader_parameter/dot_color = Color(1, 0, 0, 1)
+shader_parameter/radius = 0.400000019
+shader_parameter/edge = 0.002
+shader_parameter/dot_radius_px = 1.5
 
 [sub_resource type="Curve" id="Curve_dao75"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.61565834, 0.19565213), 0.92556024, 0.92556024, 0, 0, Vector2(0.8149466, 0.8550725), 2.0979354, 2.0979354, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -487,6 +496,8 @@ player = NodePath("../../..")
 
 [node name="SniperScope" type="ColorRect" parent="Hud/Control" unique_id=1650311581]
 unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_tvulh")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
