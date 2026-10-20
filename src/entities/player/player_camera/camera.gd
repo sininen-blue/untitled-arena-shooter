@@ -15,6 +15,8 @@ extends Camera3D
 @export var min_fov: float = 75.0
 @export var fov_curve: Curve
 @export var fov_weight: float = 4.0
+@export var zoom_fov: float = 40.0
+@export var zoom_time: float = 0.12
 
 
 @export_group("slide")
@@ -28,6 +30,20 @@ extends Camera3D
 
 
 var target_fov: float = 0.0
+var is_zoomed: bool = false
+var zoom_tween: Tween
+
+
+func _input(event: InputEvent) -> void:
+	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+		return
+
+	if event.is_action_pressed("zoom_in"):
+		is_zoomed = true
+		_tween_zoom(zoom_fov)
+	if event.is_action_released("zoom_in"):
+		is_zoomed = false
+		_tween_zoom(target_fov)
 
 
 func _process(delta: float) -> void:
@@ -35,7 +51,9 @@ func _process(delta: float) -> void:
 	var sample_point: float = speed / max_speed
 	var speed_weight: float = fov_curve.sample_baked(sample_point)
 	target_fov = min_fov + (max_fov - min_fov) * speed_weight
-	self.fov = Utils.exp_decay(self.fov, target_fov, fov_weight, delta)
+	var zoom_owns_fov := is_zoomed or (zoom_tween and zoom_tween.is_running())
+	if not zoom_owns_fov:
+		self.fov = Utils.exp_decay(self.fov, target_fov, fov_weight, delta)
 
 	
 	match state_machine.current_state.name:
@@ -58,3 +76,10 @@ func _process(delta: float) -> void:
 					self.rotation_degrees.z = Utils.exp_decay(self.rotation_degrees.z, max_camera_tilt, camera_tilt_weight, delta)
 				else:
 					self.rotation_degrees.z = Utils.exp_decay(self.rotation_degrees.z, -max_camera_tilt, camera_tilt_weight, delta)
+
+
+func _tween_zoom(fov_value: float) -> void:
+	if zoom_tween:
+		zoom_tween.kill()
+	zoom_tween = create_tween()
+	zoom_tween.tween_property(self, "fov", fov_value, zoom_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)

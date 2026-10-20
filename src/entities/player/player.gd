@@ -66,6 +66,7 @@ var is_sliding: bool = false
 @onready var parry_hurtbox: Area3D = %ParryHurtbox
 
 @onready var health_bar: HealthBar = %HealthBar
+@onready var sniper_scope: ColorRect = %SniperScope
 
 @onready var head_hurtbox: HurtboxArea = $HeadHurtbox
 @onready var body_hurtbox: HurtboxArea = $BodyHurtbox
