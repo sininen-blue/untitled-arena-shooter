@@ -126,7 +126,7 @@ shader_parameter/scope_color = Color(0, 0, 0, 1)
 shader_parameter/dot_color = Color(1, 0, 0, 1)
 shader_parameter/radius = 0.400000019
 shader_parameter/edge = 0.002
-shader_parameter/dot_radius_px = 1.5
+shader_parameter/dot_radius_px = 2.5
 
 [sub_resource type="Curve" id="Curve_dao75"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.61565834, 0.19565213), 0.92556024, 0.92556024, 0, 0, Vector2(0.8149466, 0.8550725), 2.0979354, 2.0979354, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -504,6 +504,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=1863526419 node_paths=PackedStringArray("player")]
