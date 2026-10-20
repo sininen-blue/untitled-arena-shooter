@@ -1,31 +1,20 @@
 [gd_scene format=3 uid="uid://47y5cm83203t"]
 
-[ext_resource type="Script" uid="uid://doofwknswkn84" path="res://src/entities/weapons/test_weapon/test_weapon.gd" id="1_2cfou"]
+[ext_resource type="Script" uid="uid://jimv6dm7jnmt" path="res://src/entities/weapons/hitscan_weapon.gd" id="1_hkoui"]
+[ext_resource type="PackedScene" uid="uid://d2g3jjj5nmtsi" path="res://models/weapons/sniper/sniper.tscn" id="2_hkoui"]
 
-[sub_resource type="Curve" id="Curve_kqngw"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2wjn"]
-
-[node name="TestWeapon" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle")]
-script = ExtResource("1_2cfou")
-fire_rate = 0.02
-ammo = 200
-min_spread = 4.0
-speed_spread_curve = SubResource("Curve_kqngw")
-head_recoil = 1.0
-recoil_impulse = 0.02
-max_back_distance = 0.1
-muzzle = NodePath("Muzzle")
-
-[node name="DebugModel" type="CSGBox3D" parent="." unique_id=204289909]
-size = Vector3(0.2, 0.2, 1)
-material = SubResource("StandardMaterial3D_n2wjn")
-
-[node name="Ammo" type="Label3D" parent="." unique_id=1586735007]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31285423, 0.14827913, -0.4335494)
-text = "30"
+[node name="TestSniper" type="Node3D" unique_id=878549388]
+script = ExtResource("1_hkoui")
+damage = 5.0
+fire_rate = 1.125
+ammo = 5
+projectiles = 1
+metadata/_custom_type_script = "uid://jimv6dm7jnmt"
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=1643079608]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5689819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03576161, -1.4964154)
+
+[node name="Sniper" parent="." unique_id=1268626228 instance=ExtResource("2_hkoui")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.08289474, -0.656737, 0)
+
+[connection signal="shot" from="." to="Sniper" method="_on_test_sniper_shot"]

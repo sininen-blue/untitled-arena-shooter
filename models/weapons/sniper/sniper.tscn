@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://d2g3jjj5nmtsi"]
+
+[ext_resource type="PackedScene" uid="uid://ot0l6okf5j22" path="res://assets/models/weapons/sniper/sniper.glb" id="1_n2toa"]
+[ext_resource type="Script" uid="uid://bv1djibxlj6vs" path="res://models/weapons/sniper/sniper.gd" id="2_4sgrr"]
+[ext_resource type="Material" uid="uid://br0ob666rtxtx" path="res://assets/materials/toon_endesga32.tres" id="3_qnh03"]
+
+[node name="Sniper" unique_id=1268626228 instance=ExtResource("1_n2toa")]
+script = ExtResource("2_4sgrr")
+
+[node name="main" parent="." index="0" unique_id=826681803]
+surface_material_override/0 = ExtResource("3_qnh03")
+
+[node name="barrel" parent="main" index="0" unique_id=1626562177]
+surface_material_override/0 = ExtResource("3_qnh03")
+
+[node name="body" parent="main" index="1" unique_id=2079935609]
+surface_material_override/0 = ExtResource("3_qnh03")
+
+[node name="bolt" parent="main" index="2" unique_id=997353305]
+transform = Transform3D(0, 2.614253e-09, -0.33157545, -0.33157545, 2.614253e-09, 1.1779926e-15, 1.9763437e-08, 0.043859888, 1.9763435e-08, -1.9550424, 1.5606647, 1.9205145)
+surface_material_override/0 = ExtResource("3_qnh03")
+
+[node name="scope" parent="main" index="3" unique_id=2102423841]
+surface_material_override/0 = ExtResource("3_qnh03")
+
+[node name="stock" parent="main" index="4" unique_id=1322089476]
+surface_material_override/0 = ExtResource("3_qnh03")
+
+[node name="trigger" parent="main" index="5" unique_id=1577889496]
+surface_material_override/0 = ExtResource("3_qnh03")
