@@ -2,6 +2,8 @@ extends Node
 
 
 @export var current_level: BaseLevel
+@export var points_to_win: int = 5
+var required_points: int = 5
 
 
 enum Phase { HANDSHAKE, COUNTDOWN, LIVE, ENDING, RESET }
@@ -40,6 +42,7 @@ var finishing_round: bool = false
 
 
 func _ready() -> void:
+	required_points = points_to_win
 	damage_handler.player_died.connect(_record_death)
 
 	if multiplayer.multiplayer_peer == null:
@@ -237,7 +240,19 @@ func _continue_after_win() -> void:
 
 	if not is_inside_tree():
 		return
+
+	if _someone_reached_required_points():
+		NetworkManager.end_session()
+		return
+
 	_reset_round()
+
+
+func _someone_reached_required_points() -> bool:
+	for score: int in score_handler.scores.values():
+		if score >= required_points:
+			return true
+	return false
 
 
 func _reset_round() -> void:
