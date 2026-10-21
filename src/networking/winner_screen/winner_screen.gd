@@ -5,7 +5,7 @@ extends Label
 signal finished()
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func start() -> void:
 	self.offset_transform_enabled = true
 
