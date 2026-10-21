@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bkxbpelbsgfh3"]
+
+[ext_resource type="Script" uid="uid://bcc8ivdnpoo3g" path="res://src/networking/damage_handler/damage_handler.gd" id="1_yogeu"]
+
+[node name="DamageHandler" type="Node" unique_id=819605239]
+script = ExtResource("1_yogeu")
