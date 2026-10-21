@@ -16,6 +16,7 @@ extends Node3D
 
 
 var weapon_instance: HitscanWeapon = null
+var taken: bool = false
 
 
 @onready var weapon_spawn_marker: Marker3D = $WeaponSpawnMarker
@@ -35,6 +36,8 @@ func _ready() -> void:
 	weapon_instance.rotation_degrees.x = weapon_tilt
 	weapon_instance.global_position = weapon_spawn_marker.global_position
 	
+	add_to_group("weapon_pickup")
+
 	if multiplayer.is_server():
 		weapon_visible = true
 
@@ -88,28 +91,93 @@ func _set_global_position_with_undo(next_position: Vector3) -> void:
 	undo_redo.commit_action()
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func _set_weapon_visible(new_val: bool) -> void:
 	weapon_visible = new_val
-	
+
 	if weapon_instance:
 		weapon_instance.visible = weapon_visible
 		collision_shape_3d.disabled = !weapon_visible
 
 
-func _on_interact_area_interacted(interactee: Player) -> void:
-	if respawn_timer.is_stopped() == false:
+func request_take() -> void:
+	if multiplayer.multiplayer_peer == null:
 		return
-	
-	var player_weapon_instance: HitscanWeapon = weapon.instantiate()
-	
-	if interactee.current_weapon:
-		interactee.drop_weapon()
-	interactee.get_weapon(player_weapon_instance)
+	_request_take.rpc_id(1)
 
+
+@rpc("any_peer", "call_local", "reliable")
+func _request_take() -> void:
+	var main := _match_root()
+
+	if main == null:
+		return
+
+	if not multiplayer.is_server() or not main.is_combat_live():
+		return
+
+	var id := Utils.sender_id(self)
+
+	if main.damage_handler.is_dead(id):
+		return
+
+	if not _can_take():
+		return
+
+	taken = true
 	_set_weapon_visible.rpc(false)
 	respawn_timer.start()
 
+	var player := Utils.find_player(str(id), main)
+	if player == null:
+		return
+
+	var default_weapon: HitscanWeapon = weapon.instantiate()
+	var ammo: int = int(default_weapon.ammo)
+	default_weapon.queue_free()
+
+	main.weapon_pickup_sync.give_weapon.rpc(player.name, weapon.resource_path, ammo)
+
+
+func _match_root() -> Node:
+	var node := get_parent()
+	while node != null:
+		if node.has_method("is_combat_live"):
+			return node
+		node = node.get_parent()
+	return null
+
+
+func _can_take() -> bool:
+	if not multiplayer.is_server():
+		return false
+	if taken or not respawn_timer.is_stopped():
+		return false
+	return true
+
+
+func reset_round() -> void:
+	if not multiplayer.is_server():
+		return
+	taken = false
+	respawn_timer.stop()
+	_set_weapon_visible.rpc(true)
+
+
+func _on_interact_area_interacted(interactee: Player) -> void:
+	if not interactee.is_multiplayer_authority():
+		return
+	if interactee.locked or interactee.is_dead:
+		return
+
+	if interactee.current_weapon:
+		interactee.drop_weapon()
+
+	request_take()
+
 
 func _on_respawn_timer_timeout() -> void:
+	if not multiplayer.is_server():
+		return
+	taken = false
 	_set_weapon_visible.rpc(true)
