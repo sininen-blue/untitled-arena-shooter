@@ -100,60 +100,18 @@ func _set_weapon_visible(new_val: bool) -> void:
 		collision_shape_3d.disabled = !weapon_visible
 
 
-func request_take() -> void:
-	if multiplayer.multiplayer_peer == null:
-		return
-	_request_take.rpc_id(1)
-
-
-@rpc("any_peer", "call_local", "reliable")
-func _request_take() -> void:
-	var main := _match_root()
-
-	if main == null:
-		return
-
-	if not multiplayer.is_server() or not main.is_combat_live():
-		return
-
-	var id := Utils.sender_id(self)
-
-	if main.damage_handler.is_dead(id):
-		return
-
-	if not _can_take():
-		return
-
-	taken = true
-	_set_weapon_visible.rpc(false)
-	respawn_timer.start()
-
-	var player := Utils.find_player(str(id), main)
-	if player == null:
-		return
-
-	var default_weapon: HitscanWeapon = weapon.instantiate()
-	var ammo: int = int(default_weapon.ammo)
-	default_weapon.queue_free()
-
-	main.weapon_pickup_sync.give_weapon.rpc(player.name, weapon.resource_path, ammo)
-
-
-func _match_root() -> Node:
-	var node := get_parent()
-	while node != null:
-		if node.has_method("is_combat_live"):
-			return node
-		node = node.get_parent()
-	return null
-
-
-func _can_take() -> bool:
+func can_claim() -> bool:
 	if not multiplayer.is_server():
 		return false
 	if taken or not respawn_timer.is_stopped():
 		return false
 	return true
+
+
+func claim() -> void:
+	taken = true
+	_set_weapon_visible.rpc(false)
+	respawn_timer.start()
 
 
 func reset_round() -> void:
@@ -173,7 +131,7 @@ func _on_interact_area_interacted(interactee: Player) -> void:
 	if interactee.current_weapon:
 		interactee.drop_weapon()
 
-	request_take()
+	interactee.get_parent().pickup_handler.request_claim(get_path())
 
 
 func _on_respawn_timer_timeout() -> void:
