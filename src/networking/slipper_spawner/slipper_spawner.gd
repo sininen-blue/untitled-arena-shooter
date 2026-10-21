@@ -16,11 +16,21 @@ func request_spawn(sender: Player, loc: Vector3, throw_vector: Vector3) -> void:
 	_spawn_slipper.rpc_id(1, int(sender.name), loc, throw_vector)
 
 
+func clear_all() -> void:
+	if not multiplayer.is_server():
+		return
+	for child in slippers.get_children():
+		child.queue_free()
+
+
 @rpc("any_peer", "call_local", "reliable")
 func _spawn_slipper(sender_id: int, loc: Vector3, throw_vector: Vector3) -> void:
 	if not multiplayer.is_server():
-		pass
-	
+		return
+	var main := get_parent()
+	if main.has_method("is_combat_live") and not main.is_combat_live():
+		return
+
 	var data: Dictionary = {
 		"sender_id": sender_id,
 		"spawn_location": loc,
