@@ -25,7 +25,7 @@ func set_player_score(player_id: int, score: int) -> void:
 	cards[player_id].player_score = score
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func start() -> void:
 	self.offset_transform_enabled = true
 
