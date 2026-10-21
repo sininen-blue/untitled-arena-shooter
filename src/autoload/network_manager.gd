@@ -196,9 +196,7 @@ func _update_ready(is_ready: bool) -> void:
 	if not multiplayer.is_server():
 		return
 
-	var id: int = multiplayer.get_remote_sender_id()
-	if id == 0:
-		id = multiplayer.get_unique_id()
+	var id: int = Utils.sender_id(self)
 
 	if not players.has(id):
 		return
