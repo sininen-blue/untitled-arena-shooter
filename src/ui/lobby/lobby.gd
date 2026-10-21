@@ -18,7 +18,6 @@ func _ready() -> void:
 	NetworkManager.peer_joined.connect(_on_peer_joined)
 	NetworkManager.peer_left.connect(_on_peer_left)
 	NetworkManager.players_changed.connect(_on_players_changed)
-	multiplayer.server_disconnected.connect(_on_server_disconnect)
 
 
 	if NetworkManager.players:
@@ -94,15 +93,7 @@ func _on_ready_button_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
-	if multiplayer.is_server():
-		NetworkManager.disconnect_server()
-	else:
-		NetworkManager.disconnect_client()
-	SceneLoader.load_scene(back_target)
-
-
-func _on_server_disconnect() -> void:
-	SceneLoader.load_scene(back_target)
+	NetworkManager.leave_session()
 
 
 func _on_start_button_pressed() -> void:
