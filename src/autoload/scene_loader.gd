@@ -10,6 +10,7 @@ var scene_path: String
 var progress: Array = []
 
 var use_sub_threads: bool = true
+var load_generation: int = 0
 
 
 func _ready() -> void:
@@ -18,6 +19,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	var load_status: int = ResourceLoader.load_threaded_get_status(scene_path, progress)
+	if progress.is_empty():
+		return
 	progress_changed.emit(progress[0])
 	
 	match load_status:
@@ -32,7 +35,10 @@ func _process(_delta: float) -> void:
 
 @rpc("authority", "call_local", "reliable") 
 func load_scene(to: String) -> void:
+	load_generation += 1
+	var generation := load_generation
 	scene_path = to
+	set_process(false)
 	
 	var new_load_screen = loading_screen.instantiate()
 	add_child(new_load_screen)
@@ -41,6 +47,8 @@ func load_scene(to: String) -> void:
 	load_finished.connect(new_load_screen._on_scene_loader_load_finished)
 	
 	await new_load_screen.loading_screen_ready
+	if generation != load_generation or not is_inside_tree():
+		return
 	
 	self.start_load()
 
