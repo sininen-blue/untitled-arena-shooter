@@ -37,7 +37,7 @@ func _on_interact_area_interacted(interactee: Player) -> void:
 	if interactee.current_weapon != null:
 		interactee.drop_weapon()
 
-	spawner.request_dropped_pickup(name)
+	interactee.get_parent().pickup_handler.request_dropped_pickup(name)
 
 
 func _on_despawn_timer_timeout() -> void:
