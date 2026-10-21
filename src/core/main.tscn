@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cjt13arq1kr1t" path="res://src/networking/multiplayer_spawner/multiplayer_spawner.tscn" id="1_ukt3u"]
 [ext_resource type="Script" uid="uid://bcld2k1h10kh" path="res://src/core/main.gd" id="1_w61mg"]
 [ext_resource type="PackedScene" uid="uid://cb81knlvb1boa" path="res://src/networking/score_handler/score_handler.tscn" id="2_2uitn"]
+[ext_resource type="PackedScene" uid="uid://bslp43kjb43hg" path="res://src/networking/pickup_handler/pickup_handler.tscn" id="2_72j70"]
 [ext_resource type="PackedScene" uid="uid://ckhcrar3susvm" path="res://src/resources/environment/default.tscn" id="2_m33k1"]
-[ext_resource type="Script" uid="uid://vg213oqqmuas" path="res://src/networking/weapon_pickup_sync/weapon_pickup_sync.gd" id="2_q2b63"]
+[ext_resource type="PackedScene" uid="uid://dx25mihi0f2nn" path="res://src/networking/parry_handler/parry_handler.tscn" id="2_pf42m"]
 [ext_resource type="PackedScene" uid="uid://be5yb17j17k0n" path="res://src/entities/dropped_weapon/dropped_weapon.tscn" id="2_x62ka"]
 [ext_resource type="PackedScene" uid="uid://cw1lqivfocbbo" path="res://src/networking/decal_spawner/decal_spawner.tscn" id="6_nlf45"]
 [ext_resource type="PackedScene" uid="uid://cehjd8kyl6sjn" path="res://src/networking/slipper_spawner/slipper_spawner.tscn" id="8_2in8s"]
@@ -18,16 +19,22 @@
 [ext_resource type="PackedScene" uid="uid://c5ef2xdjstn8e" path="res://src/levels/test_arena_2.tscn" id="11_m33k1"]
 [ext_resource type="PackedScene" uid="uid://bc8i1ne2uwrpt" path="res://src/ui/components/countdown/countdown.tscn" id="12_7561f"]
 [ext_resource type="PackedScene" uid="uid://65k3trxjhft5" path="res://src/ui/components/score_panel/score_panel.tscn" id="13_0g4b3"]
+[ext_resource type="PackedScene" uid="uid://bkxbpelbsgfh3" path="res://src/networking/damage_handler/damage_handler.tscn" id="14_dmgh"]
 
 [node name="Main" type="Node" unique_id=1123520285 node_paths=PackedStringArray("current_level")]
 script = ExtResource("1_w61mg")
 current_level = NodePath("TestArena2")
 
-[node name="ScoreHandler" parent="." unique_id=2061641455 instance=ExtResource("2_2uitn")]
+[node name="PickupHandler" parent="." unique_id=861707320 node_paths=PackedStringArray("main") instance=ExtResource("2_72j70")]
+main = NodePath("..")
 
-[node name="WeaponPickupSync" type="Node" parent="." unique_id=98868351]
-unique_name_in_owner = true
-script = ExtResource("2_q2b63")
+[node name="ParryHandler" parent="." unique_id=258174361 instance=ExtResource("2_pf42m")]
+
+[node name="DamageHandler" parent="." unique_id=1170398141 node_paths=PackedStringArray("main", "pickup_handler") instance=ExtResource("14_dmgh")]
+main = NodePath("..")
+pickup_handler = NodePath("../PickupHandler")
+
+[node name="ScoreHandler" parent="." unique_id=2061641455 instance=ExtResource("2_2uitn")]
 
 [node name="PlayerSpawner" parent="." unique_id=1167663308 instance=ExtResource("1_ukt3u")]
 unique_name_in_owner = true

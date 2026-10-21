@@ -1,18 +1,28 @@
 extends Node
 
 
-signal clients_ready
-
-
 @export var current_level: BaseLevel
 
 
-var ready_clients: Array[int]
-var players: Array
-var players_killed: Array[int]
+enum Phase { HANDSHAKE, COUNTDOWN, LIVE, ENDING, RESET }
+var phase: Phase = Phase.HANDSHAKE
+
+var players: Array = []
+var players_killed: Array[int] = []
+
+var level_ready: Dictionary[int, bool] = {}
+var spawn_ready: Dictionary[int, bool] = {}
+
+var level_acked: bool = false
+var spawn_acked: bool = false
+
+var spawn_started: bool = false
+var round_started: bool = false
+
+var finishing_round: bool = false
 
 
-@onready var weapon_pickup_sync: WeaponPickupSync = %WeaponPickupSync
+@onready var pickup_handler: PickupHandler = $PickupHandler
 @onready var dropped_spawner: DroppedSpawner = $DroppedSpawner
 @onready var slipper_spawner: SlipperSpanwner = %SlipperSpawner
 @onready var tracer_spawner: TracerSpawner = %TracerSpawner
@@ -20,6 +30,8 @@ var players_killed: Array[int]
 @onready var jump_particle_spawner: JumpParticleSpawner = $JumpParticleSpawner
 @onready var land_particle_spawner: LandParticleSpawner = $LandParticleSpawner
 @onready var damage_number_spawner: DamageNumberSpawner = $DamageNumberSpawner
+@onready var damage_handler: DamageHandler = $DamageHandler
+@onready var parry_handler: ParryHandler = $ParryHandler
 @onready var player_spawner: PlayerSpawner = %PlayerSpawner
 @onready var score_handler: ScoreHandler = $ScoreHandler
 @onready var winner_screen: WinnerScreen = %WinnerScreen
@@ -28,83 +40,150 @@ var players_killed: Array[int]
 
 
 func _ready() -> void:
+	damage_handler.player_died.connect(_record_death)
+
+	if multiplayer.multiplayer_peer == null:
+		return
+
+	_retry_level_ready()
+
 	if multiplayer.is_server():
-		self.clients_ready.connect(_on_clients_ready)
-		_notify_ready()
-	else:
-		_notify_ready.rpc_id(1)
+		get_tree().create_timer(NetworkManager.ACK_TIMEOUT).timeout.connect(_on_level_timeout)
 
 
-@rpc("any_peer", "reliable")
-func _notify_ready() -> void:
-	var id: int = multiplayer.get_remote_sender_id()
-	if id == 0:
-		id = multiplayer.get_unique_id()
-	
-	ready_clients.append(id)
-	_check_all_ready()
+func is_combat_live() -> bool:
+	return phase == Phase.LIVE
 
 
-func _check_all_ready() -> void:
-	if ready_clients.size() == NetworkManager.players.size():
-		clients_ready.emit()
+func notify_player_spawned() -> void:
+	_retry_spawn_ready()
 
 
-func _on_clients_ready() -> void:
+func _retry_level_ready() -> void:
+	while is_inside_tree() and not level_acked:
+		if multiplayer.multiplayer_peer == null:
+			return
+		_report_level_ready.rpc_id(1)
+		await get_tree().create_timer(0.25).timeout
+
+
+func _retry_spawn_ready() -> void:
+	while is_inside_tree() and not spawn_acked:
+		if multiplayer.multiplayer_peer == null:
+			return
+		_report_spawn_ready.rpc_id(1)
+		await get_tree().create_timer(0.25).timeout
+
+
+func _on_level_timeout() -> void:
+	if spawn_started or not is_inside_tree():
+		return
+	NetworkManager.end_session()
+
+
+func _on_spawn_timeout() -> void:
+	if round_started or not is_inside_tree():
+		return
+	NetworkManager.end_session()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _report_level_ready() -> void:
 	if not multiplayer.is_server():
 		return
-	await get_tree().process_frame
-	
+
+	var id := Utils.sender_id(self)
+	level_ready[id] = true
+
+	if id == multiplayer.get_unique_id():
+		level_acked = true
+	else:
+		_ack_level.rpc_id(id)
+
+	if not spawn_started and level_ready.size() >= NetworkManager.players.size():
+		_begin_spawn()
+
+
+@rpc("authority", "reliable")
+func _ack_level() -> void:
+	level_acked = true
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _report_spawn_ready() -> void:
+	if not multiplayer.is_server():
+		return
+
+	var id := Utils.sender_id(self)
+	spawn_ready[id] = true
+
+	if id == multiplayer.get_unique_id():
+		spawn_acked = true
+	else:
+		_ack_spawn.rpc_id(id)
+
+	if not round_started and spawn_ready.size() >= NetworkManager.players.size():
+		_start_first_round()
+
+
+@rpc("authority", "reliable")
+func _ack_spawn() -> void:
+	spawn_acked = true
+
+
+func _begin_spawn() -> void:
+	if spawn_started:
+		return
+	spawn_started = true
+
 	player_spawner.start()
-	await player_spawner.all_players_spawned
-	await get_tree().create_timer(0.2).timeout # replace later
-	
-	players = self.get_children().filter(func(c): return c is Player)
-	
+	get_tree().create_timer(NetworkManager.ACK_TIMEOUT).timeout.connect(_on_spawn_timeout)
+
+
+func _start_first_round() -> void:
+	if round_started or not multiplayer.is_server():
+		return
+	round_started = true
+
+	await get_tree().process_frame
+
+	if not is_inside_tree():
+		return
+	players = Utils.player_children(self)
+	damage_handler.reset_tables(players)
+
+	for player: Player in players:
+		score_handler.add_score(int(player.name), 0)
+
+	_begin_countdown()
+
+
+
+func _begin_countdown() -> void:
+	phase = Phase.COUNTDOWN
+	_set_locked.rpc(true)
+
 	place_players()
-	connect_signals()
-	ready_scores()
 	countdown.start.rpc(3)
 	await countdown.finished
-	release_players.rpc()
+
+	if not is_inside_tree() or phase == Phase.ENDING:
+		return
+
+	phase = Phase.LIVE
+
+	_set_locked.rpc(false)
 
 
 func place_players() -> void:
 	var possible_locs: Array[Vector3] = current_level.spawn_locations.duplicate()
 	for player: Player in players:
+		if player.is_dead:
+			continue
 		var pos: Vector3 = possible_locs.pick_random()
 		possible_locs.erase(pos)
 		_set_player_position.rpc_id(player.get_multiplayer_authority(), player.name, pos)
 
-
-func reset_player_healths() -> void:
-	for player: Player in players:
-		_reset_player_health.rpc_id(player.get_multiplayer_authority(), player.name)
-
-
-func reset_player_visibilities() -> void:
-	for player: Player in players:
-		_reset_player_visibility.rpc_id(player.get_multiplayer_authority(), player.name)
-
-
-func reset_player_weapons() -> void:
-	for player: Player in players:
-		_reset_player_weapon.rpc_id(player.get_multiplayer_authority(), player.name)
-
-
-func connect_signals() -> void:
-	for player: Player in players:
-		player.killed.connect(_on_player_killed)
-
-
-func ready_scores() -> void:
-	for player: Player in players:
-		score_handler.add_score(int(player.name), 0)
-
-
-func reset_scores() -> void:
-	for player_id: int in score_handler.scores:
-		score_handler.scores[player_id] = 0
 
 
 @rpc("authority", "call_local", "reliable")
@@ -116,67 +195,69 @@ func _set_player_position(player_name: String, pos: Vector3) -> void:
 
 
 @rpc("authority", "call_local", "reliable")
-func _reset_player_health(player_name: String) -> void:
-	var player: Player = Utils.find_player(player_name, self)
-	if player:
-		player.health = player.max_health
-		player.health_bar.current_health = player.health
-
-
-@rpc("authority", "call_local", "reliable")
-func _reset_player_visibility(player_name: String) -> void:
-	var player: Player = Utils.find_player(player_name, self)
-	if player:
-		player.visible = true
-
-
-@rpc("authority", "call_local", "reliable")
-func _reset_player_weapon(player_name: String) -> void:
-	var player: Player = Utils.find_player(player_name, self)
-	if player and player.current_weapon != null:
-		player.remove_weapon()
-
-
-@rpc("any_peer", "call_local", "reliable")
-func release_players() -> void:
+func _set_locked(is_locked: bool) -> void:
 	for child: Node in get_children():
-		if child is Player:
-			child.locked = false
+		if child is Player and not child.is_dead:
+			child.locked = is_locked
 
 
-func _on_player_killed(_by_id: int, who: Player) -> void:
-	if multiplayer.is_server() == false:
+func _record_death(id: int) -> void:
+	if id in players_killed or phase != Phase.LIVE:
 		return
 
-	players_killed.append(int(who.name))
+	players_killed.append(id)
+	if players_killed.size() != NetworkManager.players.size() - 1:
+		return
 
-	if players_killed.size() == NetworkManager.players.size()-1:
-		for player_id in NetworkManager.players:
-			if player_id not in players_killed:
-				score_handler.add_score(player_id, 1)
-				break
+	phase = Phase.ENDING
+	_set_locked.rpc(true)
 
-		winner_screen.start.rpc()
+	for player_id: int in NetworkManager.players:
+		if player_id not in players_killed:
+			score_handler.add_score(player_id, 1)
+			break
+
+	winner_screen.start.rpc()
 
 
 func _on_winner_screen_finished() -> void:
-	if multiplayer.is_server() != true:
+	if not multiplayer.is_server() or phase != Phase.ENDING:
 		return
-	
+
+	if finishing_round:
+		return
+	finishing_round = true
+
+	_continue_after_win()
+
+
+func _continue_after_win() -> void:
 	score_panel.start.rpc()
 	await score_panel.finished
 
-	place_players()
-	reset_player_healths()
-	reset_player_visibilities()
-	reset_player_weapons()
+	if not is_inside_tree():
+		return
+	_reset_round()
+
+
+func _reset_round() -> void:
+	finishing_round = false
+
+	phase = Phase.RESET
+
+	players = Utils.player_children(self)
 	players_killed.clear()
+	damage_handler.reset_tables(players)
+
+	for player: Player in players:
+		damage_handler.replicate_state(player.name, player.max_health, false)
+		pickup_handler.clear_player(player.name)
+
 	dropped_spawner.clear_dropped_weapons()
-	
-	countdown.start.rpc(3)
-	await countdown.finished
-	release_players.rpc()
+	slipper_spawner.clear_all()
 
+	for pickup in get_tree().get_nodes_in_group("weapon_pickup"):
+		if pickup.has_method("reset_round"):
+			pickup.reset_round()
 
-# TODO: player scores don't update parst 1
-# unauthorized despawn?
+	_begin_countdown()
