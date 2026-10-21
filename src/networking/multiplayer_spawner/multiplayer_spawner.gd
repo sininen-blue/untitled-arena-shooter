@@ -29,6 +29,7 @@ func start() -> void:
 func _spawn_player(id: int) -> Player:
 	var player: Player = network_player.instantiate()
 	player.name = str(id)
+	player.locked = true
 	
 	player.ready.connect(_on_player_ready)
 	return player
