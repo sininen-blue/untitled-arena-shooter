@@ -3,7 +3,7 @@ extends Node
 
 
 @export var main: Node
-@export var weapon_pickup_sync: WeaponPickupSync
+@export var pickup_handler: PickupHandler
 
 
 signal player_died(id: int)
@@ -75,7 +75,7 @@ func _apply_damage(victim_name: String, damage: float) -> void:
 
 	if now_dead:
 		dead[victim_id] = true
-		weapon_pickup_sync.clear_player(victim_name)
+		pickup_handler.clear_player(victim_name)
 		player_died.emit(victim_id)
 
 	_apply_player_state.rpc(victim_name, damaged, now_dead)
