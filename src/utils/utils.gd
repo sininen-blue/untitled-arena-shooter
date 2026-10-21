@@ -19,6 +19,13 @@ static func exp_decay_curved(
 	return start + (target - start) * shaped_t
 
 
+static func sender_id(node: Node) -> int:
+	var id := node.multiplayer.get_remote_sender_id()
+	if id == 0:
+		return node.multiplayer.get_unique_id()
+	return id
+
+
 static func find_player(player_name: String, root: Node) -> Player:
 	for child: Node in root.get_children():
 		if child is Player and child.name == player_name:
