@@ -40,6 +40,35 @@ func spawn_dropped_weapon(weapon_data: Dictionary, spawn_loc: Vector3, throw_dir
 	})
 
 
+func request_dropped_pickup(weapon_name: String) -> void:
+	if multiplayer.multiplayer_peer == null:
+		return
+
+	_request_dropped_pickup.rpc_id(1, weapon_name)
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _request_dropped_pickup(weapon_name: String) -> void:
+	var main := get_parent()
+	if not multiplayer.is_server() or not main.is_combat_live():
+		return
+
+	var id := Utils.sender_id(self)
+	if main.damage_handler.is_dead(id):
+		return
+
+	var dropped := get_node(spawn_path).get_node_or_null(weapon_name)
+	if dropped == null:
+		return
+
+	var player := Utils.find_player(str(id), main)
+	if player == null:
+		return
+
+	main.weapon_pickup_sync.give_weapon.rpc(player.name, dropped.weapon_file_path, int(dropped.weapon_ammo))
+	despawn_dropped_weapon(weapon_name)
+
+
 func request_despawn(weapon: DroppedWeapon) -> void:
 	despawn_dropped_weapon.rpc_id(1, weapon.name)
 
