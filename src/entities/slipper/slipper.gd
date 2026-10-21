@@ -31,8 +31,11 @@ func _ready() -> void:
 	if pending_position:
 		global_position = pending_position
 
-	if pending_impulse:
+	if pending_impulse and Utils.is_physics_owner(self):
 		apply_central_impulse(pending_impulse)
+
+	if not Utils.is_physics_owner(self):
+		freeze = true
 
 
 func _physics_process(delta: float) -> void:
