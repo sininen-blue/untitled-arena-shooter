@@ -101,7 +101,7 @@ func _ready() -> void:
 		damage_handler = get_parent().damage_handler
 		parry_handler = get_parent().parry_handler
 
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		hud.visible = false
 		shaders.visible = false
 		return
@@ -123,7 +123,7 @@ func _combat_blocked() -> bool:
 
 
 func _input(event: InputEvent) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 	
 	if event.is_action_pressed("debug_take_damage") and not _combat_blocked():
@@ -160,7 +160,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -170,7 +170,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 	
 	
@@ -222,7 +222,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 
 	basis = Basis(Quaternion(Vector3.UP, deg_to_rad(twist_input)))
