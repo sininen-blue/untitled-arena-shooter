@@ -8,12 +8,14 @@ signal killed(by: int, player: Player)
 
 @export var dropped_spawner: DroppedSpawner
 @export var slipper_spawner: SlipperSpanwner
-@export var weapon_pickup_sync: WeaponPickupSync
+@export var pickup_handler: PickupHandler
 @export var decal_spawner: DecalSpawner
 @export var tracer_spawner: TracerSpawner
 @export var jump_particle_spawner: JumpParticleSpawner
 @export var land_particle_spawner: LandParticleSpawner
 @export var damage_number_spawner: DamageNumberSpawner
+@export var damage_handler: DamageHandler
+@export var parry_handler: ParryHandler
 
 @export var mouse_sensitivity: float = 0.1
 @export var default_head_recoil_recovery: float = 3.0
@@ -38,6 +40,7 @@ signal killed(by: int, player: Player)
 
 var current_weapon: HitscanWeapon
 var current_slipper_ammo: int = max_slipper_ammo
+var is_dead: bool = false
 
 var twist_input: float = 0.0
 var pitch_input: float = 0.0
@@ -89,12 +92,14 @@ func _ready() -> void:
 	if get_parent() != null: # NOTE: should replace these
 		dropped_spawner = get_parent().dropped_spawner
 		slipper_spawner = get_parent().slipper_spawner
-		weapon_pickup_sync = get_parent().weapon_pickup_sync
+		pickup_handler = get_parent().pickup_handler
 		decal_spawner = get_parent().decal_spawner
 		tracer_spawner = get_parent().tracer_spawner
 		jump_particle_spawner = get_parent().jump_particle_spawner
 		land_particle_spawner = get_parent().land_particle_spawner
 		damage_number_spawner = get_parent().damage_number_spawner
+		damage_handler = get_parent().damage_handler
+		parry_handler = get_parent().parry_handler
 
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		hud.visible = false
@@ -109,15 +114,20 @@ func _ready() -> void:
 	mouse_sensitivity = Config.get_setting("sensitivity", mouse_sensitivity)
 
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if is_multiplayer_authority() and get_parent() != null and get_parent().has_method("notify_player_spawned"):
+		get_parent().notify_player_spawned()
 
+
+func _combat_blocked() -> bool:
+	return locked or is_dead
 
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
 		return
 	
-	if event.is_action_pressed("debug_take_damage"):
-		take_damage(multiplayer.get_unique_id(), 5.0)
+	if event.is_action_pressed("debug_take_damage") and not _combat_blocked():
+		damage_handler.request_hit(name, 5.0)
 	
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -125,6 +135,9 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("left_click") and settings_panel.visible == false:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	if _combat_blocked():
+		return
 	
 	if event.is_action_pressed("interact"):
 		interacted.emit(self) # NOTE: remve move to collision required
@@ -136,40 +149,14 @@ func _input(event: InputEvent) -> void:
 			drop_weapon()
 	
 	if event.is_action_pressed("throw") and current_slipper_ammo > 0:
+		current_slipper_ammo -= 1
 		var throw_vec: Vector3 = -head.global_basis.z * slipper_throw_force
 		slipper_spawner.request_spawn(self, hand_marker.global_position, throw_vec)
 	
 	if event.is_action_pressed("parry") and parry_cololdown_timer.is_stopped():
 		parry_cololdown_timer.start()
-		
 		parry_effect.start()
-		
-		if parry_hurtbox.has_overlapping_areas():
-			var slipper_hitboxes: Array[Area3D] = parry_hurtbox.get_overlapping_areas()
-			var slippers: Array[Slipper] = []
-			for hitbox: Area3D in slipper_hitboxes:
-				slippers.append(hitbox.get_parent())
-			
-			slippers.sort_custom(func(a, b): 
-				return (
-					head.global_position.distance_squared_to(a.global_position) >
-					head.global_position.distance_squared_to(b.global_position)
-					)
-				)
-			
-			var closest: Slipper = slippers.pop_front()
-			closest.set_sender(int(name))
-			closest.reset_bounce()
-			closest.global_position = hand_marker.global_position
-			closest.apply_central_impulse(-head.global_basis.z * slipper_throw_force*2)
-			
-			self.velocity += head.global_basis.z * parry_force
-			
-			for slipper: Slipper in slippers:
-				slipper.set_sender(int(name))
-				slipper.reset_bounce()
-				var dir: Vector3 = head.global_position.direction_to(slipper.global_position)
-				slipper.apply_central_impulse(dir * slipper_throw_force/2)
+		parry_handler.request_parry(-head.global_basis.z)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -188,7 +175,7 @@ func _process(delta: float) -> void:
 	
 	
 	var tracer_ends: Array[Vector3] = []
-	if Input.is_action_pressed("shoot") and current_weapon:
+	if not _combat_blocked() and Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():
 			current_weapon.shoot()
 
@@ -291,52 +278,78 @@ func _play_weapon_sound() -> void:
 		current_weapon.sound_player.play()
 
 
-@rpc("any_peer", "call_local", "reliable") # this feels bad but i'll keep it for now
-func take_damage(hitter_id: int, damage: float) -> void:
-	health -= damage
+func apply_host_state(hp: float, now_dead: bool) -> void:
+	health = hp
 	health_bar.current_health = health
-	hurt_sound.play()
-	if health <= 0:
-		killed.emit(hitter_id, self)
-		self.visible = false
-		self.position.y = -500
+	if now_dead and not is_dead:
+		hurt_sound.play()
+		is_dead = true
+		locked = true
+		visible = false
+		position.y = -500
+		_set_hurtboxes_active(false)
+		killed.emit(0, self)
+	elif not now_dead:
+		is_dead = false
+		visible = true
+		_set_hurtboxes_active(true)
 
-		# TODO: switch camera to floating camera, disable areas
+
+func _set_hurtboxes_active(active: bool) -> void:
+	var layer := 4 if active else 0
+	var mask := 8 if active else 0
+	for hurtbox in [head_hurtbox, body_hurtbox]:
+		hurtbox.collision_layer = layer
+		hurtbox.collision_mask = mask
+		hurtbox.monitoring = active
+		hurtbox.monitorable = active
 
 
 func get_weapon(weapon_instance: HitscanWeapon) -> void:
-	weapon_pickup_sync.request_weapon(self, weapon_instance)
+	pickup_handler.request_equip(name, weapon_instance.scene_file_path, int(weapon_instance.ammo))
+	weapon_instance.queue_free()
 
 
 func drop_weapon() -> void:
-	if current_weapon:
-		var weapon: HitscanWeapon = current_weapon.duplicate()
-		var spawn_loc: Vector3 = hand_marker.global_position
-		var throw_direction: Vector3 = (-global_basis.z + Vector3.UP).normalized()
-		var throw_rotation: float = atan2(-global_basis.z.x, -global_basis.z.z)
-		dropped_spawner.request_spawn(weapon, spawn_loc, throw_direction, throw_rotation)
-
-		weapon_pickup_sync.request_remove_weapon(self)
-		current_weapon = null
+	if current_weapon == null or _combat_blocked():
+		return
+	var spawn_loc: Vector3 = hand_marker.global_position
+	var throw_direction: Vector3 = (-global_basis.z + Vector3.UP).normalized()
+	var throw_rotation: float = atan2(-global_basis.z.x, -global_basis.z.z)
+	pickup_handler.request_drop(
+		current_weapon.scene_file_path,
+		int(current_weapon.ammo),
+		spawn_loc,
+		throw_direction,
+		throw_rotation
+	)
 
 
 func remove_weapon() -> void:
-	weapon_pickup_sync.request_remove_weapon(self)
-	current_weapon = null
+	pickup_handler.request_remove_weapon(self)
 
 
-func _on_head_hurtbox_hit(hitter_id: int, damage: float, source: Area3D = null) -> void:
-	if _sender_grace_blocks(source):
+func _on_head_hurtbox_hit(_hitter_id: int, damage: float, source: Area3D = null) -> void:
+	if source == null:
+		var dealt := damage * headshot_mult
+		damage_handler.request_hit(name, dealt)
+		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
+		return
+	if not multiplayer.is_server() or _sender_grace_blocks(source):
 		return
 	var dealt := damage * headshot_mult
-	take_damage.rpc(hitter_id, dealt)
+	damage_handler.apply_server_hit(name, dealt)
 	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
 
 
-func _on_body_hurtbox_hit(hitter_id: int, damage: float, source: Area3D = null) -> void:
-	if _sender_grace_blocks(source):
+func _on_body_hurtbox_hit(_hitter_id: int, damage: float, source: Area3D = null) -> void:
+	if source == null:
+		damage_handler.request_hit(name, damage)
+		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
 		return
-	take_damage.rpc(hitter_id, damage)
+	if not multiplayer.is_server() or _sender_grace_blocks(source):
+		return
+	damage_handler.apply_server_hit(name, damage)
 	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
 
 
