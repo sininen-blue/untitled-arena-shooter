@@ -19,6 +19,10 @@ static func exp_decay_curved(
 	return start + (target - start) * shaped_t
 
 
+static func is_physics_owner(node: Node) -> bool:
+	return node.multiplayer.multiplayer_peer == null or node.multiplayer.is_server()
+
+
 static func sender_id(node: Node) -> int:
 	var id := node.multiplayer.get_remote_sender_id()
 	if id == 0:
