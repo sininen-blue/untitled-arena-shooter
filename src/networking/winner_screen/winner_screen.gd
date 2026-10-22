@@ -24,52 +24,40 @@ func start(new_winner_name: String) -> void:
 	player_name.text = winner_name
 
 
-	var win_tween := tween_win()
-	var name_tween := tween_name()
-
-	await win_tween.finished
-	await name_tween.finished
+	await _tween_labels().finished
 
 	self.visible = false
 	finished.emit()
 
 
-func tween_win() -> Tween:
-	self.offset_transform_enabled = true
-
-	var tween: Tween = get_tree().create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_BACK)
-	tween.tween_property(winner_label, "visible", true, 0)
-	tween.tween_property(winner_label, "offset_transform_scale", Vector2(0, 0), 0)
-	
-	tween.tween_property(winner_label, "offset_transform_scale", Vector2(2, 2), 2)
-	tween.parallel().tween_property(winner_label, "offset_transform_rotation", deg_to_rad(360), 2)
-	
-	tween.tween_property(winner_label, "offset_transform_scale", Vector2(0, 0), 1)
-	tween.parallel().tween_property(winner_label, "offset_transform_rotation", deg_to_rad(0), 1)
-	tween.tween_property(winner_label, "visible", false, 0)
-
-	return tween
-
-
-
-func tween_name() -> Tween:
-	player_name.text = winner_name
+func _tween_labels() -> Tween:
+	winner_label.offset_transform_enabled = true
 	player_name.offset_transform_enabled = true
+	player_name.text = winner_name
 
 	var tween: Tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_parallel(true)
+
+	tween.tween_property(winner_label, "visible", true, 0)
 	tween.tween_property(player_name, "visible", true, 0)
-	tween.tween_property(player_name, "offset_transform_scale", Vector2(0, 0), 0)
-	tween.parallel().tween_property(player_name, "offset_transform_rotation", deg_to_rad(0), 2)
-	
+
+	tween.chain().tween_property(winner_label, "offset_transform_scale", Vector2.ZERO, 0)
+	tween.tween_property(winner_label, "offset_transform_rotation", 0.0, 0)
+	tween.tween_property(player_name, "offset_transform_scale", Vector2.ZERO, 0)
+	tween.tween_property(player_name, "offset_transform_rotation", 0.0, 0)
+
+	tween.chain().tween_property(winner_label, "offset_transform_scale", Vector2(2, 2), 2)
+	tween.tween_property(winner_label, "offset_transform_rotation", deg_to_rad(360), 2)
 	tween.tween_property(player_name, "offset_transform_scale", Vector2(1.5, 1.5), 2)
-	tween.parallel().tween_property(player_name, "offset_transform_rotation", deg_to_rad(-45), 2)
-	
-	tween.tween_property(player_name, "offset_transform_scale", Vector2(0, 0), 1)
-	tween.parallel().tween_property(player_name, "offset_transform_rotation", deg_to_rad(45), 1)
-	
+	tween.tween_property(player_name, "offset_transform_rotation", deg_to_rad(-360), 2)
+
+	tween.chain().tween_property(winner_label, "offset_transform_scale", Vector2.ZERO, 1)
+	tween.tween_property(winner_label, "offset_transform_rotation", 0.0, 1)
+	tween.tween_property(player_name, "offset_transform_scale", Vector2.ZERO, 1)
+	tween.tween_property(player_name, "offset_transform_rotation", deg_to_rad(360), 1)
+
+	tween.chain().tween_property(winner_label, "visible", false, 0)
 	tween.tween_property(player_name, "visible", false, 0)
 	return tween
