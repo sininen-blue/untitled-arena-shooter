@@ -5,6 +5,8 @@ extends Control
 @export var player: Player
 @export var bump_scale: float = 1.4
 @export var bump_rise: float = -12.0
+@export var bump_rotation: float = 16.0
+@export var tilt_recovery: float = 2.0
 
 
 @onready var label: Label = $CurrentAmmo
@@ -28,6 +30,7 @@ func _process(_delta: float) -> void:
 		label.pivot_offset = label.size * 0.5
 
 	_sync_from_player()
+	label.offset_transform_rotation = Utils.exp_decay(label.offset_transform_rotation, 0.0, tilt_recovery, _delta)
 
 
 func _sync_from_player() -> void:
@@ -74,6 +77,11 @@ func _bump() -> void:
 		bump_tween.kill()
 
 	_reset_label()
+	var tilt := deg_to_rad(randf_range(bump_rotation * 0.6, bump_rotation))
+	if randf() < 0.5:
+		tilt = -tilt
+	label.offset_transform_rotation += tilt
+
 	bump_tween = create_tween()
 	bump_tween.set_ease(Tween.EASE_OUT)
 	bump_tween.set_trans(Tween.TRANS_BACK)
