@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://doofwknswkn84" path="res://src/entities/weapons/test_weapon/test_weapon.gd" id="1_kqngw"]
 [ext_resource type="PackedScene" uid="uid://nr2hb2ini465" path="res://models/weapons/bamboo_pistol.tscn" id="2_csytu"]
 [ext_resource type="AudioStream" uid="uid://bhoeo0hkeprmi" path="res://assets/sounds/weapons/pistol.wav" id="3_wy6a2"]
+[ext_resource type="AudioStream" uid="uid://cqxp0ymhnsemm" path="res://assets/sounds/weapons/no_ammo.wav" id="4_u3rus"]
 
 [sub_resource type="Curve" id="Curve_csytu"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="TestWeapon" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle", "sound_player")]
+[node name="TestWeapon" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle", "sound_player", "no_ammo_player")]
 script = ExtResource("1_kqngw")
 ammo = 10
 projectiles = 1
@@ -16,6 +17,7 @@ speed_spread_curve = SubResource("Curve_csytu")
 recoil_impulse = 0.3
 muzzle = NodePath("Muzzle")
 sound_player = NodePath("AudioStreamPlayer3D")
+no_ammo_player = NodePath("NoAmmoPlayer")
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=2120555092]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.030865073, 0.072457, -0.50583446)
@@ -25,3 +27,6 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=514241361]
 stream = ExtResource("3_wy6a2")
+
+[node name="NoAmmoPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1051153271]
+stream = ExtResource("4_u3rus")

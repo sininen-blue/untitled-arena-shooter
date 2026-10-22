@@ -25,6 +25,7 @@ signal shot()
 
 @export_group("Blowback")
 @export var recoil_impulse: float = 0.25
+@export var no_ammo_blowback: float = 0.08
 @export var max_back_distance: float = 0.5
 @export var max_angle: float = 15.0
 
@@ -38,12 +39,14 @@ signal shot()
 
 @export_group("Sounds")
 @export var sound_player: AudioStreamPlayer3D
+@export var no_ammo_player: AudioStreamPlayer3D
 
 
 var current_spread: float = 0.0
 var time: float = 0
 var held: bool = false
 var recoil_pending: bool = false
+var pending_blowback: float = 0.0
 
 
 func can_shoot() -> bool:
@@ -55,13 +58,31 @@ func can_shoot() -> bool:
 func shoot() -> void:
 	time = fire_rate
 	ammo -= 1
-	recoil_pending = true
+	_queue_blowback(recoil_impulse)
 	shot.emit()
 
 	if player:
 		player.play_weapon_sound()
 	elif sound_player:
 		sound_player.play()
+
+
+func dry_fire() -> void:
+	if ammo > 0 or time > 0:
+		return
+
+	time = fire_rate
+	_queue_blowback(no_ammo_blowback)
+
+	if player:
+		player.play_no_ammo_sound()
+	elif no_ammo_player:
+		no_ammo_player.play()
+
+
+func _queue_blowback(amount: float) -> void:
+	pending_blowback = amount
+	recoil_pending = true
 
 
 func update_spread(player_speed: float) -> void:
@@ -102,10 +123,11 @@ func apply_spread_recovery(ray: RayCast3D, delta: float) -> void:
 # recoil increases back
 # the slowly go back to center
 func recoil() -> void:
+	var impulse := pending_blowback
 	if self.position.z < max_back_distance:
-		self.position.z = minf(self.position.z + recoil_impulse, max_back_distance)
+		self.position.z = minf(self.position.z + impulse, max_back_distance)
 
-	var kick := rad_to_deg(recoil_impulse * 0.5)
+	var kick := rad_to_deg(impulse * 0.5)
 	if self.rotation_degrees.x < max_angle:
 		self.rotation_degrees.x = minf(self.rotation_degrees.x + kick, max_angle)
 

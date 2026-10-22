@@ -182,7 +182,7 @@ func _process(delta: float) -> void:
 			for i in current_weapon.projectiles:
 				current_weapon.apply_spread(gun_cast, self.get_speed())
 				gun_cast.force_raycast_update()
-				
+
 				if gun_cast.is_colliding():
 					var hit := gun_cast.get_collision_point()
 					tracer_ends.append(hit)
@@ -199,6 +199,8 @@ func _process(delta: float) -> void:
 
 			if recoil_offset < current_weapon.max_head_recoil:
 				recoil_offset += current_weapon.head_recoil
+		else:
+			current_weapon.dry_fire()
 			
 	if current_weapon:
 		current_weapon.apply_spread_recovery(gun_cast, delta)
@@ -276,6 +278,19 @@ func play_weapon_sound() -> void:
 func _play_weapon_sound() -> void:
 	if is_instance_valid(current_weapon) and current_weapon.sound_player:
 		current_weapon.sound_player.play()
+
+
+func play_no_ammo_sound() -> void:
+	if multiplayer.multiplayer_peer == null:
+		_play_no_ammo_sound()
+		return
+	_play_no_ammo_sound.rpc()
+
+
+@rpc("authority", "call_local", "unreliable")
+func _play_no_ammo_sound() -> void:
+	if is_instance_valid(current_weapon) and current_weapon.no_ammo_player:
+		current_weapon.no_ammo_player.play()
 
 
 func apply_host_state(hp: float, now_dead: bool) -> void:
