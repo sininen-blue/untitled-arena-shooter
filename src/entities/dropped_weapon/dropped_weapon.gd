@@ -13,7 +13,16 @@ var pending_position: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
-	weapon_instance = load(weapon_file_path).instantiate()
+	var packed: Resource = load(weapon_file_path) if not weapon_file_path.is_empty() else null
+	if packed == null or not packed is PackedScene:
+		queue_free()
+		return
+
+	weapon_instance = packed.instantiate()
+	if weapon_instance == null:
+		queue_free()
+		return
+
 	weapon_instance.ammo = weapon_ammo
 	add_child(weapon_instance)
 
