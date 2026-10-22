@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 	
 	if current_state:
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 	
 	if current_state:
@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 	
 	if current_state:

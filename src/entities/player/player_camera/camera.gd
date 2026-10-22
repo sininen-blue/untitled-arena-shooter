@@ -48,7 +48,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		return
 
 	if event.is_action_pressed("zoom_in"):

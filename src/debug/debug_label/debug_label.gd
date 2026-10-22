@@ -7,7 +7,7 @@ extends Label
 
 
 func _ready() -> void:
-	if is_multiplayer_authority() == false and multiplayer.get_peers().is_empty() == false:
+	if Utils.is_remote(self):
 		self.visible = false
 		return
 	self.visible = true
