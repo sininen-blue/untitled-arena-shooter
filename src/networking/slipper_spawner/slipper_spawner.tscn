@@ -4,5 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dyx4bp4pq7ecf" path="res://src/entities/slipper/slipper.tscn" id="2_hy6sf"]
 
 [node name="SlipperSpawner" type="MultiplayerSpawner" unique_id=152510604]
+_spawnable_scenes = PackedStringArray("uid://dyx4bp4pq7ecf")
 script = ExtResource("1_k0amo")
 slipper_scene = ExtResource("2_hy6sf")

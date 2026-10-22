@@ -4,5 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://brnqmme6dx6n1" path="res://src/entities/damage_number_particle/damage_number_particle.tscn" id="2_particle"]
 
 [node name="DamageNumberSpawner" type="MultiplayerSpawner" unique_id=1210642102]
+_spawnable_scenes = PackedStringArray("uid://brnqmme6dx6n1")
 script = ExtResource("1_script")
 damage_number_particle = ExtResource("2_particle")

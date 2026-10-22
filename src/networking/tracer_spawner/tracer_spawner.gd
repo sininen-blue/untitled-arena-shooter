@@ -24,9 +24,24 @@ func _spawn_tracer(start: Vector3, end: Vector3) -> void:
 	spawn(data)
 
 
-func _spawn_function(data: Dictionary) -> Node3D:
-	var tracer_instance: Node3D = tracer_scene.instantiate()
+func request_despawn(tracer: BulletTracer) -> void:
+	_despawn_tracer.rpc_id(1, tracer.name)
 
+
+@rpc("any_peer", "call_local", "reliable")
+func _despawn_tracer(tracer_name: String) -> void:
+	if not multiplayer.is_server():
+		return
+
+	var tracer := get_node(spawn_path).get_node_or_null(tracer_name)
+	if tracer:
+		tracer.queue_free()
+
+
+func _spawn_function(data: Dictionary) -> Node3D:
+	var tracer_instance: BulletTracer = tracer_scene.instantiate()
+
+	tracer_instance.spawner = self
 	tracer_instance.pending_start = data.get("start")
 	tracer_instance.pending_end = data.get("end")
 

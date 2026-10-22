@@ -4,5 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://b435l15apccx7" path="res://src/entities/jump_particle/jump_particle.tscn" id="2_particle"]
 
 [node name="JumpParticleSpawner" type="MultiplayerSpawner" unique_id=357246969]
+_spawnable_scenes = PackedStringArray("uid://b435l15apccx7")
 script = ExtResource("1_pagdd")
 jump_particle = ExtResource("2_particle")

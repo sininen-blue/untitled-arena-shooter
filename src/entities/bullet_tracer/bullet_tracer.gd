@@ -4,6 +4,7 @@ extends MeshInstance3D
 @export var tracer_fade: ShaderMaterial
 @export var lifetime: float = 0.3
 
+var spawner: TracerSpawner
 var pending_start: Vector3
 var pending_end: Vector3
 
@@ -29,4 +30,15 @@ func _ready() -> void:
 		func(v: float): self.material_override.set_shader_parameter("fade_progress", v),
 		1.0, 0.0, lifetime
 	)
-	tween.tween_callback(queue_free)
+	tween.tween_callback(_request_despawn)
+
+
+func _request_despawn() -> void:
+	if not is_inside_tree():
+		return
+	if multiplayer.multiplayer_peer != null and not multiplayer.is_server():
+		return
+	if spawner:
+		spawner.request_despawn(self)
+	else:
+		queue_free()

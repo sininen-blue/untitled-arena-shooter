@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c8wjiffnvmals" path="res://src/resources/hit_decal/hit_decal.tscn" id="2_lxu44"]
 
 [node name="DecalSpawner" type="MultiplayerSpawner" unique_id=499064189]
+_spawnable_scenes = PackedStringArray("uid://c8wjiffnvmals")
 spawn_path = NodePath("../Decals")
 script = ExtResource("1_jbo7n")
 hit_decal_scene = ExtResource("2_lxu44")

@@ -4,5 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bb6akkjooqc4c" path="res://src/entities/land_particle/land_particle.tscn" id="2_particle"]
 
 [node name="LandParticleSpawner" type="MultiplayerSpawner" unique_id=372495475]
+_spawnable_scenes = PackedStringArray("uid://bb6akkjooqc4c")
 script = ExtResource("1_u2b6v")
 land_particle = ExtResource("2_particle")
