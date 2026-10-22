@@ -16,9 +16,23 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
-offset_transform_scale = Vector2(0, 0)
 mouse_filter = 1
 theme = ExtResource("1_8ol0i")
 theme_override_font_sizes/font_size = 64
-text = "Winner"
+text = "Wins!"
 script = ExtResource("1_au387")
+
+[node name="PlayerName" type="Label" parent="." unique_id=1292051627]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = -75.0
+offset_right = 48.0
+offset_bottom = -56.0
+grow_horizontal = 2
+offset_transform_enabled = true
+theme_override_font_sizes/font_size = 24
+text = "Player 1"
+horizontal_alignment = 1

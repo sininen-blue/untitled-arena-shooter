@@ -215,12 +215,20 @@ func _record_death(id: int) -> void:
 	phase = Phase.ENDING
 	_set_locked.rpc(true)
 
+	var winner_id := -1
 	for player_id: int in NetworkManager.players:
 		if player_id not in players_killed:
 			score_handler.add_score(player_id, 1)
+			winner_id = player_id
 			break
 
-	winner_screen.start.rpc()
+	winner_screen.start.rpc(_winner_display_name(winner_id))
+
+
+func _winner_display_name(player_id: int) -> String:
+	if not NetworkManager.players.has(player_id):
+		return "Player"
+	return str(NetworkManager.players[player_id].get("name", "Player"))
 
 
 func _on_winner_screen_finished() -> void:
