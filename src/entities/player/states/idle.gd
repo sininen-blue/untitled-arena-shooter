@@ -3,6 +3,7 @@ extends State
 @export var drag: float = 6.0
 
 @export var player: Player
+@export var player_model: PlayerModel
 @export var air_state: State
 @export var walk_state: State
 @export var run_state: State
@@ -14,11 +15,11 @@ extends State
 
 
 func enter() -> void:
-	pass
+	player_model.play_idle()
 
 
 func exit(_new_state: State) -> void:
-	pass
+	player_model.stop()
 
 
 func update(_delta: float) -> void:

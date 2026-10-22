@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hhrlbjgbdaqr"]
 
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
-[ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="2_vt6n5"]
+[ext_resource type="PackedScene" uid="uid://b8uvclittbipj" path="res://models/character/player_model.tscn" id="3_45rvh"]
 [ext_resource type="PackedScene" uid="uid://bo3r1tab2mj3k" path="res://src/resources/hurtbox/hurtbox.tscn" id="3_fjj3i"]
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
@@ -60,11 +60,6 @@ properties/6/replication_mode = 1
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
 radius = 0.3
 height = 1.45
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_crd4b"]
-material = ExtResource("2_vt6n5")
-radius = 0.3
-height = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_coeo4"]
 render_priority = 0
@@ -166,9 +161,8 @@ replication_config = SubResource("SceneReplicationConfig_4m8ck")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.725, -0.002)
 shape = SubResource("CapsuleShape3D_crd4b")
 
-[node name="DebugMesh" type="MeshInstance3D" parent="." unique_id=748735121]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-mesh = SubResource("CapsuleMesh_crd4b")
+[node name="PlayerModel" parent="." unique_id=2126546903 instance=ExtResource("3_45rvh")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
 [node name="ParryCololdownTimer" type="Timer" parent="." unique_id=1401908605]
 unique_name_in_owner = true
@@ -260,9 +254,10 @@ script = ExtResource("3_wrxq6")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://ywl27ci1pkgm"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=332085911 node_paths=PackedStringArray("player", "air_state", "walk_state", "run_state", "crouch_state", "jump_satte") groups=["ground"]]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=332085911 node_paths=PackedStringArray("player", "player_model", "air_state", "walk_state", "run_state", "crouch_state", "jump_satte") groups=["ground"]]
 script = ExtResource("4_0mfjg")
 player = NodePath("../..")
+player_model = NodePath("../../PlayerModel")
 air_state = NodePath("../Air")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")

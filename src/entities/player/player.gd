@@ -83,6 +83,8 @@ var is_zoomed: bool = false
 @onready var land_sound: AudioStreamPlayer3D = $Sounds/LandSound
 @onready var hurt_sound: AudioStreamPlayer3D = $Sounds/HurtSound
 
+@onready var player_model: Node3D = $PlayerModel
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -106,6 +108,7 @@ func _ready() -> void:
 		shaders.visible = false
 		return
 	
+	player_model.visible = false
 	hud.visible = true
 	shaders.visible = true
 	health_bar.max_health = max_health
