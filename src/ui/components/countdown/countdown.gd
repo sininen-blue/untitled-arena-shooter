@@ -81,3 +81,4 @@ func _on_timer_timeout() -> void:
 		
 		await tween.finished
 		finished.emit()
+		MusicPlayer.on_countdown_finished()

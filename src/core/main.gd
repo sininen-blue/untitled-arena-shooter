@@ -167,6 +167,7 @@ func _begin_countdown() -> void:
 	_set_locked.rpc(true)
 
 	place_players()
+	MusicPlayer.begin_round()
 	countdown.start.rpc(3)
 	await countdown.finished
 
@@ -223,6 +224,7 @@ func _record_death(id: int) -> void:
 			break
 
 	winner_screen.start.rpc(_winner_display_name(winner_id))
+	MusicPlayer.announce_round_result(winner_id)
 
 
 func _winner_display_name(player_id: int) -> String:
