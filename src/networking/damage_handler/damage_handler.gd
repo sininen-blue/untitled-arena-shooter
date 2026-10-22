@@ -55,6 +55,9 @@ func _request_hit(victim_name: String, damage: float) -> void:
 
 
 func _apply_damage(victim_name: String, damage: float) -> void:
+	if not is_finite(damage) or damage < 0.0:
+		return
+
 	var victim_id := victim_name.to_int()
 	if dead.get(victim_id, false):
 		return
