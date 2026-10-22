@@ -21,6 +21,7 @@ SceneLoader="*uid://dsnwt873r7boj"
 NetworkManager="*uid://grwkrgtw7mxq"
 PlayerNames="*uid://qu47tq7m6jce"
 Config="*uid://2mlikcyj0jlx"
+MusicPlayer="*uid://bcgcx7v855yee"
 
 [display]
 

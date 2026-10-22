@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bcgcx7v855yee"]
+
+[ext_resource type="Script" uid="uid://be77cm4ryyo2u" path="res://src/autoload/music_player/music_player.gd" id="1_lmri6"]
+[ext_resource type="AudioStream" uid="uid://dmo0drlkcnbpx" path="res://assets/sounds/music/main_menu.wav" id="1_ptmos"]
+[ext_resource type="AudioStream" uid="uid://bse0hf0106jpe" path="res://assets/sounds/music/round_background_1.wav" id="2_lmri6"]
+[ext_resource type="AudioStream" uid="uid://dcbhucujwjpqk" path="res://assets/sounds/music/round_win.wav" id="3_aykix"]
+[ext_resource type="AudioStream" uid="uid://qwi5bxs0sj0r" path="res://assets/sounds/music/round_loss.wav" id="4_1oitm"]
+[ext_resource type="AudioStream" uid="uid://bcf48r2mqh2yr" path="res://assets/sounds/music/game_intro.wav" id="5_0ebdl"]
+
+[node name="MusicPlayer" type="Node" unique_id=620652763]
+script = ExtResource("1_lmri6")
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="." unique_id=1193045430]
+stream = ExtResource("1_ptmos")
+
+[node name="BattleMusic" type="AudioStreamPlayer" parent="." unique_id=1098576291]
+stream = ExtResource("2_lmri6")
+
+[node name="WinJingle" type="AudioStreamPlayer" parent="." unique_id=829450355]
+stream = ExtResource("3_aykix")
+
+[node name="LoseJingle" type="AudioStreamPlayer" parent="." unique_id=1147983893]
+stream = ExtResource("4_1oitm")
+
+[node name="IntroJingle" type="AudioStreamPlayer" parent="." unique_id=1160984341]
+stream = ExtResource("5_0ebdl")
