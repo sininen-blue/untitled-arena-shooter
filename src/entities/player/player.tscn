@@ -177,6 +177,7 @@ one_shot = true
 [node name="ParryEffect" type="MeshInstance3D" parent="." unique_id=1307298633]
 mesh = SubResource("SphereMesh_vehwe")
 script = ExtResource("26_ngh1c")
+default_duration = 0.6
 
 [node name="ParryHurtbox" type="Area3D" parent="." unique_id=82098675]
 unique_name_in_owner = true

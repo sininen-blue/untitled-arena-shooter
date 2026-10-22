@@ -155,7 +155,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("parry") and parry_cololdown_timer.is_stopped():
 		parry_cololdown_timer.start(parry_effect.default_duration)
-		parry_effect.start(parry_effect.default_duration)
+		play_parry_effect()
 		parry_handler.request_parry(-head.global_basis.z)
 
 
@@ -240,6 +240,18 @@ func _physics_process(_delta: float) -> void:
 
 func get_speed() -> float:
 	return self.velocity.length()
+
+
+func play_parry_effect() -> void:
+	if multiplayer.multiplayer_peer == null:
+		parry_effect.start(parry_effect.default_duration)
+		return
+	_play_parry_effect.rpc()
+
+
+@rpc("authority", "call_local", "reliable")
+func _play_parry_effect() -> void:
+	parry_effect.start(parry_effect.default_duration)
 
 
 func play_jump_sound() -> void:
