@@ -5,6 +5,11 @@ extends MeshInstance3D
 
 var mat: ShaderMaterial
 
+
+func _ready() -> void:
+	self.visible = false
+
+
 func start(duration: float = default_duration) -> void:
 	mat = get_active_material(0).duplicate()
 	set_surface_override_material(0, mat)
