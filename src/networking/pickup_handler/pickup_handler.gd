@@ -27,7 +27,16 @@ func give_weapon(target_name: String, weapon_path: String, ammo: int) -> void:
 
 	_free_current(target)
 
-	var weapon_instance: HitscanWeapon = load(weapon_path).instantiate()
+	var packed: Resource = load(weapon_path) if weapon_path.begins_with("res://src/entities/weapons/") else null
+	if packed == null or not packed is PackedScene:
+		return
+
+	var weapon_instance: HitscanWeapon = packed.instantiate()
+	if weapon_instance == null or not weapon_instance is HitscanWeapon:
+		if is_instance_valid(weapon_instance):
+			weapon_instance.queue_free()
+		return
+
 	weapon_instance.ammo = ammo
 	weapon_instance.held = true
 	weapon_instance.player = target
@@ -55,8 +64,8 @@ func _request_drop(weapon_path: String, ammo: int, spawn_loc: Vector3, throw_dir
 		return
 
 	main.dropped_spawner.spawn_dropped_weapon({
-		"file_path": weapon_path,
-		"ammo": ammo,
+		"file_path": player.current_weapon.scene_file_path,
+		"ammo": int(player.current_weapon.ammo),
 	}, spawn_loc, throw_dir, throw_rot)
 	clear_player(player.name)
 
