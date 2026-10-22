@@ -10,12 +10,17 @@ var pending_end: Vector3
 
 
 func _ready() -> void:
+	var delta := pending_end - pending_start
+	if tracer_fade == null or mesh == null or not delta.is_finite() or delta.length_squared() < 0.0000001:
+		queue_free()
+		return
+
 	var distance = pending_start.distance_to(pending_end)
 	(mesh as CapsuleMesh).radius = 0.01
 	(mesh as CapsuleMesh).height = distance
 	
 	global_position = (pending_start + pending_end) / 2.0
-	var dir = (pending_end - pending_start).normalized()
+	var dir = delta.normalized()
 	if abs(dir.dot(Vector3.UP)) > 0.999:
 		look_at(pending_end, Vector3.FORWARD)
 	else:
