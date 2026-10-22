@@ -1,5 +1,5 @@
 class_name WinnerScreen
-extends Label
+extends Control
 
 
 signal finished()
@@ -9,6 +9,7 @@ signal finished()
 
 
 @onready var player_name: Label = $PlayerName
+@onready var winner_label: Label = $WinnerLabel
 
 
 func _ready() -> void:
@@ -17,6 +18,8 @@ func _ready() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func start(new_winner_name: String) -> void:
+	self.visible = true
+
 	winner_name = new_winner_name
 	player_name.text = winner_name
 
@@ -27,6 +30,7 @@ func start(new_winner_name: String) -> void:
 	await win_tween.finished
 	await name_tween.finished
 
+	self.visible = false
 	finished.emit()
 
 
@@ -36,15 +40,15 @@ func tween_win() -> Tween:
 	var tween: Tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BACK)
-	tween.tween_property(self, "visible", true, 0)
-	tween.tween_property(self, "offset_transform_scale", Vector2(0, 0), 0)
+	tween.tween_property(winner_label, "visible", true, 0)
+	tween.tween_property(winner_label, "offset_transform_scale", Vector2(0, 0), 0)
 	
-	tween.tween_property(self, "offset_transform_scale", Vector2(2, 2), 2)
-	tween.parallel().tween_property(self, "offset_transform_rotation", deg_to_rad(360), 2)
+	tween.tween_property(winner_label, "offset_transform_scale", Vector2(2, 2), 2)
+	tween.parallel().tween_property(winner_label, "offset_transform_rotation", deg_to_rad(360), 2)
 	
-	tween.tween_property(self, "offset_transform_scale", Vector2(0, 0), 1)
-	tween.parallel().tween_property(self, "offset_transform_rotation", deg_to_rad(0), 1)
-	tween.tween_property(self, "visible", false, 0)
+	tween.tween_property(winner_label, "offset_transform_scale", Vector2(0, 0), 1)
+	tween.parallel().tween_property(winner_label, "offset_transform_rotation", deg_to_rad(0), 1)
+	tween.tween_property(winner_label, "visible", false, 0)
 
 	return tween
 
