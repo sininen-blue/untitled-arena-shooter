@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cnsv1iry3d5ps" path="res://assets/models/character/player.glb" id="1_y3mx4"]
 [ext_resource type="Script" uid="uid://b8xk2kdvvjm3m" path="res://models/character/player_model.gd" id="2_iabh5"]
+[ext_resource type="Material" uid="uid://br0ob666rtxtx" path="res://assets/materials/toon_endesga32.tres" id="3_y0f47"]
 
 [node name="PlayerModel" unique_id=2126546903 instance=ExtResource("1_y3mx4")]
 script = ExtResource("2_iabh5")
@@ -21,3 +22,6 @@ bones/16/position = Vector3(0.551232, 3.2754443, -3.59734e-08)
 bones/16/rotation = Quaternion(4.7497192e-08, 6.6496064e-08, -0.784318, 0.62035906)
 bones/20/position = Vector3(-0.551232, 3.2754443, -3.59734e-08)
 bones/20/rotation = Quaternion(4.7497192e-08, -6.6496064e-08, 0.784318, 0.62035906)
+
+[node name="model" parent="character/Skeleton3D" index="0" unique_id=1236651881]
+surface_material_override/0 = ExtResource("3_y0f47")
