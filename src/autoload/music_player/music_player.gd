@@ -83,10 +83,12 @@ func _play_main_menu() -> void:
 @rpc("authority", "call_local", "reliable")
 func _begin_round(index: int) -> void:
 	var already_finished: bool = countdown_finished
+
 	pending_battle_index = index
 	countdown_finished = false
 	last_battle_index = index
 	mode = Mode.INTRO
+
 	_crossfade_to(intro_jingle, true)
 	if already_finished:
 		_play_battle(index)
@@ -95,30 +97,34 @@ func _begin_round(index: int) -> void:
 @rpc("authority", "call_local", "reliable")
 func _apply_round_result(winner_id: int) -> void:
 	var won: bool = multiplayer.get_unique_id() == winner_id
-	var jingle: AudioStreamPlayer = win_jingle if won else lose_jingle
-	mode = Mode.WIN if won else Mode.LOSE
+
+	var jingle: AudioStreamPlayer = lose_jingle
+	mode = Mode.LOSE 
+
+	if won:
+		jingle = win_jingle
+		mode = Mode.WIN
+
 	pending_battle_index = -1
 	_crossfade_to(jingle, true)
 
 
 func _play_battle(index: int) -> void:
 	var tracks: Array[AudioStream] = _round_tracks()
-	if tracks.is_empty():
-		return
 	mode = Mode.BATTLE
+
 	battle_music.stream = tracks[clampi(index, 0, tracks.size() - 1)]
 	_crossfade_to(battle_music, true)
 
 
 func _pick_battle_index() -> int:
 	var tracks: Array[AudioStream] = _round_tracks()
-	if tracks.is_empty():
-		return 0
 	if tracks.size() == 1:
 		return 0
 	var index: int = last_battle_index
 	while index == last_battle_index:
 		index = randi() % tracks.size()
+
 	return index
 
 
@@ -153,6 +159,7 @@ func _crossfade_to(next: AudioStreamPlayer, restart: bool) -> void:
 	fade_tween.chain().tween_callback(func() -> void:
 		if generation != fade_generation:
 			return
+
 		for player: AudioStreamPlayer in _players():
 			if player == next:
 				continue
