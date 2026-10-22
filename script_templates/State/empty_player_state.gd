@@ -7,7 +7,7 @@ func enter() -> void:
 	pass
 
 
-func exit() -> void:
+func exit(_new_state: State) -> void:
 	pass
 
 
