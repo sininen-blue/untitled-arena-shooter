@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://v0ehu6itelfs"]
+
+[ext_resource type="Theme" uid="uid://ditpuniu5gvfg" path="res://src/resources/themes/main.tres" id="1_agdp3"]
+[ext_resource type="Script" uid="uid://bki6i05b246y1" path="res://src/ui/components/ammo_count/ammo_count.gd" id="2_76qjq"]
+
+[node name="AmmoCount" type="Control" unique_id=1198208158]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_agdp3")
+script = ExtResource("2_76qjq")
+
+[node name="CurrentAmmo" type="Label" parent="." unique_id=1846924859]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -18.5
+offset_right = 20.0
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "5"
+horizontal_alignment = 1

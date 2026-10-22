@@ -28,6 +28,7 @@
 [ext_resource type="Shader" uid="uid://dlsixrkbjchgi" path="res://src/shaders/scope.gdshader" id="25_2cmg6"]
 [ext_resource type="Shader" uid="uid://wie7nn62sivx" path="res://src/shaders/ripple.gdshader" id="25_45xpv"]
 [ext_resource type="Script" uid="uid://4bw7j2qkplt5" path="res://src/entities/player/parry_effect.gd" id="26_ngh1c"]
+[ext_resource type="PackedScene" uid="uid://v0ehu6itelfs" path="res://src/ui/components/ammo_count/ammo_count.tscn" id="26_snams"]
 [ext_resource type="PackedScene" uid="uid://cj5yy0cxrtixr" path="res://src/entities/run_particle/run_particle.tscn" id="27_amj0e"]
 [ext_resource type="AudioStream" uid="uid://pb2i7xkbeqi0" path="res://assets/sounds/movement/jump.wav" id="29_4tw7w"]
 [ext_resource type="AudioStream" uid="uid://b6k4er7re73p2" path="res://assets/sounds/movement/land.wav" id="30_tvulh"]
@@ -506,6 +507,21 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AmmoCount" parent="Hud/Control" unique_id=1198208158 node_paths=PackedStringArray("player") instance=ExtResource("26_snams")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -43.0
+offset_right = -57.0
+offset_bottom = -43.0
+grow_horizontal = 0
+grow_vertical = 0
+player = NodePath("../../..")
 
 [node name="Shaders" type="CanvasLayer" parent="." unique_id=1863526419 node_paths=PackedStringArray("player")]
 visible = false
