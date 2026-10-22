@@ -69,14 +69,14 @@ height = 1.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_coeo4"]
 render_priority = 0
 shader = ExtResource("25_45xpv")
-shader_parameter/wave_color = Color(0.4, 0.8, 1, 1)
+shader_parameter/wave_color = Color(0.39999998, 0.7999999, 1, 0.6627451)
 shader_parameter/base_color = Color(0.1, 0.1, 0.3, 0)
-shader_parameter/wave_frequency = 1.0
-shader_parameter/wave_sharpness = 10.0
-shader_parameter/noise_scale = 2.0
-shader_parameter/distortion_strength = 0.3
+shader_parameter/ripple_width = 0.30800001393148
+shader_parameter/edge_sharpness = 0.90000004275
+shader_parameter/noise_scale = 8.0
+shader_parameter/distortion_strength = 0.5
 shader_parameter/breakup_strength = 0.6
-shader_parameter/wave_age = 0.82000003895
+shader_parameter/wave_age = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_vehwe"]
 material = SubResource("ShaderMaterial_coeo4")
@@ -172,11 +172,9 @@ mesh = SubResource("CapsuleMesh_crd4b")
 
 [node name="ParryCololdownTimer" type="Timer" parent="." unique_id=1401908605]
 unique_name_in_owner = true
-wait_time = 1.2
 one_shot = true
 
 [node name="ParryEffect" type="MeshInstance3D" parent="." unique_id=1307298633]
-visible = false
 mesh = SubResource("SphereMesh_vehwe")
 script = ExtResource("26_ngh1c")
 

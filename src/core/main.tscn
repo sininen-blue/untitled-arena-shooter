@@ -28,7 +28,8 @@ current_level = NodePath("TestArena2")
 [node name="PickupHandler" parent="." unique_id=861707320 node_paths=PackedStringArray("main") instance=ExtResource("2_72j70")]
 main = NodePath("..")
 
-[node name="ParryHandler" parent="." unique_id=258174361 instance=ExtResource("2_pf42m")]
+[node name="ParryHandler" parent="." unique_id=258174361 node_paths=PackedStringArray("main") instance=ExtResource("2_pf42m")]
+main = NodePath("..")
 
 [node name="DamageHandler" parent="." unique_id=1170398141 node_paths=PackedStringArray("main", "pickup_handler") instance=ExtResource("14_dmgh")]
 main = NodePath("..")
@@ -112,9 +113,7 @@ theme = ExtResource("10_7o0du")
 unique_name_in_owner = true
 layout_mode = 1
 offset_left = -159.5
-offset_top = -37.0
 offset_right = 159.5
-offset_bottom = 37.0
 mouse_filter = 2
 
 [node name="Countdown" parent="GlobalHud/Control" unique_id=1578566330 instance=ExtResource("12_7561f")]

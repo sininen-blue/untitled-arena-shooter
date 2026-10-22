@@ -154,8 +154,8 @@ func _input(event: InputEvent) -> void:
 		slipper_spawner.request_spawn(self, hand_marker.global_position, throw_vec)
 	
 	if event.is_action_pressed("parry") and parry_cololdown_timer.is_stopped():
-		parry_cololdown_timer.start()
-		parry_effect.start()
+		parry_cololdown_timer.start(parry_effect.default_duration)
+		parry_effect.start(parry_effect.default_duration)
 		parry_handler.request_parry(-head.global_basis.z)
 
 

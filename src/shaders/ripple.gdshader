@@ -4,8 +4,8 @@ render_mode diffuse_toon, specular_toon, depth_draw_always, cull_disabled;
 uniform vec4 wave_color : source_color = vec4(0.4, 0.8, 1.0, 1.0);
 uniform vec4 base_color : source_color = vec4(0.1, 0.1, 0.3, 0.0);
 
-uniform float wave_frequency = 6.0;
-uniform float wave_sharpness = 8.0;
+uniform float ripple_width : hint_range(0.01, 1.0) = 0.16;
+uniform float edge_sharpness : hint_range(0.0, 1.0) = 0.75;
 
 uniform float noise_scale = 2.0;
 uniform float distortion_strength = 0.3;
@@ -45,8 +45,8 @@ void fragment() {
     float wobbly_latitude = latitude + (organic_noise - 0.5) * distortion_strength;
 
     float dist_from_ring = abs(wobbly_latitude - ring_center);
-    float ring_mask = 1.0 - smoothstep(0.0, 1.0 / wave_frequency, dist_from_ring);
-    ring_mask = pow(ring_mask, wave_sharpness);
+    float edge = ripple_width * (1.0 - edge_sharpness);
+    float ring_mask = 1.0 - smoothstep(max(ripple_width - edge, 0.0), ripple_width + 0.0001, dist_from_ring);
 
     float hole_threshold = organic_noise * breakup_strength;
     ring_mask *= step(hole_threshold, ring_mask);

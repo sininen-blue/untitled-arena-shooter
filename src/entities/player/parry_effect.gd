@@ -1,7 +1,7 @@
 class_name ParryEffect
 extends MeshInstance3D
 
-@export var default_duration: float = 2.0
+@export var default_duration: float = 1.2
 
 var mat: ShaderMaterial
 
