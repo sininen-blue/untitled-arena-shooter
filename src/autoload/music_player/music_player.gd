@@ -33,8 +33,18 @@ var countdown_finished: bool = false
 
 
 func _ready() -> void:
+	set_bus_volume("Music", float(Config.get_setting("music_volume", 100.0)))
+	set_bus_volume("Sfx", float(Config.get_setting("sfx_volume", 100.0)))
 	get_tree().scene_changed.connect(_sync_scene)
 	call_deferred("_sync_scene")
+
+
+func set_bus_volume(bus_name: String, percent: float) -> void:
+	var bus_index: int = AudioServer.get_bus_index(bus_name)
+	if bus_index == -1:
+		return
+	var linear: float = clampf(percent, 0.0, 100.0) / 100.0
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(linear))
 
 
 func begin_round() -> void:

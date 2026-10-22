@@ -88,9 +88,11 @@ libraries/ = SubResource("AnimationLibrary_ao10b")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1105317516]
 stream = ExtResource("3_33cxx")
+bus = &"Sfx"
 
 [node name="NoAmmoPlayer" type="AudioStreamPlayer3D" parent="." unique_id=277230805]
 stream = ExtResource("4_ao10b")
+bus = &"Sfx"
 
 [connection signal="shot" from="." to="." method="_on_shot"]
 [connection signal="shot" from="." to="Sniper" method="_on_test_sniper_shot"]

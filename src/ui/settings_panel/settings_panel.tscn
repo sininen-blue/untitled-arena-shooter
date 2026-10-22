@@ -91,6 +91,18 @@ layout_mode = 2
 title = "Base Fov"
 value = 75.0
 
+[node name="Music" parent="Settings" unique_id=982499009 instance=ExtResource("3_iawp7")]
+layout_mode = 2
+title = "Music"
+value = 100.0
+
+[node name="Sfx" parent="Settings" unique_id=982499010 instance=ExtResource("3_iawp7")]
+layout_mode = 2
+title = "Sfx"
+value = 100.0
+
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="value_changed" from="Settings/Sens" to="." method="_on_sens_value_changed"]
 [connection signal="value_changed" from="Settings/Fov" to="." method="_on_fov_value_changed"]
+[connection signal="value_changed" from="Settings/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="Settings/Sfx" to="." method="_on_sfx_value_changed"]

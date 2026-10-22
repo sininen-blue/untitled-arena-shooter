@@ -12,15 +12,20 @@ script = ExtResource("1_lmri6")
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="." unique_id=1193045430]
 stream = ExtResource("1_ptmos")
+bus = &"Music"
 
 [node name="BattleMusic" type="AudioStreamPlayer" parent="." unique_id=1098576291]
 stream = ExtResource("2_lmri6")
+bus = &"Music"
 
 [node name="WinJingle" type="AudioStreamPlayer" parent="." unique_id=829450355]
 stream = ExtResource("3_aykix")
+bus = &"Music"
 
 [node name="LoseJingle" type="AudioStreamPlayer" parent="." unique_id=1147983893]
 stream = ExtResource("4_1oitm")
+bus = &"Music"
 
 [node name="IntroJingle" type="AudioStreamPlayer" parent="." unique_id=1160984341]
 stream = ExtResource("5_0ebdl")
+bus = &"Music"

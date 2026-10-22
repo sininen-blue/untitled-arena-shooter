@@ -42,4 +42,5 @@ texture = ExtResource("3_oewwg")
 
 [node name="HitmarkerSound" type="AudioStreamPlayer3D" parent="." unique_id=1989258800]
 stream = ExtResource("4_hit")
+bus = &"Sfx"
 attenuation_model = 3
