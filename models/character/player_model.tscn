@@ -2,26 +2,84 @@
 
 [ext_resource type="PackedScene" uid="uid://cnsv1iry3d5ps" path="res://assets/models/character/player.glb" id="1_y3mx4"]
 [ext_resource type="Script" uid="uid://b8xk2kdvvjm3m" path="res://models/character/player_model.gd" id="2_iabh5"]
-[ext_resource type="Material" uid="uid://br0ob666rtxtx" path="res://assets/materials/toon_endesga32.tres" id="3_y0f47"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iabh5"]
+animation = &"handgun_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y0f47"]
+animation = &"handgun_jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eyu7m"]
+animation = &"handgun_run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hxrud"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7vqga"]
+animation = &"longgun_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nrcgm"]
+animation = &"longgun_jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a14nh"]
+animation = &"longgun_run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sc3do"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_su4ut"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oudgx"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m4g8p"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gw3nn"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_84x3x"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iuroy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rv1u8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjhkx"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eq3b3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iabh5"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y0f47"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eyu7m"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hxrud"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hxrud"]
+states/Start/position = Vector2(21, 146)
+states/handgun_idle/node = SubResource("AnimationNodeAnimation_iabh5")
+states/handgun_idle/position = Vector2(235, 138)
+states/handgun_jump/node = SubResource("AnimationNodeAnimation_y0f47")
+states/handgun_jump/position = Vector2(490, 162)
+states/handgun_run/node = SubResource("AnimationNodeAnimation_eyu7m")
+states/handgun_run/position = Vector2(490, 35)
+states/idle/node = SubResource("AnimationNodeAnimation_hxrud")
+states/idle/position = Vector2(235, -9)
+states/longgun_idle/node = SubResource("AnimationNodeAnimation_7vqga")
+states/longgun_idle/position = Vector2(235, 261)
+states/longgun_jump/node = SubResource("AnimationNodeAnimation_nrcgm")
+states/longgun_jump/position = Vector2(427, 252)
+states/longgun_run/node = SubResource("AnimationNodeAnimation_a14nh")
+states/longgun_run/position = Vector2(503, 364)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_sc3do"), "Start", "handgun_idle", SubResource("AnimationNodeStateMachineTransition_su4ut"), "Start", "longgun_idle", SubResource("AnimationNodeStateMachineTransition_oudgx"), "handgun_idle", "handgun_jump", SubResource("AnimationNodeStateMachineTransition_m4g8p"), "handgun_jump", "handgun_idle", SubResource("AnimationNodeStateMachineTransition_gw3nn"), "handgun_jump", "handgun_run", SubResource("AnimationNodeStateMachineTransition_84x3x"), "handgun_run", "handgun_jump", SubResource("AnimationNodeStateMachineTransition_iuroy"), "handgun_run", "End", SubResource("AnimationNodeStateMachineTransition_rv1u8"), "handgun_idle", "handgun_run", SubResource("AnimationNodeStateMachineTransition_kjhkx"), "handgun_run", "handgun_idle", SubResource("AnimationNodeStateMachineTransition_eq3b3"), "idle", "handgun_idle", SubResource("AnimationNodeStateMachineTransition_iabh5"), "handgun_idle", "idle", SubResource("AnimationNodeStateMachineTransition_y0f47"), "handgun_idle", "longgun_idle", SubResource("AnimationNodeStateMachineTransition_eyu7m"), "longgun_idle", "handgun_idle", SubResource("AnimationNodeStateMachineTransition_hxrud")]
+graph_offset = Vector2(-228, -56)
 
 [node name="PlayerModel" unique_id=2126546903 instance=ExtResource("1_y3mx4")]
 script = ExtResource("2_iabh5")
 
-[node name="character" parent="." index="0" unique_id=959650289]
-transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006144914, 0.6626686, -0.027153254)
+[node name="Player" parent="." index="0" unique_id=320029968]
+transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006144914, 0.6626686, -0.053661585)
 
-[node name="Skeleton3D" parent="character" index="0" unique_id=611160502]
-bones/9/rotation = Quaternion(0, 5.960464e-08, 0, 1)
-bones/10/rotation = Quaternion(0.9874432, 0.017511943, 0.0003807084, 0.15700066)
-bones/11/rotation = Quaternion(0.4533187, 0.03538052, 0.016605863, 0.89049125)
-bones/12/rotation = Quaternion(-0.78695977, -0.01541599, -0.03648265, 0.615732)
-bones/13/rotation = Quaternion(0.98717225, -0.0306185, 0.0025798993, 0.15667441)
-bones/14/rotation = Quaternion(0.4530966, 0.004671859, -0.021894626, 0.8911803)
-bones/15/rotation = Quaternion(-0.78737295, -0.024442246, 0.010969598, 0.6158947)
-bones/16/position = Vector3(0.551232, 3.2754443, -3.59734e-08)
-bones/16/rotation = Quaternion(4.7497192e-08, 6.6496064e-08, -0.784318, 0.62035906)
-bones/20/position = Vector3(-0.551232, 3.2754443, -3.59734e-08)
-bones/20/rotation = Quaternion(4.7497192e-08, -6.6496064e-08, 0.784318, 0.62035906)
-
-[node name="model" parent="character/Skeleton3D" index="0" unique_id=1236651881]
-surface_material_override/0 = ExtResource("3_y0f47")
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=716373340]
+tree_root = SubResource("AnimationNodeStateMachine_hxrud")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")

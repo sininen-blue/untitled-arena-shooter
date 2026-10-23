@@ -8,6 +8,8 @@ signal shot()
 @export var fire_rate: float = 0.2
 @export var ammo = 20
 @export var projectiles = 10
+@export var is_handgun: bool = false
+@export var is_longgun: bool = false
 
 
 @export_group("Spread")

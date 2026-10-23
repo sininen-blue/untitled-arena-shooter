@@ -56,6 +56,30 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath("RunParticle:position")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:is_idle")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:is_walking")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath(".:is_running")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath(".:is_jumping")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath(".:is_crouching")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+properties/12/path = NodePath(".:has_weapon")
+properties/12/spawn = true
+properties/12/replication_mode = 1
+properties/13/path = NodePath(".:has_handgun")
+properties/13/spawn = true
+properties/13/replication_mode = 1
+properties/14/path = NodePath(".:has_longgun")
+properties/14/spawn = true
+properties/14/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
 radius = 0.3
@@ -161,14 +185,16 @@ replication_config = SubResource("SceneReplicationConfig_4m8ck")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.725, -0.002)
 shape = SubResource("CapsuleShape3D_crd4b")
 
-[node name="PlayerModel" parent="." unique_id=2126546903 instance=ExtResource("3_45rvh")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+[node name="PlayerModel" parent="." unique_id=2126546903 node_paths=PackedStringArray("player") instance=ExtResource("3_45rvh")]
+transform = Transform3D(-0.6, 0, -5.2453668e-08, 0, 0.6, 0, 5.2453668e-08, 0, -0.6, 0, 0, 0)
+player = NodePath("..")
 
 [node name="ParryCololdownTimer" type="Timer" parent="." unique_id=1401908605]
 unique_name_in_owner = true
 one_shot = true
 
 [node name="ParryEffect" type="MeshInstance3D" parent="." unique_id=1307298633]
+visible = false
 mesh = SubResource("SphereMesh_vehwe")
 script = ExtResource("26_ngh1c")
 default_duration = 0.6

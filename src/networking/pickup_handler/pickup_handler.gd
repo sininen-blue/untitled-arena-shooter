@@ -42,16 +42,22 @@ func give_weapon(target_name: String, weapon_path: String, ammo: int) -> void:
 	weapon_instance.player = target
 	target.hand_marker.add_child(weapon_instance)
 	target.current_weapon = weapon_instance
+	
+	target.has_weapon = true
+	if weapon_instance.is_handgun:
+		target.has_handgun = true
+	if weapon_instance.is_longgun:
+		target.has_longgun = true
 
 
-func request_drop(weapon_path: String, ammo: int, spawn_loc: Vector3, throw_dir: Vector3, throw_rot: float) -> void:
+func request_drop(ammo: int, spawn_loc: Vector3, throw_dir: Vector3, throw_rot: float) -> void:
 	if multiplayer.multiplayer_peer == null:
 		return
-	_request_drop.rpc_id(1, weapon_path, ammo, spawn_loc, throw_dir, throw_rot)
+	_request_drop.rpc_id(1, ammo, spawn_loc, throw_dir, throw_rot)
 
 
 @rpc("any_peer", "call_local", "reliable")
-func _request_drop(weapon_path: String, ammo: int, spawn_loc: Vector3, throw_dir: Vector3, throw_rot: float) -> void:
+func _request_drop(ammo: int, spawn_loc: Vector3, throw_dir: Vector3, throw_rot: float) -> void:
 	if not multiplayer.is_server() or not main.is_combat_live():
 		return
 
@@ -161,4 +167,8 @@ func _free_current(target: Player) -> void:
 		return
 	var old := target.current_weapon
 	target.current_weapon = null
+	
+	target.has_weapon = false
+	target.has_handgun = false
+	target.has_longgun = false
 	old.queue_free()

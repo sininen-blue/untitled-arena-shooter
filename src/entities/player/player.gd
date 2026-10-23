@@ -6,6 +6,7 @@ signal interacted(player: Player)
 signal killed(by: int, player: Player)
 
 
+@export_group("References")
 @export var dropped_spawner: DroppedSpawner
 @export var slipper_spawner: SlipperSpanwner
 @export var pickup_handler: PickupHandler
@@ -17,21 +18,35 @@ signal killed(by: int, player: Player)
 @export var damage_handler: DamageHandler
 @export var parry_handler: ParryHandler
 
+@export_group("Camera")
 @export var mouse_sensitivity: float = 0.1
 @export var default_head_recoil_recovery: float = 3.0
 
-@export var locked: bool = false
-
+@export_group("Other Stats")
 @export var mass: float = 2.0
 @export var weapon_throw_force: float = 8.0
 
+@export_group("Slipper_related")
 @export var slipper_throw_force: float = 12.0
 @export var parry_force: float = 15.0
 @export var max_slipper_ammo: int = 2
 
+@export_group("States")
+@export var locked: bool = false
+@export var is_idle: bool = false
+@export var is_walking: bool = false
+@export var is_running: bool = false
+@export var is_jumping: bool = false
+@export var is_crouching: bool = false
+
+@export var has_weapon: bool = false
+@export var has_handgun: bool = false
+@export var has_longgun: bool = false
+
 @export var wall_climb_state: State
 @export var wall_slide_state: State
 
+@export_group("Health and damage")
 @export var damage_number_offset: Vector3 = Vector3(0.2, 0.6, 0)
 @export var headshot_mult: float = 1.5
 @export var max_health: float = 20
@@ -347,7 +362,6 @@ func drop_weapon() -> void:
 	var throw_direction: Vector3 = (-global_basis.z + Vector3.UP).normalized()
 	var throw_rotation: float = atan2(-global_basis.z.x, -global_basis.z.z)
 	pickup_handler.request_drop(
-		current_weapon.scene_file_path,
 		int(current_weapon.ammo),
 		spawn_loc,
 		throw_direction,
@@ -360,14 +374,15 @@ func remove_weapon() -> void:
 
 
 func _on_head_hurtbox_hit(_hitter_id: int, damage: float, source: Area3D = null) -> void:
+	var dealt: float
 	if source == null:
-		var dealt := damage * headshot_mult
+		dealt = damage * headshot_mult
 		damage_handler.request_hit(name, dealt)
 		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
 		return
 	if not multiplayer.is_server() or _sender_grace_blocks(source):
 		return
-	var dealt := damage * headshot_mult
+	dealt = damage * headshot_mult
 	damage_handler.apply_server_hit(name, dealt)
 	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
 

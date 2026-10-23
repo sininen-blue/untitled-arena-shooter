@@ -15,11 +15,13 @@ extends State
 
 
 func enter() -> void:
+	player.is_idle = true
 	player_model.play_idle()
 
 
 func exit(_new_state: State) -> void:
-	player_model.stop()
+	player.is_idle = false
+	player_model.stop() # remove
 
 
 func update(_delta: float) -> void:

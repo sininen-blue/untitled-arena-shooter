@@ -13,6 +13,7 @@ point_count = 2
 script = ExtResource("1_kqngw")
 ammo = 10
 projectiles = 1
+is_handgun = true
 speed_spread_curve = SubResource("Curve_csytu")
 recoil_impulse = 0.3
 muzzle = NodePath("Muzzle")

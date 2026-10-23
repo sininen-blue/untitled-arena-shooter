@@ -72,6 +72,7 @@ damage = 5.0
 fire_rate = 1.125
 ammo = 5
 projectiles = 1
+is_longgun = true
 muzzle = NodePath("Muzzle")
 sound_player = NodePath("AudioStreamPlayer3D")
 no_ammo_player = NodePath("NoAmmoPlayer")
