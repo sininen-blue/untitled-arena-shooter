@@ -25,10 +25,11 @@ var previous_y_velocity: float = 0
 
 
 func enter() -> void:
-	pass
+	player.is_jumping = true
 
 
 func exit(new_state: State) -> void:
+	player.is_jumping = false
 	if new_state.is_in_group("ground"):
 		air_to_ground.emit(previous_y_velocity)
 		player.land_particle_spawner.request_spawn(player.global_position)

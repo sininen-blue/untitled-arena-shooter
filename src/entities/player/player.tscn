@@ -80,6 +80,12 @@ properties/13/replication_mode = 1
 properties/14/path = NodePath(".:has_longgun")
 properties/14/spawn = true
 properties/14/replication_mode = 1
+properties/15/path = NodePath(".:is_sliding")
+properties/15/spawn = true
+properties/15/replication_mode = 1
+properties/16/path = NodePath(".:wall_slide_side")
+properties/16/spawn = true
+properties/16/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
 radius = 0.3

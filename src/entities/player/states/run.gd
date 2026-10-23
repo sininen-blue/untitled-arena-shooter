@@ -17,10 +17,12 @@ extends State
 
 
 func enter() -> void:
+	player.is_running = true
 	player.run_particle.start()
 
 
 func exit(new_state: State) -> void:
+	player.is_running = false
 	if new_state != slide_state:
 		player.run_particle.stop()
 

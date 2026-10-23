@@ -32,11 +32,13 @@ func enter() -> void:
 	else:
 		player.velocity.y = player.velocity.y / 1.5
 
+	_set_wall_slide_side()
 	player.run_particle.start()
 	_place_run_particle()
 
 
 func exit(new_state: State) -> void:
+	player.wall_slide_side = 0
 	if new_state.is_in_group("ground"):
 		time = 0
 		player.play_land_sound()
@@ -51,6 +53,7 @@ func update(delta: float) -> void:
 
 
 func physics_update(delta: float) -> void:
+	_set_wall_slide_side()
 	_place_run_particle()
 
 	if wall_raycasts.is_colliding() == false:
@@ -94,6 +97,16 @@ func physics_update(delta: float) -> void:
 
 func handle_input(_event: InputEvent) -> void:
 	pass
+
+
+func _set_wall_slide_side() -> void:
+	if wall_raycasts.left_is_colliding() and not wall_raycasts.right_is_colliding():
+		player.wall_slide_side = -1
+	elif wall_raycasts.right_is_colliding():
+		player.wall_slide_side = 1
+	else:
+		var local_normal := player.global_basis.inverse() * wall_raycasts.get_wall_normal()
+		player.wall_slide_side = -1 if local_normal.x >= 0.0 else 1
 
 
 func _place_run_particle() -> void:

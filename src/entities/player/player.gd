@@ -38,6 +38,8 @@ signal killed(by: int, player: Player)
 @export var is_running: bool = false
 @export var is_jumping: bool = false
 @export var is_crouching: bool = false
+@export var is_sliding: bool = false
+@export var wall_slide_side: int = 0
 
 @export var has_weapon: bool = false
 @export var has_handgun: bool = false
@@ -64,7 +66,6 @@ var recoil_offset: float = 0.0
 var input_direction: Vector2 = Vector2.ZERO
 var direction: Vector3 = Vector3.ZERO
 var wish_velocity: Vector3 = Vector3.ZERO
-var is_sliding: bool = false
 var is_zoomed: bool = false
 
 
