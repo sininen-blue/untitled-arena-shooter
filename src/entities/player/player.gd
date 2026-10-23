@@ -39,6 +39,8 @@ signal killed(by: int, player: Player)
 @export var is_jumping: bool = false
 @export var is_crouching: bool = false
 @export var is_sliding: bool = false
+@export var on_ground: bool = true
+@export var on_air: bool = false
 @export var wall_slide_side: int = 0
 
 @export var has_weapon: bool = false
@@ -255,6 +257,8 @@ func _physics_process(_delta: float) -> void:
 	direction = (self.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	
 	move_and_slide()
+	on_ground = is_on_floor()
+	on_air = not on_ground
 
 
 func get_speed() -> float:

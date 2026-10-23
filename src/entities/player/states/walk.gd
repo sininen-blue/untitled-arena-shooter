@@ -16,11 +16,11 @@ extends State
 
 
 func enter() -> void:
-	pass
+	player.is_walking = true
 
 
 func exit(_new_state: State) -> void:
-	pass
+	player.is_walking = false
 
 
 func update(_delta: float) -> void:
