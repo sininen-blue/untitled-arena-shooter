@@ -6,6 +6,7 @@ extends Node3D
 
 
 var state_machine: AnimationNodeStateMachinePlayback
+var applied_pose: String = ""
 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -16,26 +17,24 @@ func _ready() -> void:
 	state_machine = tree["parameters/playback"]
 
 
-func play_idle() -> void:
-	prints(
-	"idle", player.is_idle, 
-	"has_weapon", player.has_weapon, 
-	"has_long", player.has_longgun, 
-	"has_hand", player.has_handgun)
-	
-	if not player.is_idle:
+func _process(_delta: float) -> void:
+	if player == null:
 		return
 	
-	if player.has_weapon:
-		if player.has_longgun:
-			state_machine.travel("longgun_idle")
-		if player.has_handgun:
-			state_machine.travel("handgun_idle")
-	else:
-		state_machine.travel("idle")
-	print(state_machine.get_current_node())
+	if player.is_idle:
+		_apply_idle_pose()
 
 
+func _apply_idle_pose() -> void:
+	var pose: String = "idle"
 
-func stop() -> void:
-	state_machine.stop()
+	if player.has_longgun:
+		pose = "longgun_idle"
+	elif player.has_handgun:
+		pose = "handgun_idle"
+
+	if pose == applied_pose:
+		return
+
+	state_machine.start(pose)
+	applied_pose = pose

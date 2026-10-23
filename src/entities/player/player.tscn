@@ -280,10 +280,9 @@ script = ExtResource("3_wrxq6")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://ywl27ci1pkgm"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=332085911 node_paths=PackedStringArray("player", "player_model", "air_state", "walk_state", "run_state", "crouch_state", "jump_satte") groups=["ground"]]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=332085911 node_paths=PackedStringArray("player", "air_state", "walk_state", "run_state", "crouch_state", "jump_satte") groups=["ground"]]
 script = ExtResource("4_0mfjg")
 player = NodePath("../..")
-player_model = NodePath("../../PlayerModel")
 air_state = NodePath("../Air")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
