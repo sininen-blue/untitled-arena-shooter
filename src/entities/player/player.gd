@@ -101,7 +101,7 @@ var is_zoomed: bool = false
 @onready var land_sound: AudioStreamPlayer3D = $Sounds/LandSound
 @onready var hurt_sound: AudioStreamPlayer3D = $Sounds/HurtSound
 
-@onready var player_model: Node3D = $PlayerModel
+@onready var player_model: PlayerModel = $PlayerModel
 
 
 func _enter_tree() -> void:
@@ -194,6 +194,7 @@ func _process(delta: float) -> void:
 	if Utils.is_remote(self):
 		return
 	
+	hand_marker.position = player_model.current_hand_position
 	
 	var tracer_ends: Array[Vector3] = []
 	if not _combat_blocked() and Input.is_action_pressed("shoot") and current_weapon:
