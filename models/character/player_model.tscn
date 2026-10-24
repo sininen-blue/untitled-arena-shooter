@@ -81,33 +81,8 @@ graph_offset = Vector2(-292.90866, -105.050964)
 [node name="PlayerModel" unique_id=2126546903 instance=ExtResource("1_y3mx4")]
 script = ExtResource("2_iabh5")
 
-[node name="Player" parent="." index="0" unique_id=1935420997]
+[node name="Player" parent="." index="0" unique_id=1555786925]
 transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006144914, 0.6626686, -0.053661585)
-
-[node name="Skeleton3D" parent="Player" index="0" unique_id=297131690]
-bones/2/position = Vector3(1.1536793, -2.8492982, -2.4648676)
-bones/2/rotation = Quaternion(-0.85373765, 0, 0, 0.5207033)
-bones/3/position = Vector3(-1.1526155, -3.2225716, 1.5005734)
-bones/3/rotation = Quaternion(-0.73631346, 0, 0, 0.6766406)
-bones/4/position = Vector3(8.855364e-06, -0.24804243, 7.517915e-05)
-bones/4/bone_meta/pitch = 0.0
-bones/7/rotation = Quaternion(0, 5.960464e-08, 0, 1)
-bones/8/rotation = Quaternion(0.9639388, 0.0016532149, -0.008063659, -0.26599708)
-bones/9/rotation = Quaternion(0.25250837, 0.038411878, 0.00924983, 0.9667878)
-bones/10/rotation = Quaternion(-0.81137097, -0.0137422215, -0.054955196, 0.5817804)
-bones/11/rotation = Quaternion(0.8974338, -0.008492811, 0.019427173, 0.44063947)
-bones/12/rotation = Quaternion(0.4597411, 0.0046539414, -0.022215702, 0.88776284)
-bones/13/rotation = Quaternion(-0.59747016, -0.045154594, 0.028850768, 0.80009884)
-bones/14/position = Vector3(0.55124074, 3.0274017, 7.5090196e-05)
-bones/14/rotation = Quaternion(4.7497192e-08, 6.6496064e-08, -0.784318, 0.62035906)
-bones/15/rotation = Quaternion(4.032978e-08, 5.3868444e-08, -0.30369055, 0.9527707)
-bones/16/rotation = Quaternion(8.3067215e-09, 1.8108715e-08, -0.039662957, 0.9992132)
-bones/17/rotation = Quaternion(6.205953e-09, -8.349814e-08, -0.043102525, 0.99907076)
-bones/18/position = Vector3(-0.5512231, 3.0274017, 7.5090196e-05)
-bones/18/rotation = Quaternion(4.7497192e-08, -6.6496064e-08, 0.784318, 0.62035906)
-bones/19/rotation = Quaternion(0.16943157, 0.28204066, 0.28678197, 0.8997234)
-bones/20/rotation = Quaternion(0.33116132, 0.10697305, 0.2575059, 0.901432)
-bones/21/rotation = Quaternion(0.015877798, -0.021971343, 0.19383442, 0.98065966)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=716373340]
 tree_root = SubResource("AnimationNodeStateMachine_hxrud")
