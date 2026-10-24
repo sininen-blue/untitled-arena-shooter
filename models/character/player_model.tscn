@@ -415,78 +415,54 @@ graph_offset = Vector2(-421.90866, -155.05096)
 [node name="PlayerModel" unique_id=2126546903 instance=ExtResource("1_y3mx4")]
 script = ExtResource("2_iabh5")
 
-[node name="Player" parent="." index="0" unique_id=1555786925]
+[node name="Player" parent="." index="0" unique_id=436184988]
 transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006144914, 0.6626686, -0.053661585)
 
-[node name="Skeleton3D" parent="Player" index="0" unique_id=1870414696]
-bones/2/position = Vector3(1.2861153, -3.3297675, -0.36239815)
-bones/2/rotation = Quaternion(-0.75261754, 0, 0, 0.65845793)
-bones/3/position = Vector3(-1.2830478, -3.3181705, -0.40260983)
-bones/3/rotation = Quaternion(-0.75683945, 0, 0, 0.65360093)
-bones/4/position = Vector3(8.855364e-06, -0.0027475674, 7.517915e-05)
-bones/7/rotation = Quaternion(0, 5.960464e-08, 0, 1)
-bones/8/rotation = Quaternion(0.9868085, 0.017810946, 0.0006272083, 0.16090854)
-bones/9/rotation = Quaternion(0.45572227, 0.03533176, 0.016693905, 0.8892639)
-bones/10/rotation = Quaternion(-0.7872946, -0.015595841, -0.036182173, 0.615317)
-bones/11/rotation = Quaternion(0.9873864, -0.03072664, 0.0025620824, 0.15529826)
-bones/12/rotation = Quaternion(0.45813897, 0.004658294, -0.022138288, 0.8885928)
-bones/13/rotation = Quaternion(-0.7888484, -0.024461461, 0.011255318, 0.6139977)
-bones/14/position = Vector3(0.5512408, 3.2726967, 7.514168e-05)
-bones/14/rotation = Quaternion(4.7497192e-08, 6.6496064e-08, -0.784318, 0.62035906)
-bones/15/rotation = Quaternion(4.032978e-08, 5.3868444e-08, -0.30369055, 0.9527707)
-bones/16/rotation = Quaternion(8.3067215e-09, 1.8108715e-08, -0.039662957, 0.9992132)
-bones/17/rotation = Quaternion(6.205953e-09, -8.349814e-08, -0.043102525, 0.99907076)
-bones/18/position = Vector3(-0.5512231, 3.2726965, 7.514168e-05)
-bones/18/rotation = Quaternion(4.7497192e-08, -6.6496064e-08, 0.784318, 0.62035906)
-bones/19/rotation = Quaternion(0.16943157, 0.28204066, 0.28678197, 0.8997234)
-bones/20/rotation = Quaternion(0.33116132, 0.10697305, 0.2575059, 0.901432)
-bones/21/rotation = Quaternion(0.015877798, -0.021971343, 0.19383442, 0.98065966)
-
-[node name="HeadLookAt" type="LookAtModifier3D" parent="Player/Skeleton3D" index="0" unique_id=351691994]
+[node name="HeadLookAt" type="LookAtModifier3D" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="0" unique_id=351691994]
 transform = Transform3D(6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0)
 target_node = NodePath("../../../HeadMarker")
 bone_name = "Spine2"
 bone = 6
 
-[node name="HandLookAt" type="LookAtModifier3D" parent="Player/Skeleton3D" index="1" unique_id=1614515311]
+[node name="HandLookAt" type="LookAtModifier3D" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="1" unique_id=1614515311]
 transform = Transform3D(6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0)
 target_node = NodePath("../../../HandMarker")
 bone_name = "Shoulder.R"
 bone = 18
 
-[node name="Model" parent="Player/Skeleton3D" index="2" unique_id=1579462127]
+[node name="Model" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="2" unique_id=1133303952]
 visible = false
 
-[node name="PlayerOneAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="3" unique_id=225458948]
-transform = Transform3D(0.999998, -1.28657575e-05, -0.00201261, 7.615389e-10, 0.99997944, -0.0063920664, 0.002012651, 0.0063920524, 0.9999775, -7.504641e-06, 3.5404117, 0.008203267)
-visible = false
+[node name="PlayerOneAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="3" unique_id=225458948]
+transform = Transform3D(0.999998, -1.3147489e-05, -0.0020121438, 7.7885914e-10, 0.99997854, -0.006533545, 0.0020121867, 0.006533531, 0.99997663, -1.6718252e-05, 3.543158, 0.008307991)
 bone_name = "Head"
 bone_idx = 7
 
 [node name="PlayerOneHead" type="MeshInstance3D" parent="Player/Skeleton3D/PlayerOneAttach" index="0" unique_id=1902442295]
 transform = Transform3D(2.5068717, -2.988423e-07, 0, 0, 0, -2.5068717, 2.988423e-07, 2.5068717, 0, -0.005103007, 6.458624, 0.006641869)
-visible = false
 mesh = SubResource("ArrayMesh_iabh5")
 surface_material_override/0 = ExtResource("3_y0f47")
 
-[node name="PlayerOneBody" type="MeshInstance3D" parent="Player/Skeleton3D" index="4" unique_id=1746046065]
-visible = false
+[node name="PlayerOneBody" type="MeshInstance3D" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="4" unique_id=1746046065]
 mesh = SubResource("ArrayMesh_y0f47")
 skin = SubResource("Skin_eyu7m")
 skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("3_y0f47")
 
-[node name="PlayerTwoAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="5" unique_id=421214548]
-transform = Transform3D(0.999998, -1.28657575e-05, -0.00201261, 7.615389e-10, 0.99997944, -0.0063920664, 0.002012651, 0.0063920524, 0.9999775, -7.504641e-06, 3.5404117, 0.008203267)
+[node name="PlayerTwoAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="5" unique_id=421214548]
+transform = Transform3D(0.999998, -1.3147489e-05, -0.0020121438, 7.7885914e-10, 0.99997854, -0.006533545, 0.0020121867, 0.006533531, 0.99997663, -1.6718252e-05, 3.543158, 0.008307991)
+visible = false
 bone_name = "Head"
 bone_idx = 7
 
 [node name="PlayerTwoHead" type="MeshInstance3D" parent="Player/Skeleton3D/PlayerTwoAttach" index="0" unique_id=859954531]
 transform = Transform3D(2.5068717, -2.988423e-07, 0, 0, 0, -2.5068717, 2.988423e-07, 2.5068717, 0, -0.005103007, 6.458624, 0.006641869)
+visible = false
 mesh = SubResource("ArrayMesh_hxrud")
 surface_material_override/0 = ExtResource("3_y0f47")
 
-[node name="PlayerTwoBody" type="MeshInstance3D" parent="Player/Skeleton3D" index="6" unique_id=1224961374]
+[node name="PlayerTwoBody" type="MeshInstance3D" parent="Player/Skeleton3D" parent_id_path=PackedInt32Array(843365159) index="6" unique_id=1224961374]
+visible = false
 mesh = SubResource("ArrayMesh_7vqga")
 skin = SubResource("Skin_nrcgm")
 skeleton = NodePath("..")

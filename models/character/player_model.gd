@@ -19,11 +19,47 @@ var applied_pose: String = ""
 @onready var marker: Marker3D = $HeadMarker
 @onready var hand_marker: Marker3D = $HandMarker
 
+@onready var player_one_attach: BoneAttachment3D = $Player/Skeleton3D/PlayerOneAttach
+@onready var player_one_head: MeshInstance3D = $Player/Skeleton3D/PlayerOneAttach/PlayerOneHead
+@onready var player_one_body: MeshInstance3D = $Player/Skeleton3D/PlayerOneBody
+@onready var player_two_attach: BoneAttachment3D = $Player/Skeleton3D/PlayerTwoAttach
+@onready var player_two_head: MeshInstance3D = $Player/Skeleton3D/PlayerTwoAttach/PlayerTwoHead
+@onready var player_two_body: MeshInstance3D = $Player/Skeleton3D/PlayerTwoBody
+
 
 func _ready() -> void:
 	tree.active = true
 	state_machine = tree["parameters/playback"]
 	skeleton.skeleton_updated.connect(_on_skeleton_updated)
+	_apply_body_variant()
+
+
+func _apply_body_variant() -> void:
+	var use_one := _body_variant() == 0
+	player_one_attach.visible = use_one
+	player_one_head.visible = use_one
+	player_one_body.visible = use_one
+	player_two_attach.visible = not use_one
+	player_two_head.visible = not use_one
+	player_two_body.visible = not use_one
+
+
+func _body_variant() -> int:
+	var peer_id: int = _peer_id()
+	var index: int = NetworkManager.players.keys().find(peer_id)
+
+	if index <= 0:
+		return 0
+	if index == 1:
+		return 1
+
+	return absi(hash(peer_id)) % 2
+
+
+func _peer_id() -> int:
+	if player == null or not player.name.is_valid_int():
+		return 0
+	return player.name.to_int()
 
 
 func _process(_delta: float) -> void:
