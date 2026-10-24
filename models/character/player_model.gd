@@ -2,8 +2,12 @@ class_name PlayerModel
 extends Node3D
 
 
+const Y_STRAIGHT: float = 1.0
+const Y_UP: float = 5.0
+const Y_DOWN: float = -5.0
+
+
 @export var player: Player
-@export_range(0.0, 1.0) var spine_weight := 0.4
 
 
 var state_machine: AnimationNodeStateMachinePlayback
@@ -11,6 +15,9 @@ var applied_pose: String = ""
 
 @onready var tree: AnimationTree = $AnimationTree
 @onready var skeleton: Skeleton3D = $Player/Skeleton3D
+
+@onready var marker: Marker3D = $HeadMarker
+@onready var hand_marker: Marker3D = $HandMarker
 
 
 func _ready() -> void:
@@ -21,7 +28,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if player == null:
 		return
-	
+		
+	marker.position.y = _pitch_to_marker_y(player.pitch_degrees)
+	hand_marker.position.y = _pitch_to_marker_y(player.pitch_degrees)
 	_apply_pose()
 	_end_throw_if_finished()
 
@@ -151,9 +160,8 @@ func _is_throw_pose(pose: StringName) -> bool:
 	]
 
 
-func _on_skeleton_3d_skeleton_updated() -> void:
-	if player.head:
-		var pitch := player.head.rotation.x * spine_weight
-		var offset := Quaternion(Vector3.RIGHT, pitch)
-		var current := skeleton.get_bone_pose_rotation(6)
-		skeleton.set_bone_pose_rotation(6, current * offset)
+func _pitch_to_marker_y(pitch_degrees: float) -> float:
+	pitch_degrees = clampf(pitch_degrees, -85.0, 85.0)
+	if pitch_degrees >= 0.0:
+		return remap(pitch_degrees, 0.0, 85.0, Y_STRAIGHT, Y_UP)
+	return remap(pitch_degrees, 0.0, -85.0, Y_STRAIGHT, Y_DOWN)

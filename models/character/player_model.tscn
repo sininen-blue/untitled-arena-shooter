@@ -87,7 +87,7 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hxrud"]
 states/End/position = Vector2(938.4, 136)
-states/Start/position = Vector2(225.80002, -63.600006)
+states/Start/position = Vector2(226.80002, -63.600006)
 states/crouch/node = SubResource("AnimationNodeAnimation_crouch")
 states/crouch/position = Vector2(-280, -40)
 states/crouch_handgun_idle/node = SubResource("AnimationNodeAnimation_crouch_hg_idle")
@@ -107,7 +107,7 @@ states/handgun_idle/position = Vector2(362.4, 150)
 states/handgun_jump/node = SubResource("AnimationNodeAnimation_y0f47")
 states/handgun_jump/position = Vector2(239.82397, 306)
 states/handgun_run/node = SubResource("AnimationNodeAnimation_eyu7m")
-states/handgun_run/position = Vector2(94.879974, 110.8)
+states/handgun_run/position = Vector2(95.879974, 110.8)
 states/idle/node = SubResource("AnimationNodeAnimation_hxrud")
 states/idle/position = Vector2(162, 21.8)
 states/idle_throw/node = SubResource("AnimationNodeAnimation_idle_throw")
@@ -145,9 +145,49 @@ script = ExtResource("2_iabh5")
 [node name="Player" parent="." index="0" unique_id=1555786925]
 transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006144914, 0.6626686, -0.053661585)
 
+[node name="Skeleton3D" parent="Player" index="0" unique_id=1870414696]
+bones/2/position = Vector3(1.2723944, -3.0200658, 0.75133026)
+bones/2/rotation = Quaternion(-0.90492636, 0, 0, 0.42556816)
+bones/3/position = Vector3(-1.055999, -3.1284232, -1.6816103)
+bones/3/rotation = Quaternion(-0.7937043, 0, 0, 0.60830384)
+bones/4/position = Vector3(8.855364e-06, -0.50215846, 7.517915e-05)
+bones/7/rotation = Quaternion(0, 5.960464e-08, 0, 1)
+bones/8/rotation = Quaternion(0.8861805, 0.018277735, 0.0055340263, 0.4629465)
+bones/9/rotation = Quaternion(0.69733965, 0.028436696, 0.02554481, 0.71572083)
+bones/10/rotation = Quaternion(-0.5702918, -0.025358934, -0.028056419, 0.8205711)
+bones/11/rotation = Quaternion(0.99939096, 0.00022877567, 0.010614608, -0.033242438)
+bones/12/rotation = Quaternion(0.5215748, 0.0044707684, -0.025203649, 0.8528215)
+bones/13/rotation = Quaternion(-0.8958612, -0.030850444, 0.046040837, 0.44086415)
+bones/14/position = Vector3(0.55124074, 2.7732859, 7.503686e-05)
+bones/14/rotation = Quaternion(4.7497192e-08, 6.6496064e-08, -0.784318, 0.62035906)
+bones/15/rotation = Quaternion(4.032978e-08, 5.3868444e-08, -0.30369055, 0.9527707)
+bones/16/rotation = Quaternion(8.3067215e-09, 1.8108715e-08, -0.039662957, 0.9992132)
+bones/17/rotation = Quaternion(6.205953e-09, -8.349814e-08, -0.043102525, 0.99907076)
+bones/18/position = Vector3(-0.55122304, 2.7732859, 7.503686e-05)
+bones/18/rotation = Quaternion(4.7497192e-08, -6.6496064e-08, 0.784318, 0.62035906)
+bones/19/rotation = Quaternion(0.16943157, 0.28204066, 0.28678197, 0.8997234)
+bones/20/rotation = Quaternion(0.33116132, 0.10697305, 0.2575059, 0.901432)
+bones/21/rotation = Quaternion(0.015877798, -0.021971343, 0.19383442, 0.98065966)
+
+[node name="HeadLookAt" type="LookAtModifier3D" parent="Player/Skeleton3D" index="0" unique_id=351691994]
+transform = Transform3D(6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0)
+target_node = NodePath("../../../HeadMarker")
+bone_name = "Spine2"
+bone = 6
+
+[node name="HandLookAt" type="LookAtModifier3D" parent="Player/Skeleton3D" index="1" unique_id=1614515311]
+transform = Transform3D(6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0, 6.3579626, 0, 0, 0)
+target_node = NodePath("../../../HandMarker")
+bone_name = "Shoulder.R"
+bone = 18
+
 [node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=716373340]
 tree_root = SubResource("AnimationNodeStateMachine_hxrud")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
-[connection signal="skeleton_updated" from="Player/Skeleton3D" to="." method="_on_skeleton_3d_skeleton_updated"]
+[node name="HeadMarker" type="Marker3D" parent="." index="3" unique_id=1289340203]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+
+[node name="HandMarker" type="Marker3D" parent="." index="4" unique_id=2042887779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)

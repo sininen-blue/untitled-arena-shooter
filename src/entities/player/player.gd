@@ -25,6 +25,7 @@ signal killed(by: int, player: Player)
 @export_group("Other Stats")
 @export var mass: float = 2.0
 @export var weapon_throw_force: float = 8.0
+@export var pitch_degrees: float = 0.0
 
 @export_group("Slipper_related")
 @export var slipper_throw_force: float = 12.0
@@ -190,6 +191,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		twist_input -= event.screen_relative.x * mouse_sensitivity
 		pitch_input -= event.screen_relative.y * mouse_sensitivity
 		pitch_input = clampf(pitch_input, -85, 85)
+		pitch_degrees = pitch_input
 
 
 func _process(delta: float) -> void:
