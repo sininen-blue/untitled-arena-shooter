@@ -193,7 +193,6 @@ collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
 mass = 2.5
-current_slipper_ammo = 2
 wall_climb_state = NodePath("StateMachine/WallClimb")
 wall_slide_state = NodePath("StateMachine/WallSlide")
 
@@ -262,7 +261,7 @@ fov_curve = SubResource("Curve_3d0mj")
 
 [node name="HandMarker" type="Marker3D" parent="Head" unique_id=1089889852]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275, -0.3, -0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275, -0.5462728, -0.3)
 
 [node name="InteractCast" type="RayCast3D" parent="Head" unique_id=1674559908]
 unique_name_in_owner = true

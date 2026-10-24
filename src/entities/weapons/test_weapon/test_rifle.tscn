@@ -79,7 +79,7 @@ no_ammo_player = NodePath("NoAmmoPlayer")
 metadata/_custom_type_script = "uid://jimv6dm7jnmt"
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=1643079608]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03576161, -1.4964154)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024503365, 0.07304409, -1.7276442)
 
 [node name="Sniper" parent="." unique_id=1268626228 instance=ExtResource("2_hkoui")]
 transform = Transform3D(-4.3711385e-08, 0, 1, 0, 1, 0, -0.99999994, 0, -4.371139e-08, -0.08289474, -0.656737, 0)
