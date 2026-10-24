@@ -3,11 +3,11 @@ extends Node3D
 
 
 @export var player: Player
+@export_range(0.0, 1.0) var spine_weight := 0.4
 
 
 var state_machine: AnimationNodeStateMachinePlayback
 var applied_pose: String = ""
-
 
 @onready var tree: AnimationTree = $AnimationTree
 @onready var skeleton: Skeleton3D = $Player/Skeleton3D
@@ -21,6 +21,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if player == null:
 		return
+	
 	_apply_pose()
 	_end_throw_if_finished()
 
@@ -148,3 +149,11 @@ func _is_throw_pose(pose: StringName) -> bool:
 		"wall_slide_left_throw",
 		"wall_slide_right_throw",
 	]
+
+
+func _on_skeleton_3d_skeleton_updated() -> void:
+	if player.head:
+		var pitch := player.head.rotation.x * spine_weight
+		var offset := Quaternion(Vector3.RIGHT, pitch)
+		var current := skeleton.get_bone_pose_rotation(6)
+		skeleton.set_bone_pose_rotation(6, current * offset)

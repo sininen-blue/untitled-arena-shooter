@@ -109,7 +109,7 @@ states/handgun_jump/position = Vector2(239.82397, 306)
 states/handgun_run/node = SubResource("AnimationNodeAnimation_eyu7m")
 states/handgun_run/position = Vector2(94.879974, 110.8)
 states/idle/node = SubResource("AnimationNodeAnimation_hxrud")
-states/idle/position = Vector2(190, -38.2)
+states/idle/position = Vector2(162, 21.8)
 states/idle_throw/node = SubResource("AnimationNodeAnimation_idle_throw")
 states/idle_throw/position = Vector2(560, -40)
 states/jump/node = SubResource("AnimationNodeAnimation_jump")
@@ -149,3 +149,5 @@ transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006
 tree_root = SubResource("AnimationNodeStateMachine_hxrud")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+
+[connection signal="skeleton_updated" from="Player/Skeleton3D" to="." method="_on_skeleton_3d_skeleton_updated"]
