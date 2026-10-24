@@ -14,10 +14,12 @@ extends State
 
 
 func enter() -> void:
+	player.is_crouching = true
 	player.head_target.position.y = 0.5
 
 
 func exit(_new_state: State) -> void:
+	player.is_crouching = false
 	player.head_target.position.y = 1.0
 
 

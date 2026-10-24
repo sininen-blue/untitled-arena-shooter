@@ -30,6 +30,7 @@ signal killed(by: int, player: Player)
 @export var slipper_throw_force: float = 12.0
 @export var parry_force: float = 15.0
 @export var max_slipper_ammo: int = 2
+@export var current_slipper_ammo: int = 2
 
 @export_group("States")
 @export var locked: bool = false
@@ -39,6 +40,7 @@ signal killed(by: int, player: Player)
 @export var is_jumping: bool = false
 @export var is_crouching: bool = false
 @export var is_sliding: bool = false
+@export var is_throwing: bool = false
 @export var on_ground: bool = true
 @export var on_air: bool = false
 @export var wall_slide_side: int = 0
@@ -58,7 +60,6 @@ signal killed(by: int, player: Player)
 
 
 var current_weapon: HitscanWeapon
-var current_slipper_ammo: int = max_slipper_ammo
 var is_dead: bool = false
 
 var twist_input: float = 0.0
@@ -169,8 +170,9 @@ func _input(event: InputEvent) -> void:
 		elif interact_cast.is_colliding() == false and current_weapon:
 			drop_weapon()
 	
-	if event.is_action_pressed("throw") and current_slipper_ammo > 0:
+	if event.is_action_pressed("throw") and current_slipper_ammo > 0 and not is_throwing:
 		current_slipper_ammo -= 1
+		is_throwing = true
 		var throw_vec: Vector3 = -head.global_basis.z * slipper_throw_force
 		slipper_spawner.request_spawn(self, hand_marker.global_position, throw_vec)
 	

@@ -39,6 +39,42 @@ animation = &"wall_slide_left"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wall_right"]
 animation = &"wall_slide_right"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch"]
+animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_walk"]
+animation = &"crouch_walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_hg_idle"]
+animation = &"crouch_handgun_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_hg_walk"]
+animation = &"crouch_handgun_walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_lg_idle"]
+animation = &"crouch_longgun_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_lg_walk"]
+animation = &"crouch_longgun_walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_throw"]
+animation = &"crouch_throw_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idle_throw"]
+animation = &"idle_throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jump"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_run_throw"]
+animation = &"run_throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wall_left_throw"]
+animation = &"wall_slide_left_throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wall_right_throw"]
+animation = &"wall_slide_right_throw"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iabh5"]
 switch_mode = 2
 
@@ -47,6 +83,8 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eyu7m"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hxrud"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_run_throw"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hxrud"]
 states/End/position = Vector2(938.4, 136)
@@ -75,7 +113,31 @@ states/wall_slide_left/node = SubResource("AnimationNodeAnimation_wall_left")
 states/wall_slide_left/position = Vector2(760, 40)
 states/wall_slide_right/node = SubResource("AnimationNodeAnimation_wall_right")
 states/wall_slide_right/position = Vector2(768, 252)
-transitions = ["slide_enter", "slide", SubResource("AnimationNodeStateMachineTransition_iabh5"), "run", "slide_enter", SubResource("AnimationNodeStateMachineTransition_y0f47"), "handgun_run", "slide_enter", SubResource("AnimationNodeStateMachineTransition_eyu7m"), "longgun_run", "slide_enter", SubResource("AnimationNodeStateMachineTransition_hxrud")]
+states/crouch/node = SubResource("AnimationNodeAnimation_crouch")
+states/crouch/position = Vector2(-280, -40)
+states/crouch_walk/node = SubResource("AnimationNodeAnimation_crouch_walk")
+states/crouch_walk/position = Vector2(-280, 80)
+states/crouch_handgun_idle/node = SubResource("AnimationNodeAnimation_crouch_hg_idle")
+states/crouch_handgun_idle/position = Vector2(-280, 180)
+states/crouch_handgun_walk/node = SubResource("AnimationNodeAnimation_crouch_hg_walk")
+states/crouch_handgun_walk/position = Vector2(-280, 280)
+states/crouch_longgun_idle/node = SubResource("AnimationNodeAnimation_crouch_lg_idle")
+states/crouch_longgun_idle/position = Vector2(-480, -40)
+states/crouch_longgun_walk/node = SubResource("AnimationNodeAnimation_crouch_lg_walk")
+states/crouch_longgun_walk/position = Vector2(-480, 80)
+states/crouch_throw_idle/node = SubResource("AnimationNodeAnimation_crouch_throw")
+states/crouch_throw_idle/position = Vector2(-480, 180)
+states/idle_throw/node = SubResource("AnimationNodeAnimation_idle_throw")
+states/idle_throw/position = Vector2(560, -40)
+states/jump/node = SubResource("AnimationNodeAnimation_jump")
+states/jump/position = Vector2(560, 180)
+states/run_throw/node = SubResource("AnimationNodeAnimation_run_throw")
+states/run_throw/position = Vector2(560, 280)
+states/wall_slide_left_throw/node = SubResource("AnimationNodeAnimation_wall_left_throw")
+states/wall_slide_left_throw/position = Vector2(960, 40)
+states/wall_slide_right_throw/node = SubResource("AnimationNodeAnimation_wall_right_throw")
+states/wall_slide_right_throw/position = Vector2(960, 252)
+transitions = ["slide_enter", "slide", SubResource("AnimationNodeStateMachineTransition_iabh5"), "run", "slide_enter", SubResource("AnimationNodeStateMachineTransition_y0f47"), "handgun_run", "slide_enter", SubResource("AnimationNodeStateMachineTransition_eyu7m"), "longgun_run", "slide_enter", SubResource("AnimationNodeStateMachineTransition_hxrud"), "run_throw", "slide_enter", SubResource("AnimationNodeStateMachineTransition_run_throw")]
 graph_offset = Vector2(-292.90866, -105.050964)
 
 [node name="PlayerModel" unique_id=2126546903 instance=ExtResource("1_y3mx4")]

@@ -95,6 +95,12 @@ properties/18/replication_mode = 1
 properties/19/path = NodePath("Head/HandMarker:position")
 properties/19/spawn = true
 properties/19/replication_mode = 1
+properties/20/path = NodePath(".:current_slipper_ammo")
+properties/20/spawn = true
+properties/20/replication_mode = 1
+properties/21/path = NodePath(".:is_throwing")
+properties/21/spawn = true
+properties/21/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
 radius = 0.3
@@ -190,6 +196,7 @@ collision_layer = 2
 floor_snap_length = 0.4
 script = ExtResource("1_4m8ck")
 mass = 2.5
+current_slipper_ammo = 2
 wall_climb_state = NodePath("StateMachine/WallClimb")
 wall_slide_state = NodePath("StateMachine/WallSlide")
 
