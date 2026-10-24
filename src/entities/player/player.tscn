@@ -92,15 +92,12 @@ properties/17/replication_mode = 1
 properties/18/path = NodePath(".:on_air")
 properties/18/spawn = true
 properties/18/replication_mode = 1
-properties/19/path = NodePath("Head/HandMarker:position")
+properties/19/path = NodePath(".:current_slipper_ammo")
 properties/19/spawn = true
 properties/19/replication_mode = 1
-properties/20/path = NodePath(".:current_slipper_ammo")
+properties/20/path = NodePath(".:is_throwing")
 properties/20/spawn = true
 properties/20/replication_mode = 1
-properties/21/path = NodePath(".:is_throwing")
-properties/21/spawn = true
-properties/21/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crd4b"]
 radius = 0.3

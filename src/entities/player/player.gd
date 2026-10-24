@@ -194,9 +194,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	if Utils.is_remote(self):
+		hand_marker.global_position = player_model.get_right_hand_global_position()
 		return
-	
-	hand_marker.position = player_model.current_hand_position
 	
 	var tracer_ends: Array[Vector3] = []
 	if not _combat_blocked() and Input.is_action_pressed("shoot") and current_weapon:

@@ -7,7 +7,6 @@ extends Node3D
 
 var state_machine: AnimationNodeStateMachinePlayback
 var applied_pose: String = ""
-var current_hand_position: Vector3
 
 
 @onready var tree: AnimationTree = $AnimationTree
@@ -20,11 +19,15 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	current_hand_position = skeleton.get_bone_global_pose(21).origin
 	if player == null:
 		return
 	_apply_pose()
 	_end_throw_if_finished()
+
+
+func get_right_hand_global_position() -> Vector3:
+	var bone_pose := skeleton.get_bone_global_pose(21)
+	return (skeleton.global_transform * bone_pose).origin
 
 
 func _apply_pose() -> void:
