@@ -195,8 +195,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	align_gun_to_hand_look()
 	if Utils.is_remote(self):
-		hand_marker.global_position = player_model.get_right_hand_global_position()
 		return
 	
 	var tracer_ends: Array[Vector3] = []
@@ -241,6 +241,7 @@ func _process(delta: float) -> void:
 	
 	var target_pitch := clampf(pitch_input + recoil_offset, -85.0, 85.0)
 	head.basis = Basis(Quaternion(Vector3.RIGHT, deg_to_rad(target_pitch)))
+	align_gun_to_hand_look()
 
 	if not tracer_ends.is_empty() and current_weapon and current_weapon.muzzle:
 		var muzzle_position := current_weapon.muzzle.get_global_transform_interpolated().origin
@@ -267,6 +268,23 @@ func _physics_process(_delta: float) -> void:
 
 func get_speed() -> float:
 	return self.velocity.length()
+
+
+func align_gun_to_hand_look() -> void:
+	if player_model == null or hand_marker == null:
+		return
+
+	var origin := player_model.get_right_hand_global_position()
+	var target := player_model.get_hand_look_global_position()
+	hand_marker.global_position = origin
+
+	var to_target := target - origin
+	if to_target.length_squared() < 0.0001:
+		return
+	if absf(to_target.normalized().dot(Vector3.UP)) > 0.999:
+		return
+
+	hand_marker.look_at(target, Vector3.UP)
 
 
 func play_parry_effect() -> void:

@@ -23,6 +23,7 @@ var applied_pose: String = ""
 func _ready() -> void:
 	tree.active = true
 	state_machine = tree["parameters/playback"]
+	skeleton.skeleton_updated.connect(_on_skeleton_updated)
 
 
 func _process(_delta: float) -> void:
@@ -38,6 +39,16 @@ func _process(_delta: float) -> void:
 func get_right_hand_global_position() -> Vector3:
 	var bone_pose := skeleton.get_bone_global_pose(21)
 	return (skeleton.global_transform * bone_pose).origin
+
+
+func get_hand_look_global_position() -> Vector3:
+	return hand_marker.global_position
+
+
+func _on_skeleton_updated() -> void:
+	if player == null:
+		return
+	player.align_gun_to_hand_look()
 
 
 func _apply_pose() -> void:
