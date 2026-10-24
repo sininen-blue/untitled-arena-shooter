@@ -37,16 +37,20 @@ func _process(_delta: float) -> void:
 
 
 func get_right_hand_global_position() -> Vector3:
+	if not is_inside_tree() or skeleton == null or not skeleton.is_inside_tree():
+		return Vector3.ZERO
 	var bone_pose := skeleton.get_bone_global_pose(21)
 	return (skeleton.global_transform * bone_pose).origin
 
 
 func get_hand_look_global_position() -> Vector3:
+	if hand_marker == null or not hand_marker.is_inside_tree():
+		return Vector3.ZERO
 	return hand_marker.global_position
 
 
 func _on_skeleton_updated() -> void:
-	if player == null:
+	if player == null or not is_inside_tree():
 		return
 	player.align_gun_to_hand_look()
 

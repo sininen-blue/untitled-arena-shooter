@@ -271,7 +271,9 @@ func get_speed() -> float:
 
 
 func align_gun_to_hand_look() -> void:
-	if player_model == null or hand_marker == null:
+	if not is_inside_tree() or player_model == null or hand_marker == null:
+		return
+	if not player_model.is_inside_tree() or not hand_marker.is_inside_tree():
 		return
 
 	var origin := player_model.get_right_hand_global_position()
