@@ -11,9 +11,10 @@ point_count = 2
 
 [node name="TestShotgun" type="Node3D" unique_id=159616926 node_paths=PackedStringArray("muzzle", "sound_player", "no_ammo_player")]
 script = ExtResource("1_yicq4")
-damage = 7.0
+damage = 3.0
 fire_rate = 0.5
 ammo = 6
+projectiles = 7
 is_longgun = true
 min_spread = 5.0
 max_spread = 8.0

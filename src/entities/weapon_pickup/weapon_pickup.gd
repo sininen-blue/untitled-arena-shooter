@@ -21,12 +21,13 @@ var taken: bool = false
 
 @onready var weapon_spawn_marker: Marker3D = $WeaponSpawnMarker
 @onready var respawn_timer: Timer = $RespawnTimer
+@onready var debug_box: CSGBox3D = $DebugBox
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-
+	debug_box.visible = false
 	respawn_timer.wait_time = respawn_time
 	weapon_instance = weapon.instantiate()
 	

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbl2g0xonb17f" path="res://src/entities/weapon_pickup/weapon_pickup.gd" id="1_u1a2c"]
 [ext_resource type="PackedScene" uid="uid://bwqol0ratve68" path="res://src/entities/weapons/test_weapon/test_weapon.tscn" id="2_cp5hs"]
 [ext_resource type="PackedScene" uid="uid://8gq88kmkkkxo" path="res://src/resources/interact_area/interact_area.tscn" id="3_ws5qp"]
+[ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="4_1koee"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ws5qp"]
 properties/0/path = NodePath(".:weapon_visible")
@@ -33,6 +34,10 @@ one_shot = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=41516263]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_1koee")
+
+[node name="DebugBox" type="CSGBox3D" parent="." unique_id=665986984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0964602, 0)
+material = ExtResource("4_1koee")
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
 [connection signal="interacted" from="InteractArea" to="." method="_on_interact_area_interacted"]

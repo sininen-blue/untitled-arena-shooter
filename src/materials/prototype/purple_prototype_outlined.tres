@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cfjkijtb7j7ct"]
+
+[ext_resource type="Texture2D" uid="uid://csyy7dsh8tcbu" path="res://assets/prototype_textures/purple.png" id="1_2yues"]
+[ext_resource type="Shader" uid="uid://tqw2j7468piy" path="res://src/shaders/depth_outline.gdshader" id="2_b3lmp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f11ya"]
+render_priority = 0
+shader = ExtResource("2_b3lmp")
+shader_parameter/depth_sensitivity = 10.0
+shader_parameter/outline_thickness = 1.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_threshold = 0.2
+
+[resource]
+next_pass = SubResource("ShaderMaterial_f11ya")
+albedo_texture = ExtResource("1_2yues")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true

@@ -5,6 +5,10 @@
 [ext_resource type="AudioStream" uid="uid://7pg1f6qpg76b" path="res://assets/sounds/weapons/sniper.wav" id="3_33cxx"]
 [ext_resource type="AudioStream" uid="uid://cqxp0ymhnsemm" path="res://assets/sounds/weapons/no_ammo.wav" id="4_ao10b"]
 
+[sub_resource type="Curve" id="Curve_x1h51"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.50561804), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Animation" id="Animation_hkoui"]
 length = 0.001
 tracks/0/type = "value"
@@ -68,11 +72,13 @@ _data = {
 
 [node name="TestSniper" type="Node3D" unique_id=878549388 node_paths=PackedStringArray("muzzle", "sound_player", "no_ammo_player")]
 script = ExtResource("1_hkoui")
-damage = 5.0
+damage = 10.0
 fire_rate = 1.125
 ammo = 5
 projectiles = 1
 is_longgun = true
+speed_spread_curve = SubResource("Curve_x1h51")
+spread_recovery = 12.0
 muzzle = NodePath("Muzzle")
 sound_player = NodePath("AudioStreamPlayer3D")
 no_ammo_player = NodePath("NoAmmoPlayer")
