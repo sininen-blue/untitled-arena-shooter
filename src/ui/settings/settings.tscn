@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dfv7blf8fw4nf"]
+
+[ext_resource type="Script" uid="uid://bpku138dfk37i" path="res://src/ui/settings/settings.gd" id="1_0yd4y"]
+[ext_resource type="PackedScene" uid="uid://dmritjv58w5wf" path="res://src/ui/components/wavy_background/wavy_background.tscn" id="2_yce6j"]
+[ext_resource type="PackedScene" uid="uid://ckqf4fygfjead" path="res://src/ui/settings_panel/settings_panel.tscn" id="3_p7rd4"]
+[ext_resource type="PackedScene" uid="uid://cxkgulqs3ep20" path="res://src/ui/components/animated_button/animated_button.tscn" id="4_gx6u5"]
+
+[node name="Settings" type="Control" unique_id=456797526]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0yd4y")
+back_button_target = &"uid://bxd7p5s43abo3"
+
+[node name="WavyBackground" parent="." unique_id=1274248347 instance=ExtResource("2_yce6j")]
+layout_mode = 1
+
+[node name="SettingsPanel" parent="." unique_id=540724994 instance=ExtResource("3_p7rd4")]
+layout_mode = 1
+
+[node name="BackButton" parent="." unique_id=1739498400 instance=ExtResource("4_gx6u5")]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 33.0
+offset_right = 64.0
+offset_bottom = 53.0
+text = "Back"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
