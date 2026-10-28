@@ -2,6 +2,10 @@ class_name PlayerModel
 extends Node3D
 
 
+signal head_hit
+signal body_hit
+
+
 const Y_STRAIGHT: float = 1.0
 const Y_UP: float = 5.0
 const Y_DOWN: float = -5.0
