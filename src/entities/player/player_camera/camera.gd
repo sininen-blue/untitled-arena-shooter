@@ -62,7 +62,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	_bind_weapon_shot()
-	if is_zoomed and is_instance_valid(player.current_weapon) and player.current_weapon.recoil_pending:
+	if is_zoomed and _has_test_rifle() and player.current_weapon.recoil_pending:
 		_exit_zoom()
 
 	if is_zoomed:
@@ -125,6 +125,8 @@ func _bind_weapon_shot() -> void:
 
 
 func _on_weapon_shot() -> void:
+	if not _has_test_rifle():
+		return
 	if is_zoomed or (sniper_scope and sniper_scope.visible):
 		_exit_zoom()
 
