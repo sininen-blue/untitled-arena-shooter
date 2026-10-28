@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cbqn4h7okmcox" path="res://src/entities/player/player.gd" id="1_4m8ck"]
 [ext_resource type="PackedScene" uid="uid://b8uvclittbipj" path="res://models/character/player_model.tscn" id="3_45rvh"]
-[ext_resource type="PackedScene" uid="uid://bo3r1tab2mj3k" path="res://src/resources/hurtbox/hurtbox.tscn" id="3_fjj3i"]
 [ext_resource type="Script" uid="uid://bero2ix131aru" path="res://src/entities/player/input_handlers/jump_input_handler.gd" id="3_lqdhu"]
 [ext_resource type="Script" uid="uid://ywl27ci1pkgm" path="res://src/resources/statemachine/state_machine.gd" id="3_wrxq6"]
 [ext_resource type="Script" uid="uid://cjiwmq1bir8ok" path="res://src/entities/player/states/idle.gd" id="4_0mfjg"]
@@ -127,12 +126,6 @@ height = 3.0
 radius = 1.125
 height = 2.75
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ogtao"]
-radius = 0.46656504
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ogtao"]
-size = Vector3(0.5, 0.7948487, 0.5)
-
 [sub_resource type="Curve" id="Curve_fjj3i"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.9840202, 0.0, 0, 0]
 point_count = 2
@@ -229,20 +222,6 @@ collision_mask = 32
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ParryHurtbox" unique_id=1232236669]
 shape = SubResource("CapsuleShape3D_2in8s")
 debug_color = Color(0.5519741, 0.43427676, 0.9215086, 0.41960785)
-
-[node name="HeadHurtbox" parent="." unique_id=1611386087 instance=ExtResource("3_fjj3i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0897055, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HeadHurtbox" unique_id=699316145]
-shape = SubResource("SphereShape3D_ogtao")
-debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
-
-[node name="BodyHurtbox" parent="." unique_id=992720588 instance=ExtResource("3_fjj3i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.396053, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyHurtbox" unique_id=254339337]
-shape = SubResource("BoxShape3D_ogtao")
-debug_color = Color(0.8901961, 0.29803923, 0.34901962, 0.84705883)
 
 [node name="HeadTarget" type="Marker3D" parent="." unique_id=137720916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -645,7 +624,7 @@ bus = &"Sfx"
 stream = ExtResource("31_tvulh")
 bus = &"Sfx"
 
-[connection signal="hit" from="HeadHurtbox" to="." method="_on_head_hurtbox_hit"]
-[connection signal="hit" from="BodyHurtbox" to="." method="_on_body_hurtbox_hit"]
+[connection signal="body_hit" from="PlayerModel" to="." method="_on_player_model_body_hit"]
+[connection signal="head_hit" from="PlayerModel" to="." method="_on_player_model_head_hit"]
 [connection signal="air_to_ground" from="StateMachine/Air" to="Head" method="_on_air_air_to_ground"]
 [connection signal="resumed" from="Hud/Control/SettingsPanel" to="." method="_on_settings_panel_resumed"]

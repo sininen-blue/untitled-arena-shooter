@@ -215,7 +215,7 @@ func _process(delta: float) -> void:
 					if gun_cast.get_collider() is HurtboxArea:
 						var hurtbox := gun_cast.get_collider() as HurtboxArea
 						if hurtbox.get_parent() != self:
-							hurtbox.take_hit(multiplayer.get_unique_id(), current_weapon.damage)
+							hurtbox.take_hit(current_weapon.damage)
 							crosshair.show_hitmarker()
 					else:
 						decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal())
@@ -402,31 +402,6 @@ func remove_weapon() -> void:
 	pickup_handler.request_remove_weapon(self)
 
 
-func _on_head_hurtbox_hit(_hitter_id: int, damage: float, source: Area3D = null) -> void:
-	var dealt: float
-	if source == null:
-		dealt = damage * headshot_mult
-		damage_handler.request_hit(name, dealt)
-		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
-		return
-	if not multiplayer.is_server() or _sender_grace_blocks(source):
-		return
-	dealt = damage * headshot_mult
-	damage_handler.apply_server_hit(name, dealt)
-	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
-
-
-func _on_body_hurtbox_hit(_hitter_id: int, damage: float, source: Area3D = null) -> void:
-	if source == null:
-		damage_handler.request_hit(name, damage)
-		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
-		return
-	if not multiplayer.is_server() or _sender_grace_blocks(source):
-		return
-	damage_handler.apply_server_hit(name, damage)
-	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
-
-
 func _sender_grace_blocks(source: Area3D) -> bool:
 	if source == null:
 		return false
@@ -444,3 +419,28 @@ func _on_settings_panel_resumed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	mouse_sensitivity = Config.get_setting("sensitivity", mouse_sensitivity)
+
+
+func _on_player_model_body_hit(damage: float, source: Area3D) -> void:
+	if source == null:
+		damage_handler.request_hit(name, damage)
+		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
+		return
+	if not multiplayer.is_server() or _sender_grace_blocks(source):
+		return
+	damage_handler.apply_server_hit(name, damage)
+	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, damage)
+
+
+func _on_player_model_head_hit(damage: float, source: Area3D) -> void:
+	var dealt: float
+	if source == null:
+		dealt = damage * headshot_mult
+		damage_handler.request_hit(name, dealt)
+		damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)
+		return
+	if not multiplayer.is_server() or _sender_grace_blocks(source):
+		return
+	dealt = damage * headshot_mult
+	damage_handler.apply_server_hit(name, dealt)
+	damage_number_spawner.request_spawn(head.global_position + damage_number_offset, dealt)

@@ -430,24 +430,24 @@ script = ExtResource("2_iabh5")
 transform = Transform3D(0.1572831, 0, 0, 0, 0.1572831, 0, 0, 0, 0.1572831, 0.006144914, 0.6626686, -0.053661585)
 
 [node name="Skeleton3D" parent="Player" index="0" unique_id=843365159]
-bones/2/position = Vector3(1.3478788, -3.1758652, 1.2852695)
-bones/2/rotation = Quaternion(-0.83064556, 0, 0, 0.5568016)
-bones/3/position = Vector3(-1.0636761, -3.046506, -2.2093935)
-bones/3/rotation = Quaternion(-0.81598186, 0, 0, 0.57807755)
-bones/4/position = Vector3(8.855364e-06, -0.48038185, 7.517915e-05)
+bones/2/position = Vector3(1.1427128, -1.9485983, -2.6436486)
+bones/2/rotation = Quaternion(-0.9808011, 0, 0, 0.19501078)
+bones/3/position = Vector3(-1.0497634, -3.1976304, 1.5063356)
+bones/3/rotation = Quaternion(-0.7353199, 0, 0, 0.6777202)
+bones/4/position = Vector3(8.855364e-06, -0.5254411, 7.517915e-05)
 bones/7/rotation = Quaternion(0, 5.960464e-08, 0, 1)
-bones/8/rotation = Quaternion(0.8702918, 0.028838504, 0.0149887735, 0.49146307)
-bones/9/rotation = Quaternion(0.5983588, 0.031796988, 0.021918947, 0.80029696)
-bones/10/rotation = Quaternion(-0.5609038, -0.02997094, -0.0130427005, 0.8272356)
-bones/11/rotation = Quaternion(0.9860987, 0.0015629681, 0.008200344, -0.16595142)
-bones/12/rotation = Quaternion(0.40813977, 0.0047846423, -0.019722205, 0.9126939)
-bones/13/rotation = Quaternion(-0.8814441, -0.02652794, 0.040305696, 0.4698171)
-bones/14/position = Vector3(0.55124074, 2.7950623, 7.504143e-05)
+bones/8/rotation = Quaternion(0.9661065, 0.002332015, -0.0088966265, -0.25798017)
+bones/9/rotation = Quaternion(0.5797078, 0.03233768, 0.021235732, 0.81390554)
+bones/10/rotation = Quaternion(-0.81352204, -0.030092768, -0.05514333, 0.57813096)
+bones/11/rotation = Quaternion(0.86128616, 0.0052867434, 0.034963988, 0.50688815)
+bones/12/rotation = Quaternion(0.5673976, 0.0043142997, -0.027417911, 0.82297605)
+bones/13/rotation = Quaternion(-0.636603, -0.060167313, 0.05106664, 0.76714325)
+bones/14/position = Vector3(0.5512408, 2.750003, 7.503198e-05)
 bones/14/rotation = Quaternion(4.7497192e-08, 6.6496064e-08, -0.784318, 0.62035906)
 bones/15/rotation = Quaternion(4.032978e-08, 5.3868444e-08, -0.30369055, 0.9527707)
 bones/16/rotation = Quaternion(8.3067215e-09, 1.8108715e-08, -0.039662957, 0.9992132)
 bones/17/rotation = Quaternion(6.205953e-09, -8.349814e-08, -0.043102525, 0.99907076)
-bones/18/position = Vector3(-0.55122304, 2.7950623, 7.504143e-05)
+bones/18/position = Vector3(-0.5512231, 2.7500033, 7.503198e-05)
 bones/18/rotation = Quaternion(4.7497192e-08, -6.6496064e-08, 0.784318, 0.62035906)
 bones/19/rotation = Quaternion(0.16943157, 0.28204066, 0.28678197, 0.8997234)
 bones/20/rotation = Quaternion(0.33116132, 0.10697305, 0.2575059, 0.901432)
@@ -469,7 +469,7 @@ bone = 18
 visible = false
 
 [node name="PlayerOneAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="3" unique_id=225458948]
-transform = Transform3D(0.999998, 3.6644597e-05, -0.0020123178, -2.1630546e-09, 0.9998341, 0.018206054, 0.0020126512, -0.018206015, 0.9998322, 5.545237e-05, 3.0625925, -0.023075458)
+transform = Transform3D(0.999998, 4.1313277e-05, -0.0020122267, -2.445021e-09, 0.99978924, 0.020525584, 0.002012651, -0.020525541, 0.99978733, 6.138903e-05, 3.017476, -0.026024949)
 bone_name = "Head"
 bone_idx = 7
 
@@ -485,7 +485,7 @@ skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("3_y0f47")
 
 [node name="PlayerTwoAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="5" unique_id=421214548]
-transform = Transform3D(0.999998, 3.6644597e-05, -0.0020123178, -2.1630546e-09, 0.9998341, 0.018206054, 0.0020126512, -0.018206015, 0.9998322, 5.545237e-05, 3.0625925, -0.023075458)
+transform = Transform3D(0.999998, 4.1313277e-05, -0.0020122267, -2.445021e-09, 0.99978924, 0.020525584, 0.002012651, -0.020525541, 0.99978733, 6.138903e-05, 3.017476, -0.026024949)
 visible = false
 bone_name = "Head"
 bone_idx = 7
@@ -504,7 +504,7 @@ skeleton = NodePath("..")
 surface_material_override/0 = ExtResource("3_y0f47")
 
 [node name="HeadHurtboxAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="7" unique_id=862904772]
-transform = Transform3D(0.999998, 3.6644597e-05, -0.0020123178, -2.1630546e-09, 0.9998341, 0.018206054, 0.0020126512, -0.018206015, 0.9998322, 5.545237e-05, 3.0625925, -0.023075458)
+transform = Transform3D(0.999998, 4.1313277e-05, -0.0020122267, -2.445021e-09, 0.99978924, 0.020525584, 0.002012651, -0.020525541, 0.99978733, 6.138903e-05, 3.017476, -0.026024949)
 bone_name = "Head"
 bone_idx = 7
 
@@ -515,7 +515,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 2.3283064e-10, 0, 1, 0, 4.1586742, -0.
 shape = SubResource("SphereShape3D_vehwe")
 
 [node name="BodyHurtboxAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="8" unique_id=2054829300]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.855364e-06, -0.48038185, 7.517915e-05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.855364e-06, -0.5254411, 7.517915e-05)
 bone_name = "Pelvis"
 bone_idx = 4
 
@@ -527,7 +527,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3445582, 0)
 shape = SubResource("SphereShape3D_hxrud")
 
 [node name="LLegsHurtboxAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="9" unique_id=1409035683]
-transform = Transform3D(0.9985683, 0.025000282, 0.047288887, 0.05289515, -0.59307015, -0.8034101, 0.0079601705, 0.8047622, -0.5935432, 1.3496102, -3.211117, 1.2731026)
+transform = Transform3D(0.998572, 0.050335504, 0.0178905, 0.05240804, -0.98796576, -0.14552082, 0.0103503475, 0.14624956, -0.9891928, 1.1432788, -1.9939997, -2.6629806)
 bone_name = "Foot.L"
 bone_idx = 10
 
@@ -539,7 +539,7 @@ transform = Transform3D(0.9999999, -6.2522246e-05, -1.3675541e-05, 6.259687e-05,
 shape = SubResource("CapsuleShape3D_coeo4")
 
 [node name="RLegsHurtboxAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="10" unique_id=802473642]
-transform = Transform3D(0.99856144, -0.020961363, -0.04935124, -0.05272802, -0.55092275, -0.83288836, -0.009730205, 0.8342911, -0.5512357, -1.0622152, -3.0795307, -2.2182555)
+transform = Transform3D(0.99855727, -0.00657445, -0.05329247, -0.052575223, -0.3214455, -0.9454664, -0.010914557, 0.9469049, -0.32132667, -1.0472605, -3.231762, 1.5013105)
 bone_name = "Foot.R"
 bone_idx = 13
 
@@ -551,7 +551,7 @@ transform = Transform3D(0.9999999, -6.2522246e-05, -1.3675541e-05, 6.259687e-05,
 shape = SubResource("CapsuleShape3D_coeo4")
 
 [node name="LArmsHurtbugAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="11" unique_id=1195348115]
-transform = Transform3D(-0.75096583, 0.6603415, -1.16625586e-07, -0.66034144, -0.7509658, -2.1405612e-07, -2.2893191e-07, -8.37361e-08, 1.0000001, 1.9708824, 2.4590733, 7.534316e-05)
+transform = Transform3D(-0.75096583, 0.6603415, -1.16625586e-07, -0.66034144, -0.7509658, -2.1405612e-07, -2.2893191e-07, -8.37361e-08, 1.0000001, 1.9708824, 2.414014, 7.533371e-05)
 bone_name = "UpperArm.L"
 bone_idx = 15
 
@@ -563,7 +563,7 @@ transform = Transform3D(0.9999999, -6.246573e-05, -1.3675606e-05, 6.264448e-05, 
 shape = SubResource("CapsuleShape3D_coeo4")
 
 [node name="RArmsHurtbugAttach" type="BoneAttachment3D" parent="Player/Skeleton3D" index="12" unique_id=1747730692]
-transform = Transform3D(-0.7613101, -0.6480525, 0.020863837, 0.53948355, -0.6152609, 0.5748146, -0.3596733, 0.44886774, 0.81801784, -1.9705008, 2.4580107, 0.017886095)
+transform = Transform3D(-0.7613101, -0.6480525, 0.020863837, 0.53948355, -0.6152609, 0.5748146, -0.3596733, 0.44886774, 0.81801784, -1.970501, 2.4129515, 0.017886084)
 bone_name = "UpperArm.R"
 bone_idx = 19
 
@@ -584,3 +584,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 
 [node name="HandMarker" type="Marker3D" parent="." index="4" unique_id=2042887779]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+
+[connection signal="hit" from="Player/Skeleton3D/HeadHurtboxAttach/Hurtbox" to="." method="_on_head_hurtbox_hit"]
+[connection signal="hit" from="Player/Skeleton3D/BodyHurtboxAttach/Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="hit" from="Player/Skeleton3D/LLegsHurtboxAttach/Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="hit" from="Player/Skeleton3D/RLegsHurtboxAttach/Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="hit" from="Player/Skeleton3D/LArmsHurtbugAttach/Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="hit" from="Player/Skeleton3D/RArmsHurtbugAttach/Hurtbox" to="." method="_on_hurtbox_hit"]

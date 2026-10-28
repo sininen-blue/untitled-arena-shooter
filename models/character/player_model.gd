@@ -2,8 +2,8 @@ class_name PlayerModel
 extends Node3D
 
 
-signal head_hit
-signal body_hit
+signal head_hit(damage: float, source: Area3D)
+signal body_hit(damage: float, source: Area3D)
 
 
 const Y_STRAIGHT: float = 1.0
@@ -220,3 +220,11 @@ func _pitch_to_marker_y(pitch_degrees: float) -> float:
 	if pitch_degrees >= 0.0:
 		return remap(pitch_degrees, 0.0, 85.0, Y_STRAIGHT, Y_UP)
 	return remap(pitch_degrees, 0.0, -85.0, Y_STRAIGHT, Y_DOWN)
+
+
+func _on_hurtbox_hit(damage: float, source: Area3D) -> void:
+	head_hit.emit(damage, source)
+
+
+func _on_head_hurtbox_hit(damage: float, source: Area3D) -> void:
+	body_hit.emit(damage, source)
