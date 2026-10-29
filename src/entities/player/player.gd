@@ -93,9 +93,6 @@ var is_zoomed: bool = false
 @onready var crosshair: Crosshair = $Hud/Control/Crosshair
 @onready var sniper_scope: ColorRect = %SniperScope
 
-@onready var head_hurtbox: HurtboxArea = $HeadHurtbox
-@onready var body_hurtbox: HurtboxArea = $BodyHurtbox
-
 @onready var parry_effect: ParryEffect = $ParryEffect
 @onready var run_particle: RunParticle = $RunParticle
 
@@ -368,22 +365,10 @@ func apply_host_state(hp: float, now_dead: bool) -> void:
 		locked = true
 		visible = false
 		position.y = -500
-		_set_hurtboxes_active(false)
 		killed.emit(0, self)
 	elif not now_dead:
 		is_dead = false
 		visible = true
-		_set_hurtboxes_active(true)
-
-
-func _set_hurtboxes_active(active: bool) -> void:
-	var layer := 4 if active else 0
-	var mask := 8 if active else 0
-	for hurtbox in [head_hurtbox, body_hurtbox]:
-		hurtbox.collision_layer = layer
-		hurtbox.collision_mask = mask
-		hurtbox.monitoring = active
-		hurtbox.monitorable = active
 
 
 func get_weapon(weapon_instance: HitscanWeapon) -> void:

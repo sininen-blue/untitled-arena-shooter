@@ -11,6 +11,7 @@ const IP_ADDR: String = "localhost"
 const PORT: int = 8500
 const MAX_PLAYERS: int = 8
 const ACK_TIMEOUT: float = 5.0
+const MAX_NAME_LENGTH: int = 16
 const MAIN_MENU_SCENE: String = "res://src/ui/main_menu/main_menu.tscn"
 const DEFAULT_NAMES: Array[String] = ["Host", "Player 2", "Player 3", "Player 4"]
 
@@ -108,6 +109,10 @@ func request_ready_update(is_ready: bool) -> void:
 	_update_ready.rpc_id(1, is_ready)
 
 
+func request_name_update(player_name: String) -> void:
+	_update_name.rpc_id(1, player_name)
+
+
 func get_local_ip() -> String:
 	var addresses = IP.get_local_addresses()
 	var candidates = []
@@ -202,6 +207,23 @@ func _update_ready(is_ready: bool) -> void:
 		return
 
 	players[id]["is_ready"] = is_ready
+	_sync_players.rpc(players)
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _update_name(player_name: String) -> void:
+	if not multiplayer.is_server() or match_started:
+		return
+
+	var id: int = Utils.sender_id(self)
+	if not players.has(id):
+		return
+
+	var cleaned := player_name.strip_edges().substr(0, MAX_NAME_LENGTH)
+	if cleaned.is_empty() or cleaned == str(players[id].get("name", "")):
+		return
+
+	players[id]["name"] = cleaned
 	_sync_players.rpc(players)
 
 

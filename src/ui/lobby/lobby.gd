@@ -10,6 +10,8 @@ extends Control
 @onready var server_ip_label: Label = $ServerIPLabel
 @onready var start_button: AnimatedButton = $StartButton
 @onready var ready_button: AnimatedButton = $ReadyButton
+@onready var name_input: AnimatedLineEdit = $NameInput
+@onready var name_save_button: AnimatedButton = $NameInput/NameSaveButton
 
 
 func _ready() -> void:
@@ -36,6 +38,8 @@ func _ready() -> void:
 			ready_button.text = "Unready?"
 		else:
 			ready_button.text = "Ready!"
+
+	_fill_name_input()
 
 
 func _add_player_card(id: int, player_name: String, is_ready: bool) -> void:
@@ -87,6 +91,8 @@ func _on_players_changed() -> void:
 		else:
 			ready_button.text = "Ready!"
 
+	_fill_name_input()
+
 
 func _on_ready_button_pressed() -> void:
 	NetworkManager.request_ready_update(ready_button.text == "Ready!")
@@ -98,3 +104,24 @@ func _on_back_button_pressed() -> void:
 
 func _on_start_button_pressed() -> void:
 	NetworkManager.start_game(start_target)
+
+
+func _on_name_save_button_pressed() -> void:
+	var cleaned: String = name_input.text.strip_edges()
+
+	if cleaned.is_empty():
+		return
+
+	NetworkManager.request_name_update(cleaned)
+	name_input.release_focus()
+
+
+func _fill_name_input() -> void:
+	if name_input.has_focus():
+		return
+
+	var id: int = multiplayer.get_unique_id()
+	if not NetworkManager.players.has(id):
+		return
+
+	name_input.text = str(NetworkManager.players[id].get("name", ""))

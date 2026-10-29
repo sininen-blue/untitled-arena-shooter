@@ -166,3 +166,4 @@ metadata/_custom_type_script = "uid://wkbdu3t26c5k"
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ReadyButton" to="." method="_on_ready_button_pressed"]
+[connection signal="pressed" from="NameInput/NameSaveButton" to="." method="_on_name_save_button_pressed"]
