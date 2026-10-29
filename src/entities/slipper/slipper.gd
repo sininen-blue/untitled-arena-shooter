@@ -13,11 +13,13 @@ var pending_impulse: Vector3
 
 var can_bounce: bool = true
 var has_sender_immune: bool = true
+var particles_stopped: bool = false
 var immunity_left: float = 0.0
 
 
 @onready var despawn_timer: Timer = $DespawnTimer
 @onready var damage_hitbox: HitboxArea = $DamageHitbox
+@onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 
 
 func _ready() -> void:
@@ -39,6 +41,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if despawn_timer.time_left < 1.0 and particles_stopped == false:
+		particles_stopped = true
+		gpu_particles_3d.emitting = false
+
 	if self.get_contact_count() > 0 and can_bounce:
 		despawn_timer.start(bounce_despawn_duration)
 		can_bounce = false
