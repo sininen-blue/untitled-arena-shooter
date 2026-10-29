@@ -12,6 +12,7 @@ sky_material = SubResource("PanoramaSkyMaterial_3asdc")
 background_mode = 2
 sky = SubResource("Sky_imnn4")
 ssao_enabled = true
+ssil_enabled = true
 glow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" unique_id=894388480]
