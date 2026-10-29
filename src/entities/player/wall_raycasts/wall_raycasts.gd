@@ -40,6 +40,10 @@ func front_is_colliding() -> bool:
 	return false
 
 
+func get_front_collider() -> Object:
+	return front.get_collider()
+
+
 func only_front_bottom_is_colliding() -> bool:
 	if front_top.is_colliding():
 		return false

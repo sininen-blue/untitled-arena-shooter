@@ -7,12 +7,19 @@
 [ext_resource type="PackedScene" uid="uid://cywkiulllec6l" path="res://src/entities/weapon_pickup/weapon_pickup.tscn" id="3_yfjtn"]
 [ext_resource type="Material" uid="uid://l87j7ynb21jo" path="res://src/materials/prototype/orange_prototype.tres" id="4_ddon1"]
 [ext_resource type="PackedScene" uid="uid://d0yy84hmn0ym0" path="res://src/entities/weapons/test_weapon/test_shotgun.tscn" id="4_dn2x5"]
+[ext_resource type="Material" uid="uid://cfjkijtb7j7ct" path="res://src/materials/prototype/purple_prototype_outlined.tres" id="5_2i02x"]
 [ext_resource type="PackedScene" uid="uid://bo1wi0v5j007m" path="res://src/entities/weapons/test_weapon/test_pistol.tscn" id="5_ue285"]
 [ext_resource type="PackedScene" uid="uid://47y5cm83203t" path="res://src/entities/weapons/test_weapon/test_rifle.tscn" id="6_g2i6m"]
 
 [node name="TestArena2" type="Node" unique_id=1285955236]
 script = ExtResource("1_q5tjq")
 metadata/_custom_type_script = "uid://bs3ofjxxuwi0"
+
+[node name="LadderTest" type="CSGBox3D" parent="." unique_id=1089772497 groups=["ladder"]]
+transform = Transform3D(0.59749407, 0, 0.8018733, 0, 1, 0, -0.8018733, 0, 0.59749407, -5.751254, 4.064209, -3.2897232)
+use_collision = true
+size = Vector3(1, 9.128418, 1)
+material = ExtResource("5_2i02x")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1884356075]
 autosmooth = true

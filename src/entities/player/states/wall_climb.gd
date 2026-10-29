@@ -45,7 +45,10 @@ func exit(new_state: State) -> void:
 
 
 func update(_delta: float) -> void:
-	pass
+	if wall_raycasts.front_is_colliding():
+		var wall: Node = wall_raycasts.get_front_collider()
+		if wall and wall.is_in_group("ladder"):
+			time = 0
 
 
 func physics_update(delta: float) -> void:

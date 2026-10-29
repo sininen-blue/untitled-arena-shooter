@@ -104,6 +104,7 @@ var is_zoomed: bool = false
 @onready var hurt_sound: AudioStreamPlayer3D = $Sounds/HurtSound
 
 @onready var player_model: PlayerModel = $PlayerModel
+@onready var player_name: Label3D = $PlayerName
 
 
 func _enter_tree() -> void:
@@ -123,11 +124,17 @@ func _ready() -> void:
 		damage_handler = get_parent().damage_handler
 		parry_handler = get_parent().parry_handler
 
+
+	var peer_id: int = name.to_int()
+	if NetworkManager.players.has(peer_id):
+		player_name.text = str(NetworkManager.players[peer_id].get("name", "Player"))
+
 	if Utils.is_remote(self):
 		hud.visible = false
 		shaders.visible = false
 		return
-	
+
+	player_name.visible = false
 	player_model.visible = false
 	hud.visible = true
 	shaders.visible = true
