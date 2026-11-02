@@ -28,8 +28,8 @@ signal killed(by: int, player: Player)
 @export var pitch_degrees: float = 0.0
 
 @export_group("Slipper_related")
-@export var slipper_throw_force: float = 12.0
-@export var parry_force: float = 15.0
+@export var slipper_throw_force: float = 14.0
+@export var parry_force: float = 17.0
 @export var max_slipper_ammo: int = 2
 @export var current_slipper_ammo: int = 2
 

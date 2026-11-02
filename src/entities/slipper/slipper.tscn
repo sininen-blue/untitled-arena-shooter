@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dyx4bp4pq7ecf"]
 
 [ext_resource type="Script" uid="uid://bmt2ngivsr1y2" path="res://src/entities/slipper/slipper.gd" id="1_2ukko"]
-[ext_resource type="Material" uid="uid://cfjkijtb7j7ct" path="res://src/materials/prototype/purple_prototype_outlined.tres" id="2_7n4v2"]
+[ext_resource type="Material" uid="uid://pcchch5qrrin" path="res://src/materials/player_hit.tres" id="2_32gp0"]
 [ext_resource type="PackedScene" uid="uid://dnrnx08rthj4" path="res://src/resources/hitbox/hitbox_area.tscn" id="2_74trw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2in8s"]
@@ -35,7 +35,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_32gp0")
 
 [sub_resource type="SphereMesh" id="SphereMesh_32gp0"]
-material = ExtResource("2_7n4v2")
+material = ExtResource("2_32gp0")
 radius = 0.125
 height = 0.25
 radial_segments = 8
@@ -63,7 +63,7 @@ shape = SubResource("SphereShape3D_2ukko")
 
 [node name="DebugModel" type="CSGBox3D" parent="." unique_id=1474333976]
 size = Vector3(0.4, 0.05, 0.2)
-material = ExtResource("2_7n4v2")
+material = ExtResource("2_32gp0")
 
 [node name="ParryHitbox" type="Area3D" parent="." unique_id=1680758804]
 collision_layer = 32
