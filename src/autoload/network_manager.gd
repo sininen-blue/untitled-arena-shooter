@@ -10,7 +10,7 @@ signal session_ended()
 const IP_ADDR: String = "localhost"
 const PORT: int = 8500
 const MAX_PLAYERS: int = 8
-const ACK_TIMEOUT: float = 5.0
+const ACK_TIMEOUT: float = 10.0
 const MAX_NAME_LENGTH: int = 16
 const MAIN_MENU_SCENE: String = "res://src/ui/main_menu/main_menu.tscn"
 const DEFAULT_NAMES: Array[String] = ["Host", "Player 2", "Player 3", "Player 4"]
