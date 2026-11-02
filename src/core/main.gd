@@ -210,8 +210,9 @@ func _record_death(id: int) -> void:
 		return
 
 	players_killed.append(id)
-	if players_killed.size() != NetworkManager.players.size() - 1:
-		return
+	if NetworkManager.players.size() > 1:
+		if players_killed.size() != NetworkManager.players.size() - 1:
+			return
 
 	phase = Phase.ENDING
 	_set_locked.rpc(true)
