@@ -10,7 +10,20 @@
 [ext_resource type="PackedScene" uid="uid://d0yy84hmn0ym0" path="res://src/entities/weapons/test_weapon/test_shotgun.tscn" id="8_1pv3m"]
 [ext_resource type="Script" uid="uid://xkdopr2ibqu2" path="res://src/utils/others/ship_route.gd" id="9_4ny0e"]
 [ext_resource type="PackedScene" uid="uid://c04wwflcei212" path="res://models/others/ship.glb" id="9_xrdq1"]
-[ext_resource type="Texture2D" uid="uid://cr0mi4cbelxx2" path="res://assets/textures/decals/Newspaper.png" id="11_1pv3m"]
+[ext_resource type="PackedScene" uid="uid://csvyjw310lisu" path="res://src/decals/litter_1.tscn" id="12_p5dfu"]
+[ext_resource type="Texture2D" uid="uid://uw7mp0gy2a1n" path="res://assets/textures/decals/Ground/Litter3.png" id="13_jgqod"]
+[ext_resource type="Texture2D" uid="uid://bevo6n3omhchp" path="res://assets/textures/decals/Ground/Litter2.png" id="13_yi2r0"]
+[ext_resource type="Texture2D" uid="uid://g08anqtcrn5e" path="res://assets/textures/decals/Ground/Litter5.png" id="14_4rtdt"]
+[ext_resource type="PackedScene" uid="uid://dcmsbu0q41n15" path="res://src/decals/bawal.tscn" id="14_551mu"]
+[ext_resource type="Texture2D" uid="uid://biwjqkydod0hy" path="res://assets/textures/decals/Ground/Litter7.png" id="15_sj7fs"]
+[ext_resource type="PackedScene" uid="uid://n7162xwoeoyw" path="res://src/decals/crab.tscn" id="15_x3c7g"]
+[ext_resource type="Texture2D" uid="uid://bphl5wo0crlr8" path="res://assets/textures/decals/Ground/Litter8.png" id="16_4cmbm"]
+[ext_resource type="PackedScene" uid="uid://cgmgb84oqvcko" path="res://src/decals/lando.tscn" id="16_nvk1c"]
+[ext_resource type="PackedScene" uid="uid://bawqpqgmocyh3" path="res://src/decals/skull.tscn" id="17_kv6p2"]
+[ext_resource type="Texture2D" uid="uid://byji6pmg6ql62" path="res://assets/textures/decals/Ground/Litter4.png" id="17_w827h"]
+[ext_resource type="Texture2D" uid="uid://bukdy254owm3h" path="res://assets/textures/decals/Ground/Litter9.png" id="18_g326b"]
+[ext_resource type="Texture2D" uid="uid://u8ttld41ewxl" path="res://assets/textures/decals/Ground/Litter6.png" id="19_uhu8t"]
+[ext_resource type="Texture2D" uid="uid://cgmxavwebwys4" path="res://assets/textures/decals/Ground/Litter10.png" id="20_xwjfp"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8hnee"]
 
@@ -129,6 +142,7 @@ metadata/_custom_type_script = "uid://bs3ofjxxuwi0"
 
 [node name="UrbanMapModel" parent="." unique_id=2030331354 instance=ExtResource("2_i0mgc")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.6304642, 0)
+metadata/_edit_lock_ = true
 
 [node name="WaterMesh" type="MeshInstance3D" parent="." unique_id=1225568091]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27025986, 0)
@@ -198,7 +212,7 @@ size = Vector3(200, 38.60498, 200)
 material = SubResource("StandardMaterial3D_crd4b")
 
 [node name="ShipRoute" type="Node3D" parent="." unique_id=329050132]
-transform = Transform3D(-0.1212826, -0.016774893, -0.9924762, 0, 0.999857, -0.016899647, 0.9926177, -0.0020496335, -0.12126531, -79.68164, -1.3568001, -9.735872)
+transform = Transform3D(-0.1212826, -0.016774876, -0.9924763, 0, 0.99985594, -0.016899649, 0.9926177, -0.0020496314, -0.121265315, -79.68164, -1.3568001, -9.735872)
 script = ExtResource("9_4ny0e")
 
 [node name="RouteAnimation" type="AnimationPlayer" parent="ShipRoute" unique_id=1691941729]
@@ -215,8 +229,588 @@ autoplay = &"bob"
 
 [node name="Decals" type="Node" parent="." unique_id=497475374]
 
-[node name="Decal" type="Decal" parent="Decals" unique_id=59914890]
-transform = Transform3D(0.56315, 0, -0.8263547, 0, 1, 0, 0.8263547, 0, 0.56315, 5.583003, 5.667473, -4.0451555)
-size = Vector3(1, 1, 1)
-texture_albedo = ExtResource("11_1pv3m")
-albedo_mix = 0.9
+[node name="Litter" type="Node" parent="Decals" unique_id=926003824]
+
+[node name="Litter1" parent="Decals/Litter" unique_id=225086874 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.3141018, 0, -0.94938904, 0, 1, 0, 0.94938904, 0, -0.3141018, -4.7161026, 8.126596, 10.771112)
+cull_mask = 1048063
+
+[node name="Litter3" parent="Decals/Litter" unique_id=329358287 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.28796688, 0, -0.95764023, 0, 1, 0, 0.95764023, 0, 0.28796688, -4.034192, 8.126596, 10.089387)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter4" parent="Decals/Litter" unique_id=2011267046 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.7648166, 0, -0.64424783, 0, 1, 0, 0.64424783, 0, 0.7648166, -3.218442, 8.126596, 9.803989)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter5" parent="Decals/Litter" unique_id=876561421 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.7209774, 0, -0.6929586, 0, 1, 0, 0.6929586, 0, -0.7209774, -1.2778783, 8.126596, 3.2688274)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter6" parent="Decals/Litter" unique_id=2133955507 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9953359, 0, -0.09646925, 0, 1, 0, 0.09646925, 0, -0.9953359, -0.6793013, 8.126596, 3.8316631)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter7" parent="Decals/Litter" unique_id=504462689 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.513278, 0, -0.8582221, 0, 1, 0, 0.8582221, 0, 0.513278, -13.209428, 3.3229532, -22.506088)
+cull_mask = 1048063
+
+[node name="Litter8" parent="Decals/Litter" unique_id=2089041375 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.81829894, 0, -0.57479256, 0, 1, 0, 0.57479256, 0, 0.81829894, -12.492421, 3.3229532, -22.381868)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter9" parent="Decals/Litter" unique_id=857769117 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9101286, 0, 0.4143255, 0, 1, 0, -0.4143255, 0, -0.9101286, -11.982083, 3.3229532, -21.69205)
+texture_albedo = ExtResource("20_xwjfp")
+cull_mask = 1048063
+
+[node name="Litter10" parent="Decals/Litter" unique_id=640351550 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.7211012, 0, 0.6928296, 0, 1, 0, -0.6928296, 0, -0.7211012, -12.844036, 3.3229532, -21.195364)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter11" parent="Decals/Litter" unique_id=148363638 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.77758133, 0, -0.6287819, 0, 1, 0, 0.6287819, 0, -0.77758133, -11.516868, 3.3229527, -20.628153)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter12" parent="Decals/Litter" unique_id=1699560015 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9955808, 0, -0.093909115, 0, 1, 0, 0.093909115, 0, -0.9955808, -13.922875, 3.3229527, -12.666456)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter13" parent="Decals/Litter" unique_id=1178467879 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.09129002, 0, 0.99582434, 0, 1, 0, -0.99582434, 0, -0.09129002, -16.224575, 3.3229527, -6.624013)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter14" parent="Decals/Litter" unique_id=216175398 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.57928216, 0, 0.8151269, 0, 1, 0, -0.8151269, 0, -0.57928216, -15.064853, 2.930225, -3.4299088)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter15" parent="Decals/Litter" unique_id=1884000933 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9485046, 0, 0.31676307, 0, 1, 0, -0.31676307, 0, -0.9485046, -22.182568, 0.5002909, 2.359536)
+texture_albedo = ExtResource("16_4cmbm")
+cull_mask = 1048063
+
+[node name="Litter16" parent="Decals/Litter" unique_id=1797149278 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.14088145, 0, 0.9900265, 0, 1, 0, -0.9900265, 0, -0.14088145, -31.894543, 5.279501, 13.877632)
+cull_mask = 1048063
+
+[node name="Litter17" parent="Decals/Litter" unique_id=479971505 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.18866605, 0, -0.9820412, 0, 1, 0, 0.9820412, 0, -0.18866605, -31.173115, 5.279501, 13.877632)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter18" parent="Decals/Litter" unique_id=167707820 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.051198978, 0, -0.9986882, 0, 1, 0, 0.9986882, 0, 0.051198978, -30.480158, 5.279501, 14.289656)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter19" parent="Decals/Litter" unique_id=953723789 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.14137901, 0, -0.98995525, 0, 1, 0, 0.98995525, 0, -0.14137901, -30.480158, 5.279501, 13.080072)
+cull_mask = 1048063
+
+[node name="Litter20" parent="Decals/Litter" unique_id=1256595786 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.7883895, 0, 0.6151762, 0, 1, 0, -0.6151762, 0, -0.7883895, -24.862873, 5.279501, 20.194878)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter21" parent="Decals/Litter" unique_id=1091372122 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.92522764, 0, 0.3794118, 0, 1, 0, -0.3794118, 0, -0.92522764, -15.438845, 4.3131437, 21.51723)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter22" parent="Decals/Litter" unique_id=243789545 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.28617966, 0, -0.9581758, 0, 1, 0, 0.9581758, 0, -0.28617966, -10.996753, 4.3131437, 42.52377)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter23" parent="Decals/Litter" unique_id=1862721921 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.8973852, 0, -0.44124773, 0, 1, 0, 0.44124773, 0, -0.8973852, -10.531928, 4.3131437, 42.12521)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter24" parent="Decals/Litter" unique_id=1498722873 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.31690127, 0, 0.9484583, 0, 1, 0, -0.9484583, 0, -0.31690127, -10.810365, 4.3131437, 41.53398)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter25" parent="Decals/Litter" unique_id=265740966 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.6496016, 0, 0.76027465, 0, 1, 0, -0.76027465, 0, -0.6496016, -10.658255, 4.3131437, 40.63758)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter26" parent="Decals/Litter" unique_id=1354438440 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.41192165, 0, -0.9112191, 0, 1, 0, 0.9112191, 0, 0.41192165, -10.368124, 4.3131437, 43.930588)
+texture_albedo = ExtResource("16_4cmbm")
+cull_mask = 1048063
+
+[node name="Litter27" parent="Decals/Litter" unique_id=1369769717 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.48160258, 0, -0.87638974, 0, 1, 0, 0.87638974, 0, -0.48160258, -9.381982, 4.3131437, 44.363777)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter28" parent="Decals/Litter" unique_id=553803523 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9200029, 0, 0.39191145, 0, 1, 0, -0.39191145, 0, 0.9200029, -9.381982, 4.3131437, 44.363777)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter29" parent="Decals/Litter" unique_id=1189188815 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.055563115, 0, -0.9984551, 0, 1, 0, 0.9984551, 0, -0.055563115, -13.67546, 4.3131437, 42.794083)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter88" parent="Decals/Litter" unique_id=1668603733 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.98366904, 0, 0.1799856, 0, 1, 0, -0.1799856, 0, 0.98366904, -17.548433, 4.3131437, 37.265083)
+cull_mask = 1048063
+
+[node name="Litter89" parent="Decals/Litter" unique_id=1455761347 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.76591456, 0, -0.64294225, 0, 1, 0, 0.64294225, 0, -0.76591456, -15.865692, 4.3131437, 37.238373)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter90" parent="Decals/Litter" unique_id=40419087 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.37475348, 0, -0.9271242, 0, 1, 0, 0.9271242, 0, 0.37475348, -20.48655, 4.3131437, 34.75433)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter91" parent="Decals/Litter" unique_id=758502776 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.6343833, 0, 0.7730185, 0, 1, 0, -0.7730185, 0, 0.6343833, -14.984257, 4.3131437, 30.293734)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter92" parent="Decals/Litter" unique_id=1728891225 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.49541405, 0, 0.8686568, 0, 1, 0, -0.8686568, 0, -0.49541405, -12.900866, 4.3131437, 29.999922)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter93" parent="Decals/Litter" unique_id=1787351336 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.11326509, 0, 0.99356467, 0, 1, 0, -0.99356467, 0, -0.11326509, -13.62204, 4.3131437, 31.442272)
+texture_albedo = ExtResource("16_4cmbm")
+cull_mask = 1048063
+
+[node name="Litter94" parent="Decals/Litter" unique_id=1587457037 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.055713937, 0, -0.9984465, 0, 1, 0, 0.9984465, 0, 0.055713937, -11.565357, 4.3131437, 30.213602)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter95" parent="Decals/Litter" unique_id=1330658792 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.23652619, 0, -0.9716249, 0, 1, 0, 0.9716249, 0, -0.23652619, -19.313131, 4.3131437, 13.588748)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter96" parent="Decals/Litter" unique_id=536171782 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.97197556, 0, 0.23508118, 0, 1, 0, -0.23508118, 0, 0.97197556, -20.44502, 4.3131437, 13.714513)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter97" parent="Decals/Litter" unique_id=1230768169 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.93325806, 0, 0.35920596, 0, 1, 0, -0.35920596, 0, -0.93325806, -17.42665, 4.3131437, 14.846402)
+cull_mask = 1048063
+
+[node name="Litter98" parent="Decals/Litter" unique_id=307737520 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.88358146, 0, -0.46827704, 0, 1, 0, 0.46827704, 0, -0.88358146, -15.62401, 4.3131437, 13.001842)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter99" parent="Decals/Litter" unique_id=780413168 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.77309895, 0, -0.6342848, 0, 1, 0, 0.6342848, 0, -0.77309895, -16.96551, 4.3131437, 9.815783)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter100" parent="Decals/Litter" unique_id=1239570248 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.5367325, 0, -0.8437524, 0, 1, 0, 0.8437524, 0, -0.5367325, -18.935835, 4.3131437, 10.025392)
+cull_mask = 1048063
+
+[node name="Litter101" parent="Decals/Litter" unique_id=1915818982 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.5640377, 0, -0.82574886, 0, 1, 0, 0.82574886, 0, 0.5640377, -18.935835, 4.3131437, 10.025392)
+cull_mask = 1048063
+
+[node name="Litter30" parent="Decals/Litter" unique_id=1568739413 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9989797, 0, -0.045155734, 0, 1, 0, 0.045155734, 0, -0.9989797, -14.621185, 4.3131437, 43.19832)
+texture_albedo = ExtResource("19_uhu8t")
+cull_mask = 1048063
+
+[node name="Litter31" parent="Decals/Litter" unique_id=1566023001 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.88552153, 0, 0.46459806, 0, 1, 0, -0.46459806, 0, 0.88552153, -20.135841, 4.3131437, 44.09069)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter32" parent="Decals/Litter" unique_id=227154174 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.5380637, 0, -0.8429037, 0, 1, 0, 0.8429037, 0, -0.5380637, -20.253435, 4.3131437, 41.591667)
+texture_albedo = ExtResource("16_4cmbm")
+cull_mask = 1048063
+
+[node name="Litter33" parent="Decals/Litter" unique_id=464691707 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.10389473, 0, -0.99458814, 0, 1, 0, 0.99458814, 0, -0.10389473, -18.918245, 4.3131437, 40.7007)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter34" parent="Decals/Litter" unique_id=1526815418 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.22814308, 0, 0.97362745, 0, 1, 0, -0.97362745, 0, 0.22814308, -0.5119381, 4.3131437, 44.33645)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter35" parent="Decals/Litter" unique_id=1224655832 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.85039437, 0, 0.52614564, 0, 1, 0, -0.52614564, 0, -0.85039437, -0.5119381, 4.3131437, 44.33645)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter36" parent="Decals/Litter" unique_id=1577987361 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9376817, 0, -0.34749475, 0, 1, 0, 0.34749475, 0, -0.9376817, 5.2720375, 4.3131437, 43.853012)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter37" parent="Decals/Litter" unique_id=1194432241 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.09491371, 0, 0.99548537, 0, 1, 0, -0.99548537, 0, -0.09491371, 5.2720375, 2.289528, 43.98547)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter38" parent="Decals/Litter" unique_id=1952475648 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.6500454, 0, 0.7598951, 0, 1, 0, -0.7598951, 0, -0.6500454, -2.785313, 4.346755, 30.044277)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter39" parent="Decals/Litter" unique_id=1880289966 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.7485267, 0, 0.66310424, 0, 1, 0, -0.66310424, 0, 0.7485267, 5.845995, 4.346755, 29.513258)
+cull_mask = 1048063
+
+[node name="Litter40" parent="Decals/Litter" unique_id=1709621079 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9302467, 0, 0.36693424, 0, 1, 0, -0.36693424, 0, 0.9302467, 4.6182623, 4.346755, 29.505081)
+texture_albedo = ExtResource("20_xwjfp")
+cull_mask = 1048063
+
+[node name="Litter41" parent="Decals/Litter" unique_id=1034583256 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.77501136, 0, -0.6319473, 0, 1, 0, 0.6319473, 0, 0.77501136, 2.9743223, 4.346755, 29.27457)
+cull_mask = 1048063
+
+[node name="Litter42" parent="Decals/Litter" unique_id=1747965214 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.16424428, 0, -0.9864197, 0, 1, 0, 0.9864197, 0, -0.16424428, 11.307089, 5.87656, 38.353928)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter43" parent="Decals/Litter" unique_id=1372062770 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.76168036, 0, 0.6479525, 0, 1, 0, -0.6479525, 0, -0.76168036, 11.229636, 5.87656, 37.155148)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter44" parent="Decals/Litter" unique_id=1134690788 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.8448423, 0, -0.53501517, 0, 1, 0, 0.53501517, 0, -0.8448423, 13.265475, 5.87656, 31.897503)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter45" parent="Decals/Litter" unique_id=954621330 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9554725, 0, 0.29507887, 0, 1, 0, -0.29507887, 0, 0.9554725, 16.225798, 5.87656, 31.638344)
+cull_mask = 1048063
+
+[node name="Litter46" parent="Decals/Litter" unique_id=616261616 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.6031731, 0, -0.79761016, 0, 1, 0, 0.79761016, 0, 0.6031731, 16.065422, 5.87656, 30.594063)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter47" parent="Decals/Litter" unique_id=606252214 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.92960924, 0, -0.36854655, 0, 1, 0, 0.36854655, 0, -0.92960924, 15.797567, 5.8765597, 29.306667)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter48" parent="Decals/Litter" unique_id=944136427 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.1052387, 0, 0.9944468, 0, 1, 0, -0.9944468, 0, 0.1052387, 14.7393265, 5.8765597, 28.96068)
+texture_albedo = ExtResource("19_uhu8t")
+cull_mask = 1048063
+
+[node name="Litter49" parent="Decals/Litter" unique_id=1347200247 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.43119437, 0, 0.90225905, 0, 1, 0, -0.90225905, 0, 0.43119437, 13.949574, 5.8765597, 17.672482)
+cull_mask = 1048063
+
+[node name="Litter50" parent="Decals/Litter" unique_id=36053287 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.43234167, 0, 0.9017095, 0, 1, 0, -0.9017095, 0, -0.43234167, 14.666307, 5.8765597, 17.716385)
+texture_albedo = ExtResource("16_4cmbm")
+cull_mask = 1048063
+
+[node name="Litter51" parent="Decals/Litter" unique_id=867321879 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.21003826, 0, -0.977693, 0, 1, 0, 0.977693, 0, -0.21003826, 14.821946, 5.8765597, 18.75695)
+texture_albedo = ExtResource("19_uhu8t")
+cull_mask = 1048063
+
+[node name="Litter52" parent="Decals/Litter" unique_id=332244087 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9993093, 0, -0.03715884, 0, 1, 0, 0.03715884, 0, -0.9993093, 15.415313, 5.8765597, 18.09563)
+texture_albedo = ExtResource("20_xwjfp")
+cull_mask = 1048063
+
+[node name="Litter53" parent="Decals/Litter" unique_id=408481718 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9978528, 0, -0.06549635, 0, 1, 0, 0.06549635, 0, -0.9978528, 16.567272, 5.8765597, 18.503143)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter54" parent="Decals/Litter" unique_id=825905762 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.5143289, 0, -0.857593, 0, 1, 0, 0.857593, 0, -0.5143289, 7.832423, 5.87656, 23.161201)
+texture_albedo = ExtResource("20_xwjfp")
+cull_mask = 1048063
+
+[node name="Litter55" parent="Decals/Litter" unique_id=2114518539 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.34175366, 0, 0.93978935, 0, 1, 0, -0.93978935, 0, -0.34175366, 8.678571, 5.87656, 23.048397)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter56" parent="Decals/Litter" unique_id=164945238 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9010144, 0, 0.43378872, 0, 1, 0, -0.43378872, 0, 0.9010144, 9.378528, 5.87656, 23.856056)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter57" parent="Decals/Litter" unique_id=1197889809 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.99078774, 0, 0.13542236, 0, 1, 0, -0.13542236, 0, 0.99078774, 10.281812, 5.87656, 23.248003)
+texture_albedo = ExtResource("19_uhu8t")
+cull_mask = 1048063
+
+[node name="Litter58" parent="Decals/Litter" unique_id=973292493 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.22444099, 0, -0.97448754, 0, 1, 0, 0.97448754, 0, 0.22444099, 8.357668, 5.87656, 24.567528)
+cull_mask = 1048063
+
+[node name="Litter59" parent="Decals/Litter" unique_id=2016223831 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.4274945, 0, 0.90401775, 0, 1, 0, -0.90401775, 0, -0.4274945, 11.870084, 5.87656, 21.677593)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter60" parent="Decals/Litter" unique_id=2034260652 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.29607648, 0, 0.95516396, 0, 1, 0, -0.95516396, 0, -0.29607648, 9.093347, 5.87656, 19.009539)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter61" parent="Decals/Litter" unique_id=1322587928 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.11442006, 0, -0.9934321, 0, 1, 0, 0.9934321, 0, 0.11442006, 10.298375, 5.87656, 19.370754)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter62" parent="Decals/Litter" unique_id=492595965 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9285972, 0, 0.37108898, 0, 1, 0, -0.37108898, 0, 0.9285972, 9.1477785, 5.87656, 17.131964)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter63" parent="Decals/Litter" unique_id=1461773205 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.81459624, 0, -0.5800282, 0, 1, 0, 0.5800282, 0, -0.81459624, 9.866403, 5.87656, 15.927206)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter64" parent="Decals/Litter" unique_id=1918684118 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.93997514, 0, -0.34124207, 0, 1, 0, 0.34124207, 0, -0.93997514, 7.7562532, 4.6973686, 6.051326)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter65" parent="Decals/Litter" unique_id=365360457 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.09179145, 0, -0.995778, 0, 1, 0, 0.995778, 0, 0.09179145, 7.281522, 4.6973686, 6.6454973)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter66" parent="Decals/Litter" unique_id=683436037 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9884631, 0, 0.15145949, 0, 1, 0, -0.15145949, 0, -0.9884631, 10.184146, 4.6973686, 5.1582875)
+texture_albedo = ExtResource("19_uhu8t")
+cull_mask = 1048063
+
+[node name="Litter67" parent="Decals/Litter" unique_id=1233470306 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9929934, 0, -0.118168876, 0, 1, 0, 0.118168876, 0, 0.9929934, 11.727072, 4.6973686, 5.1959076)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter68" parent="Decals/Litter" unique_id=2124280977 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.996109, 0, 0.08812494, 0, 1, 0, -0.08812494, 0, 0.996109, 12.909591, 4.6973686, 6.8276715)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter69" parent="Decals/Litter" unique_id=456159974 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.9519912, 0, 0.30612457, 0, 1, 0, -0.30612457, 0, 0.9519912, 2.685926, 5.946596, -2.1914134)
+cull_mask = 1048063
+
+[node name="Litter70" parent="Decals/Litter" unique_id=839757200 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.18397966, 0, 0.98292994, 0, 1, 0, -0.98292994, 0, -0.18397966, 3.9855156, 5.946596, -2.1976786)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter71" parent="Decals/Litter" unique_id=818274826 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.50224257, 0, -0.86472666, 0, 1, 0, 0.86472666, 0, -0.50224257, 5.618811, 5.946596, -0.7146685)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter72" parent="Decals/Litter" unique_id=70716575 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9996921, 0, -0.024806662, 0, 1, 0, 0.024806662, 0, -0.9996921, 3.887958, 5.946596, -2.80145)
+cull_mask = 1048063
+
+[node name="Litter73" parent="Decals/Litter" unique_id=702433572 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.9984102, 0, 0.056360714, 0, 1, 0, -0.056360714, 0, -0.9984102, -2.4499903, 3.8474774, -22.287598)
+texture_albedo = ExtResource("13_yi2r0")
+cull_mask = 1048063
+
+[node name="Litter74" parent="Decals/Litter" unique_id=1099801541 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.99713206, 0, 0.07567824, 0, 1, 0, -0.07567824, 0, -0.99713206, -2.6995387, 3.8474774, -22.788609)
+cull_mask = 1048063
+
+[node name="Litter75" parent="Decals/Litter" unique_id=661558755 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.79921216, 0, 0.60104865, 0, 1, 0, -0.60104865, 0, -0.79921216, -2.5618286, 3.8474774, -21.000362)
+texture_albedo = ExtResource("20_xwjfp")
+cull_mask = 1048063
+
+[node name="Litter76" parent="Decals/Litter" unique_id=670012439 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.2875414, 0, -0.9577681, 0, 1, 0, 0.9577681, 0, -0.2875414, -4.8098288, 3.8474774, -20.548353)
+texture_albedo = ExtResource("20_xwjfp")
+cull_mask = 1048063
+
+[node name="Litter77" parent="Decals/Litter" unique_id=1387151379 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.7136266, 0, -0.7005261, 0, 1, 0, 0.7005261, 0, -0.7136266, -4.830029, 3.8474774, -21.482162)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Litter78" parent="Decals/Litter" unique_id=980907496 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.48119584, 0, -0.87661296, 0, 1, 0, 0.87661296, 0, -0.48119584, -8.377405, 3.8474774, -21.687937)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter79" parent="Decals/Litter" unique_id=1957329480 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.6503189, 0, 0.7596608, 0, 1, 0, -0.7596608, 0, 0.6503189, -8.621563, 3.8474774, -20.542406)
+texture_albedo = ExtResource("17_w827h")
+cull_mask = 1048063
+
+[node name="Litter80" parent="Decals/Litter" unique_id=1569788044 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.44735014, 0, -0.89435875, 0, 1, 0, 0.89435875, 0, -0.44735014, -7.2769966, 3.8474774, -21.289192)
+cull_mask = 1048063
+
+[node name="Litter81" parent="Decals/Litter" unique_id=1291298375 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.7360466, 0, 0.67693084, 0, 1, 0, -0.67693084, 0, 0.7360466, -9.614501, 3.8474774, -16.979048)
+texture_albedo = ExtResource("19_uhu8t")
+cull_mask = 1048063
+
+[node name="Litter82" parent="Decals/Litter" unique_id=595044231 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.36929843, 0, -0.92931074, 0, 1, 0, 0.92931074, 0, 0.36929843, -8.535868, 3.8474774, -16.868076)
+texture_albedo = ExtResource("18_g326b")
+cull_mask = 1048063
+
+[node name="Litter83" parent="Decals/Litter" unique_id=871116021 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.98850703, 0, 0.15117317, 0, 1, 0, -0.15117317, 0, -0.98850703, -7.651066, 3.8474774, -11.26948)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter84" parent="Decals/Litter" unique_id=1296218069 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.40876594, 0, -0.9126391, 0, 1, 0, 0.9126391, 0, 0.40876594, -7.7822437, 4.0274167, -10.387117)
+texture_albedo = ExtResource("15_sj7fs")
+cull_mask = 1048063
+
+[node name="Litter85" parent="Decals/Litter" unique_id=14763789 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.61367863, 0, -0.7895558, 0, 1, 0, 0.7895558, 0, 0.61367863, -6.959424, 4.0274167, -10.679861)
+cull_mask = 1048063
+
+[node name="Litter86" parent="Decals/Litter" unique_id=1560650427 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(0.7457731, 0, -0.6661996, 0, 1, 0, 0.6661996, 0, 0.7457731, -5.1784043, 4.0274167, -10.857638)
+texture_albedo = ExtResource("14_4rtdt")
+cull_mask = 1048063
+
+[node name="Litter87" parent="Decals/Litter" unique_id=1204948773 instance=ExtResource("12_p5dfu")]
+transform = Transform3D(-0.95803666, 0, -0.2866449, 0, 1, 0, 0.2866449, 0, -0.95803666, -1.9895644, 4.0274158, -15.198143)
+texture_albedo = ExtResource("13_jgqod")
+cull_mask = 1048063
+
+[node name="Bawal" type="Node" parent="Decals" unique_id=1780719709]
+
+[node name="Bawal" parent="Decals/Bawal" unique_id=308427870 instance=ExtResource("14_551mu")]
+transform = Transform3D(-1, 8.742278e-08, -3.821371e-15, 0, -4.371139e-08, -1, -8.742278e-08, -1, 4.371139e-08, -4.453897, 4.548275, -1.2133768)
+albedo_mix = 0.7
+cull_mask = 1048063
+
+[node name="Bawal2" parent="Decals/Bawal" unique_id=1370331762 instance=ExtResource("14_551mu")]
+transform = Transform3D(0.9691196, 1.0778842e-08, 0.24659117, 0.24659117, -4.2361563e-08, -0.9691196, 0, 1, -4.371139e-08, -5.911222, 5.603477, 42.934673)
+albedo_mix = 0.7
+cull_mask = 1048063
+
+[node name="Bawal3" parent="Decals/Bawal" unique_id=1464362538 instance=ExtResource("14_551mu")]
+transform = Transform3D(0.8869785, -2.0186386e-08, -0.4618107, -0.4618107, -3.8771063e-08, -0.8869785, 0, 1, -4.371139e-08, 14.097558, 7.1498446, 16.21583)
+albedo_mix = 0.7
+cull_mask = 1048063
+
+[node name="Crab" type="Node" parent="Decals" unique_id=1633788512]
+
+[node name="Crab" parent="Decals/Crab" unique_id=1271388959 instance=ExtResource("15_x3c7g")]
+transform = Transform3D(0.5499965, 0, -0.83516693, 0, 1, 0, 0.83516693, 0, 0.5499965, 5.6536174, 5.353376, -4.1105456)
+
+[node name="Crab2" parent="Decals/Crab" unique_id=187161706 instance=ExtResource("15_x3c7g")]
+transform = Transform3D(0.5499965, 0, -0.83516693, 0, 1, 0, 0.83516693, 0, 0.5499965, 2.7267892, 3.349032, -12.974054)
+
+[node name="Crab3" parent="Decals/Crab" unique_id=1860453997 instance=ExtResource("15_x3c7g")]
+transform = Transform3D(-0.73974985, 0, -0.67288214, 0, 1, 0, 0.67288214, 0, -0.73974985, 2.661472, 3.349032, -13.832143)
+
+[node name="Crab4" parent="Decals/Crab" unique_id=1198252815 instance=ExtResource("15_x3c7g")]
+transform = Transform3D(0.5877014, 0, -0.809078, 0, 1, 0, 0.809078, 0, 0.5877014, -15.478687, 0.6724534, 3.7827003)
+
+[node name="Crab5" parent="Decals/Crab" unique_id=1658100492 instance=ExtResource("15_x3c7g")]
+transform = Transform3D(-0.2751087, 0, 0.9614131, 0, 1, 0, -0.9614131, 0, -0.2751087, -22.542759, 0.6724534, 3.8607452)
+
+[node name="Lando" type="Node" parent="Decals" unique_id=2104925316]
+
+[node name="Lando" parent="Decals/Lando" unique_id=1472306491 instance=ExtResource("16_nvk1c")]
+transform = Transform3D(1.3113416e-07, 1, 4.371139e-08, 3.821371e-15, 4.371139e-08, -1, -1, 1.3113416e-07, 1.9106855e-15, -4.308389, 9.505101, 4.1077876)
+cull_mask = 1048063
+
+[node name="Lando2" parent="Decals/Lando" unique_id=255302401 instance=ExtResource("16_nvk1c")]
+transform = Transform3D(1.3113416e-07, 1, 4.371139e-08, 3.821371e-15, 4.371139e-08, -1, -1, 1.3113416e-07, 1.9106855e-15, 6.4624915, 10.239359, 3.7071743)
+cull_mask = 1048063
+
+[node name="Lando3" parent="Decals/Lando" unique_id=1876458142 instance=ExtResource("16_nvk1c")]
+transform = Transform3D(1.3113416e-07, 1, 4.371139e-08, 3.821371e-15, 4.371139e-08, -1, -1, 1.3113416e-07, 1.9106855e-15, 16.703936, 7.256608, 15.22153)
+cull_mask = 1048063
+
+[node name="Lando4" parent="Decals/Lando" unique_id=104731178 instance=ExtResource("16_nvk1c")]
+transform = Transform3D(1.3113414e-07, 1, 4.3711385e-08, 3.8213705e-15, 4.371139e-08, -0.9999999, -0.9999999, 1.3113416e-07, 1.9106853e-15, -3.9056606, 5.4682713, 39.516167)
+cull_mask = 1048063
+
+[node name="Lando5" parent="Decals/Lando" unique_id=346525254 instance=ExtResource("16_nvk1c")]
+transform = Transform3D(1.3113414e-07, 1, 4.3711385e-08, 3.8213705e-15, 4.371139e-08, -0.9999999, -0.9999999, 1.3113416e-07, 1.9106853e-15, -14.381135, 2.6358037, 20.94369)
+cull_mask = 1048063
+
+[node name="Lando6" parent="Decals/Lando" unique_id=234545577 instance=ExtResource("16_nvk1c")]
+transform = Transform3D(1.3113413e-07, 0.9999999, 4.3711385e-08, 3.82137e-15, 4.3711385e-08, -0.99999994, -0.99999976, 1.3113414e-07, 1.9106853e-15, -18.88362, 1.4114635, 22.45222)
+cull_mask = 1048063
+
+[node name="Skull" type="Node" parent="Decals" unique_id=1799737348]
+
+[node name="Skull" parent="Decals/Skull" unique_id=575800351 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.99999994, 0, -4.3711385e-08, -4.3711385e-08, 1.9106853e-15, -0.99999994, 0, 0.99999994, 1.9106853e-15, -6.015392, 10.934903, 2.855045)
+cull_mask = 1048063
+
+[node name="Skull2" parent="Decals/Skull" unique_id=2130659556 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.99999994, 0, -4.3711385e-08, -4.3711385e-08, 1.9106853e-15, -0.99999994, 0, 0.99999994, 1.9106853e-15, -13.229902, 2.3523498, -9.009495)
+cull_mask = 1048063
+
+[node name="Skull3" parent="Decals/Skull" unique_id=312344017 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(-4.3711378e-08, -0.9999998, 0, -0.44409457, 1.9411983e-08, -0.89597976, 0.89597976, -3.916451e-08, -0.44409457, 6.563591, 2.8431776, -12.94603)
+cull_mask = 1048063
+
+[node name="Skull4" parent="Decals/Skull" unique_id=571885265 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.934168, -6.81796e-16, 0.35683316, 0.35683316, 1.7849015e-15, -0.934168, 1.4565572e-22, 0.99999994, 1.9106855e-15, 9.324413, 4.578797, -21.536512)
+cull_mask = 1048063
+
+[node name="Skull5" parent="Decals/Skull" unique_id=187389644 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.929916, 7.026962e-16, -0.3677718, -0.3677718, 1.7767772e-15, -0.929916, 9.256246e-30, 0.99999994, 1.9106855e-15, 13.943256, 4.4856415, 11.4244995)
+cull_mask = 1048063
+
+[node name="Skull6" parent="Decals/Skull" unique_id=801860170 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.9876096, 2.9984437e-16, -0.1569303, -0.1569303, 1.8870115e-15, -0.9876096, 9.256246e-30, 0.99999994, 1.9106855e-15, 15.147316, 8.575118, 16.79382)
+cull_mask = 1048063
+
+[node name="Skull7" parent="Decals/Skull" unique_id=1523160833 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(-4.3711385e-08, 0.9997427, 0.022687351, -0.19657204, 0.0222447, -0.980237, -0.98048925, -0.0044597415, 0.19652142, 17.63332, 4.362272, 42.292812)
+cull_mask = 1048063
+
+[node name="Skull9" parent="Decals/Skull" unique_id=1786493257 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, -0.21722288, 9.495113e-09, -0.97612196, 0.97612196, -4.2667644e-08, -0.21722288, -9.274263, 8.022217, 39.061623)
+cull_mask = 1048063
+
+[node name="Skull10" parent="Decals/Skull" unique_id=1640582217 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.9398583, -6.52622e-16, 0.34156427, 0.34156427, 1.7957738e-15, -0.9398583, 9.256246e-30, 0.99999994, 1.9106855e-15, -30.214798, 7.0610495, 18.701586)
+cull_mask = 1048063
+
+[node name="Skull11" parent="Decals/Skull" unique_id=1429245132 instance=ExtResource("17_kv6p2")]
+transform = Transform3D(0.9773198, -4.0462332e-16, 0.21176861, 0.21176861, 1.8673508e-15, -0.9773198, 9.256246e-30, 0.99999994, 1.9106855e-15, -25.932047, 2.8276172, 11.919749)
+cull_mask = 1048063

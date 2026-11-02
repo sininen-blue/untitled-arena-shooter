@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dcmsbu0q41n15"]
+
+[ext_resource type="Texture2D" uid="uid://bx3wctpl1gj1n" path="res://assets/textures/decals/Wall/Bawal_mangihi.png" id="1_oghno"]
+[ext_resource type="Script" uid="uid://mbnft84il0yi" path="res://src/decals/wall_decal.gd" id="2_b1hym"]
+
+[node name="Bawal" type="Decal" unique_id=1370331762]
+texture_albedo = ExtResource("1_oghno")
+albedo_mix = 0.65
+script = ExtResource("2_b1hym")
+metadata/_custom_type_script = "uid://mbnft84il0yi"

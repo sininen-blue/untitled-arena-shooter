@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cgmgb84oqvcko"]
+
+[ext_resource type="Texture2D" uid="uid://cfg3ckw1330vp" path="res://assets/textures/decals/Wall/Lando.png" id="1_k46ph"]
+[ext_resource type="Script" uid="uid://mbnft84il0yi" path="res://src/decals/wall_decal.gd" id="2_g8os0"]
+
+[node name="Lando" type="Decal" unique_id=255302401]
+transform = Transform3D(1.3113416e-07, 1, 4.371139e-08, 3.821371e-15, 4.371139e-08, -1, -1, 1.3113416e-07, 1.9106855e-15, 0, 0, 0)
+size = Vector3(1.8, 1.8, 1.8)
+texture_albedo = ExtResource("1_k46ph")
+script = ExtResource("2_g8os0")
+metadata/_custom_type_script = "uid://mbnft84il0yi"

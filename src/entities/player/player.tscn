@@ -276,6 +276,7 @@ wall_raycasts = NodePath("../../WallRaycasts")
 fov_curve = SubResource("Curve_3d0mj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera" unique_id=192763332]
+layers = 512
 mesh = SubResource("QuadMesh_crd4b")
 
 [node name="HandMarker" type="Marker3D" parent="Head" unique_id=1089889852]

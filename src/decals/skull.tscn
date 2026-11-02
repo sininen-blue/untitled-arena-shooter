@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bawqpqgmocyh3"]
+
+[ext_resource type="Texture2D" uid="uid://dfrg32pbmav4x" path="res://assets/textures/decals/Wall/Skull.png" id="1_ylhi2"]
+[ext_resource type="Script" uid="uid://mbnft84il0yi" path="res://src/decals/wall_decal.gd" id="2_0v0dy"]
+
+[node name="Skull" type="Decal" unique_id=2130659556]
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_ylhi2")
+script = ExtResource("2_0v0dy")
+metadata/_custom_type_script = "uid://mbnft84il0yi"

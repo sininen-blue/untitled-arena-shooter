@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://n7162xwoeoyw"]
+
+[ext_resource type="Texture2D" uid="uid://dpxpnox5n3cxd" path="res://assets/textures/decals/Wall/Crab.png" id="1_2nhva"]
+[ext_resource type="Script" uid="uid://cpl7bb3tvyfan" path="res://src/decals/ground_decal.gd" id="2_ssumb"]
+
+[node name="Crab" type="Decal" unique_id=187161706]
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_2nhva")
+script = ExtResource("2_ssumb")
+metadata/_custom_type_script = "uid://cpl7bb3tvyfan"

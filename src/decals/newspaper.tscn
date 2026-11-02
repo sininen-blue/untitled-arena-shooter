@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cx4xhn323j6tc"]
+
+[ext_resource type="Texture2D" uid="uid://hrytnsvoufh3" path="res://assets/textures/decals/Ground/Newspaper.png" id="1_apnks"]
+
+[node name="Newspaper" type="Decal" unique_id=339245097]
+transform = Transform3D(0.56315, 0, -0.8263547, 0, 1, 0, 0.8263547, 0, 0.56315, 0, 0, 0)
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_apnks")
+albedo_mix = 0.9
