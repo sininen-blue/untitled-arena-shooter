@@ -33,6 +33,8 @@ shader_parameter/FoamGlowIntensity = 0.5
 [sub_resource type="PlaneMesh" id="PlaneMesh_crd4b"]
 material = SubResource("ShaderMaterial_i0mgc")
 size = Vector2(300, 300)
+subdivide_width = 4
+subdivide_depth = 4
 
 [node name="UrbanMap" type="Node" unique_id=1370851206]
 script = ExtResource("1_1rpuh")
