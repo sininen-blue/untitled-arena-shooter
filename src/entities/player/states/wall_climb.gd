@@ -33,7 +33,7 @@ func enter() -> void:
 		if state_machine.previous_state == wall_slide_state:
 			player.velocity.y = 0
 		else:
-			player.velocity.y = player.velocity.y / 4
+			player.velocity.y = player.velocity.y / 8
 	else:
 		player.velocity.y = player.velocity.y / 1.5
 
@@ -49,6 +49,7 @@ func update(_delta: float) -> void:
 		var wall: Node = wall_raycasts.get_front_collider()
 		if wall and wall.is_in_group("ladder"):
 			time = 0
+			current_wall_climb_strength = wall_climb_strength
 
 
 func physics_update(delta: float) -> void:

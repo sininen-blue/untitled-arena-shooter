@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://47y5cm83203t" path="res://src/entities/weapons/test_weapon/test_rifle.tscn" id="6_xrdq1"]
 [ext_resource type="PackedScene" uid="uid://bo1wi0v5j007m" path="res://src/entities/weapons/test_weapon/test_pistol.tscn" id="7_4ny0e"]
 [ext_resource type="PackedScene" uid="uid://d0yy84hmn0ym0" path="res://src/entities/weapons/test_weapon/test_shotgun.tscn" id="8_1pv3m"]
+[ext_resource type="Script" uid="uid://xkdopr2ibqu2" path="res://src/utils/others/ship_route.gd" id="9_4ny0e"]
+[ext_resource type="PackedScene" uid="uid://c04wwflcei212" path="res://models/others/ship.glb" id="9_xrdq1"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8hnee"]
 
@@ -43,6 +45,82 @@ disable_fog = true
 disable_specular_occlusion = true
 albedo_color = Color(0.16319999, 0.35327998, 0.48, 1)
 disable_receive_shadows = true
+
+[sub_resource type="Animation" id="Animation_of1wg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-79.68164, -1.3568001, -9.735872)]
+}
+
+[sub_resource type="Animation" id="Animation_1pv3m"]
+resource_name = "route"
+length = 40.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.6868172, 5.6206374, 10.233334, 15, 18.941507, 25, 30, 36.22298),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-79.68164, -1.3568001, -9.735872), Vector3(-65.235176, -1.3568001, 36.714462), Vector3(-54.480778, -1.3568001, 52.70244), Vector3(-15.621159, -1.3568001, 79.35103), Vector3(36.150303, -1.3567924, 67.464386), Vector3(57.71289, -1.3567924, 30.027374), Vector3(54.16713, -1.3567924, -33.961266), Vector3(13.216152, -1.3567924, -63.926617), Vector3(-53.518665, -1.3567972, -49.558567)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_of1wg"]
+_data = {
+&"RESET": SubResource("Animation_of1wg"),
+&"route": SubResource("Animation_1pv3m")
+}
+
+[sub_resource type="Animation" id="Animation_xrdq1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4ny0e"]
+resource_name = "bob"
+length = 3.0000000000000004
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6666666),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.1700649, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1pv3m"]
+_data = {
+&"RESET": SubResource("Animation_xrdq1"),
+&"bob": SubResource("Animation_4ny0e")
+}
 
 [node name="UrbanMap" type="Node" unique_id=1370851206]
 script = ExtResource("1_1rpuh")
@@ -117,3 +195,19 @@ calculate_tangents = false
 flip_faces = true
 size = Vector3(200, 38.60498, 200)
 material = SubResource("StandardMaterial3D_crd4b")
+
+[node name="ShipRoute" type="Node3D" parent="." unique_id=329050132]
+transform = Transform3D(-0.1212826, -0.016774895, -0.99247617, 0, 0.99985707, -0.016899647, 0.9926177, -0.0020496338, -0.1212653, -79.68164, -1.3568001, -9.735872)
+script = ExtResource("9_4ny0e")
+
+[node name="RouteAnimation" type="AnimationPlayer" parent="ShipRoute" unique_id=1691941729]
+root_node = NodePath("../Ship")
+libraries/ = SubResource("AnimationLibrary_of1wg")
+autoplay = &"route"
+
+[node name="Ship" parent="ShipRoute" unique_id=1102151518 instance=ExtResource("9_xrdq1")]
+transform = Transform3D(-0.5981917, 0.0008972192, 0.046535537, -0.0008972187, 0.5995548, -0.02309292, -0.046535477, -0.023092918, -0.5977467, 0, 0, 0)
+
+[node name="BobAnimation" type="AnimationPlayer" parent="ShipRoute/Ship" unique_id=1365772058]
+libraries/ = SubResource("AnimationLibrary_1pv3m")
+autoplay = &"bob"
