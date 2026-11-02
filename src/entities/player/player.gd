@@ -203,6 +203,10 @@ func _process(delta: float) -> void:
 	if Utils.is_remote(self):
 		return
 	
+	if self.global_position.y <= -15:
+		self._on_player_model_head_hit(999, null)
+		self.killed.emit(0, self)
+	
 	var tracer_ends: Array[Vector3] = []
 	if not _combat_blocked() and Input.is_action_pressed("shoot") and current_weapon:
 		if current_weapon.can_shoot():

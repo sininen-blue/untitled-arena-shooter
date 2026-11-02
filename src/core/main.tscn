@@ -16,11 +16,11 @@
 [ext_resource type="PackedScene" uid="uid://c42u1blkeexpw" path="res://src/networking/damage_number_spawner/damage_number_spawner.tscn" id="10_dmg"]
 [ext_resource type="PackedScene" uid="uid://q70esfxekonq" path="res://src/networking/jump_particle_spawner/jump_particle_spawner.tscn" id="10_i5nkp"]
 [ext_resource type="PackedScene" uid="uid://uaecs4s13hql" path="res://src/networking/land_particle_spawner/land_particle_spawner.tscn" id="10_land"]
-[ext_resource type="PackedScene" uid="uid://c5ef2xdjstn8e" path="res://src/levels/test_arena_2.tscn" id="11_m33k1"]
 [ext_resource type="PackedScene" uid="uid://bc8i1ne2uwrpt" path="res://src/ui/components/countdown/countdown.tscn" id="12_7561f"]
 [ext_resource type="PackedScene" uid="uid://65k3trxjhft5" path="res://src/ui/components/score_panel/score_panel.tscn" id="13_0g4b3"]
 [ext_resource type="PackedScene" uid="uid://bkxbpelbsgfh3" path="res://src/networking/damage_handler/damage_handler.tscn" id="14_dmgh"]
 [ext_resource type="Texture2D" uid="uid://bdonf0e8gfk3i" path="res://assets/textures/skyboxes/day.png" id="16_72j70"]
+[ext_resource type="PackedScene" uid="uid://dhwas6d3uijmh" path="res://src/levels/urban_map.tscn" id="17_72j70"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3asdc"]
 panorama = ExtResource("16_72j70")
@@ -37,7 +37,7 @@ glow_enabled = true
 
 [node name="Main" type="Node" unique_id=1123520285 node_paths=PackedStringArray("current_level")]
 script = ExtResource("1_w61mg")
-current_level = NodePath("TestArena2")
+current_level = NodePath("UrbanMap")
 
 [node name="PickupHandler" parent="." unique_id=861707320 node_paths=PackedStringArray("main") instance=ExtResource("2_72j70")]
 main = NodePath("..")
@@ -88,7 +88,7 @@ environment = SubResource("Environment_ieluo")
 transform = Transform3D(0.8345677, -0.42848626, -0.3462604, 0.55090535, 0.6491148, 0.5245506, 0, -0.6285297, 0.7777856, 0, 6.469862, 0)
 shadow_enabled = true
 
-[node name="TestArena2" parent="." unique_id=1285955236 instance=ExtResource("11_m33k1")]
+[node name="UrbanMap" parent="." unique_id=1370851206 instance=ExtResource("17_72j70")]
 
 [node name="DroppedWeapons" type="Node3D" parent="." unique_id=55739508]
 

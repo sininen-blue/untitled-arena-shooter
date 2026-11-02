@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b32eu5kjpcrfy"]
+
+[ext_resource type="PackedScene" uid="uid://1wqr4wlgu8d1" path="res://assets/models/map/urban_map.glb" id="1_6y3t5"]
+
+[node name="UrbanMapModel" unique_id=2030331354 instance=ExtResource("1_6y3t5")]

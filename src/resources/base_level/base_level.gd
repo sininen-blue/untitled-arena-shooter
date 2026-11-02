@@ -3,6 +3,7 @@ extends Node
 
 
 @export var spawn_locations: Array[Vector3]
+@export var death_y: float = -15
 
 
 func _ready() -> void:
