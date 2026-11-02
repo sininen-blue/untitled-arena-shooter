@@ -1,0 +1,20 @@
+[gd_resource type="Environment" format=3 uid="uid://b3n2oudf47plx"]
+
+[ext_resource type="Texture2D" uid="uid://bdonf0e8gfk3i" path="res://assets/textures/skyboxes/day.png" id="1_jd4xs"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3asdc"]
+panorama = ExtResource("1_jd4xs")
+
+[sub_resource type="Sky" id="Sky_imnn4"]
+sky_material = SubResource("PanoramaSkyMaterial_3asdc")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_imnn4")
+ambient_light_source = 3
+ssao_enabled = true
+ssao_intensity = 3.0
+glow_enabled = true
+fog_enabled = true
+fog_density = 0.005
+fog_aerial_perspective = 0.8

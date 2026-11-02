@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8wjiffnvmals"]
 
-[ext_resource type="Texture2D" uid="uid://di04khg6yqyo0" path="res://icon.svg" id="1_c4npw"]
+[ext_resource type="Texture2D" uid="uid://2vyom5aprxu5" path="res://assets/textures/gunshot_decal.png" id="1_j3g87"]
 [ext_resource type="Script" uid="uid://5eli17b54q8" path="res://src/resources/hit_decal/hit_decal.gd" id="2_j3g87"]
 
 [sub_resource type="Curve" id="Curve_j3g87"]
@@ -24,15 +24,16 @@ radius = 0.1
 height = 0.2
 
 [node name="HitDecal" type="Decal" unique_id=75172976]
-size = Vector3(0.2, 0.2, 0.2)
-texture_albedo = ExtResource("1_c4npw")
+size = Vector3(0.4, 0.4, 0.4)
+texture_albedo = ExtResource("1_j3g87")
+albedo_mix = 0.9
 script = ExtResource("2_j3g87")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=2035405999]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
 emitting = false
 amount = 10
-lifetime = 1.4000000000000001
+lifetime = 1.4
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5

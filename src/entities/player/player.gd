@@ -222,6 +222,7 @@ func _process(delta: float) -> void:
 
 					if gun_cast.get_collider() is HurtboxArea:
 						var hurtbox := gun_cast.get_collider() as HurtboxArea
+						decal_spawner.request_spawn(gun_cast.get_collision_point(), gun_cast.get_collision_normal(), true)
 						if hurtbox.get_parent() != self:
 							hurtbox.take_hit(current_weapon.damage)
 							crosshair.show_hitmarker()

@@ -8,18 +8,19 @@ func _ready() -> void:
 	self.spawn_function = _spawn_function
 
 
-func request_spawn(loc: Vector3, normal: Vector3) -> void:
-	_spawn_decal.rpc_id(1, loc, normal)
+func request_spawn(loc: Vector3, normal: Vector3, no_decal: bool = false) -> void:
+	_spawn_decal.rpc_id(1, loc, normal, no_decal)
 
 
 @rpc("any_peer", "call_local", "reliable")
-func _spawn_decal(location: Vector3, normal: Vector3) -> void:
+func _spawn_decal(location: Vector3, normal: Vector3, no_decal: bool) -> void:
 	if not multiplayer.is_server():
 		return
 	
-	var data: Dictionary[String, Vector3] = {
+	var data: Dictionary[String, Variant] = {
 		"location": location,
 		"normal": normal,
+		"no_decal": no_decal
 	}
 	spawn(data)
 
@@ -44,5 +45,6 @@ func _spawn_function(data: Dictionary) -> HitDecal:
 	hit_decal_instance.spawner = self
 	hit_decal_instance.pending_position = data.get("location")
 	hit_decal_instance.pending_normal = data.get("normal")
+	hit_decal_instance.pending_no_decal = data.get("no_decal")
 
 	return hit_decal_instance

@@ -11,6 +11,8 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1koee"]
+radius = 1.0634766
+height = 3.2543945
 
 [node name="WeaponPickup" type="Node3D" unique_id=17605865 node_paths=PackedStringArray("multiplayer_synchronizer", "interact_area", "collision_shape_3d")]
 script = ExtResource("1_u1a2c")
@@ -18,6 +20,7 @@ weapon = ExtResource("2_cp5hs")
 multiplayer_synchronizer = NodePath("MultiplayerSynchronizer")
 interact_area = NodePath("InteractArea")
 collision_shape_3d = NodePath("InteractArea/CollisionShape3D")
+respawn_time = 10.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=637624279]
 replication_config = SubResource("SceneReplicationConfig_ws5qp")
@@ -32,7 +35,7 @@ one_shot = true
 [node name="InteractArea" parent="." unique_id=1659788564 instance=ExtResource("3_ws5qp")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=41516263]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67154765, 0)
 shape = SubResource("CapsuleShape3D_1koee")
 
 [node name="DebugBox" type="CSGBox3D" parent="." unique_id=665986984]

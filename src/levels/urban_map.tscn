@@ -32,9 +32,17 @@ shader_parameter/FoamGlowIntensity = 0.5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_crd4b"]
 material = SubResource("ShaderMaterial_i0mgc")
-size = Vector2(300, 300)
+size = Vector2(1000, 1000)
 subdivide_width = 4
 subdivide_depth = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crd4b"]
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(0.16319999, 0.35327998, 0.48, 1)
+disable_receive_shadows = true
 
 [node name="UrbanMap" type="Node" unique_id=1370851206]
 script = ExtResource("1_1rpuh")
@@ -102,3 +110,10 @@ weapon = ExtResource("7_4ny0e")
 [node name="Shotgun4" parent="." unique_id=1385138499 instance=ExtResource("5_hw6gq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.113647, 3.212782, 16.13745)
 weapon = ExtResource("8_1pv3m")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1781370299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20.52978, 0)
+calculate_tangents = false
+flip_faces = true
+size = Vector3(200, 38.60498, 200)
+material = SubResource("StandardMaterial3D_crd4b")

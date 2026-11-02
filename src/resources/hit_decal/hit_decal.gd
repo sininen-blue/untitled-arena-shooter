@@ -2,13 +2,19 @@ class_name HitDecal
 extends Decal
 
 
+const PLAYER_HIT = preload("uid://pcchch5qrrin")
+
+
+@export var no_decal: bool = false
 @export var lifetime: float = 5.0
 @export var fade_duration: float = 1.0
+@export var random_rotation_degrees: float = 90
 
 
 var spawner: DecalSpawner
 var pending_position: Vector3
 var pending_normal: Vector3
+var pending_no_decal: bool
 
 
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
@@ -30,7 +36,17 @@ func _ready() -> void:
 
 		global_transform.basis = Basis.looking_at(-pending_normal, up)
 		rotation_degrees.x += 90
-
+		
+		
+		var angle := deg_to_rad(randf_range(-random_rotation_degrees, random_rotation_degrees))
+		global_rotate(pending_normal.normalized(), angle)
+	
+	
+	if pending_no_decal == true:
+		no_decal = pending_no_decal
+		self.texture_albedo = null
+		gpu_particles_3d.material_overlay = PLAYER_HIT
+	
 	get_tree().create_timer(lifetime).timeout.connect(_on_lifetime_timeout)
 
 
